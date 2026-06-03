@@ -89,7 +89,7 @@ namespace HR_Project
                 {
                     conn.Open();
 
-                    string query = @"SELECT COUNT(*) 
+                    string query = @"SELECT first_name
                              FROM applicants
                              WHERE email=@email
                              AND password=@password";
@@ -99,13 +99,14 @@ namespace HR_Project
                     cmd.Parameters.AddWithValue("@email", txtBoxLoginEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@password", txtBoxLoginPassword.Text);
 
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    MySqlDataReader reader = cmd.ExecuteReader();
 
-                    if (count > 0)
+                    if (reader.Read())
                     {
-                        MessageBox.Show("Login Successful!");
-
                         Dashboard dash = new Dashboard();
+
+                        dash.ApplicantName = reader["first_name"].ToString();
+
                         dash.Show();
 
                         this.Hide();
