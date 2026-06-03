@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +25,6 @@ namespace HR_Project
 
             this.Text = "Applicant Registration";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
 
             btnRegister.BackColor = Color.RoyalBlue;
@@ -94,7 +93,7 @@ namespace HR_Project
             // Password
             if (string.IsNullOrWhiteSpace(txtBoxPassword.Text))
             {
-                errorProviderPassword.SetError(
+                errorProviderRegistrationForm.SetError(
                     txtBoxPassword,
                     "Password is required."
                 );
@@ -102,7 +101,7 @@ namespace HR_Project
             }
             else if (txtBoxPassword.Text.Length < 8)
             {
-                errorProviderPassword.SetError(
+                errorProviderRegistrationForm.SetError(
                     txtBoxPassword,
                     "Minimum 8 characters."
                 );
@@ -111,7 +110,7 @@ namespace HR_Project
             else if (!Regex.IsMatch(txtBoxPassword.Text,
                 @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$"))
             {
-                errorProviderPassword.SetError(
+                errorProviderRegistrationForm.SetError(
                     txtBoxPassword,
                     "Must contain uppercase, lowercase and number."
                 );
@@ -121,7 +120,7 @@ namespace HR_Project
             // Confirm Password
             if (txtBoxPassword.Text != txtBoxConfirmPassword.Text)
             {
-                errorProviderConfirmPassword.SetError(txtBoxConfirmPassword,
+                errorProviderRegistrationForm.SetError(txtBoxConfirmPassword,
                     "Passwords do not match.");
                 isValid = false;
             }
@@ -187,18 +186,66 @@ namespace HR_Project
                 {
                     conn.Open();
 
+                    // Clear previous errors
+                    errorProviderRegistrationForm.SetError(txtBoxEmail, "");
+                    errorProviderRegistrationForm.SetError(txtBoxContact, "");
+
+                    // Check duplicate email
+                    string emailCheckQuery =
+                        "SELECT COUNT(*) FROM applicants WHERE email = @em";
+
+                    MySqlCommand emailCheckCmd =
+                        new MySqlCommand(emailCheckQuery, conn);
+
+                    emailCheckCmd.Parameters.AddWithValue(
+                        "@em",
+                        txtBoxEmail.Text.Trim()
+                    );
+
+                    if (Convert.ToInt32(emailCheckCmd.ExecuteScalar()) > 0)
+                    {
+                        errorProviderRegistrationForm.SetError(
+                            txtBoxEmail,
+                            "Email already registered."
+                        );
+                        return;
+                    }
+
+                    // Check duplicate contact
+                    string contactCheckQuery =
+                        "SELECT COUNT(*) FROM applicants WHERE contact = @ct";
+
+                    MySqlCommand contactCheckCmd =
+                        new MySqlCommand(contactCheckQuery, conn);
+
+                    contactCheckCmd.Parameters.AddWithValue(
+                        "@ct",
+                        txtBoxContact.Text.Trim()
+                    );
+
+                    if (Convert.ToInt32(contactCheckCmd.ExecuteScalar()) > 0)
+                    {
+                        errorProviderRegistrationForm.SetError(
+                            txtBoxContact,
+                            "Contact number already registered."
+                        );
+                        return;
+                    }
+
+                    // INSERT
                     string query = @"INSERT INTO applicants
-                    (first_name, last_name, middle_name, email, contact, password)
-                    VALUES
-                    (@fn, @ln, @mn, @em, @ct, @pw)";
+                            (first_name, last_name, middle_name,
+                             email, contact, password)
+                            VALUES
+                            (@fn, @ln, @mn, @em, @ct, @pw)";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                    cmd.Parameters.AddWithValue("@fn", txtBoxFirstName.Text);
-                    cmd.Parameters.AddWithValue("@ln", txtBoxLastName.Text);
-                    cmd.Parameters.AddWithValue("@mn", txtBoxMiddleName.Text);
-                    cmd.Parameters.AddWithValue("@em", txtBoxEmail.Text);
-                    cmd.Parameters.AddWithValue("@ct", txtBoxContact.Text);
+                    cmd.Parameters.AddWithValue("@fn", txtBoxFirstName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ln", txtBoxLastName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@mn", txtBoxMiddleName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@em", txtBoxEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ct", txtBoxContact.Text.Trim());
                     cmd.Parameters.AddWithValue("@pw", txtBoxPassword.Text);
 
                     cmd.ExecuteNonQuery();
