@@ -69,16 +69,19 @@ namespace HR_Project
             }
 
             // Email
-            if (!Regex.IsMatch(txtBoxEmail.Text,
-                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                errorProviderRegistrationForm.SetError(txtBoxEmail, "Invalid email address.");
-                isValid = false;
-            }
+            errorProviderRegistrationForm.SetError(txtBoxEmail, "");
 
             if (string.IsNullOrWhiteSpace(txtBoxEmail.Text))
             {
-                errorProviderRegistrationForm.SetError(txtBoxEmail, "Email Address is required.");
+                errorProviderRegistrationForm.SetError(txtBoxEmail,
+                    "Email Address is required.");
+                isValid = false;
+            }
+            else if (!Regex.IsMatch(txtBoxEmail.Text.Trim(),
+                     @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                errorProviderRegistrationForm.SetError(txtBoxEmail,
+                    "Invalid email address.");
                 isValid = false;
             }
 
