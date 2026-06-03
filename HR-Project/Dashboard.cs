@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,7 +26,7 @@ namespace HR_Project
 
         private void btnStatusTracking_Click(object sender, EventArgs e)
         {
-
+            panelNavigation.BringToFront();
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
@@ -107,6 +107,36 @@ namespace HR_Project
         private void Dashboard_Load(object sender, EventArgs e)
         {
             lblApplicantName1.Text = ApplicantName;
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            panelNavigation.BringToFront();
+        }
+
+        private void btnMyProfile_Click(object sender, EventArgs e)
+        {
+            panelNavigation.BringToFront();
+        }
+
+        private void btnJobVacancies_Click(object sender, EventArgs e)
+        {
+            panelNavigation.BringToFront();
+        }
+
+        private void btnMyApplication_Click(object sender, EventArgs e)
+        {
+            panelNavigation.BringToFront();
+        }
+
+        private void btnDocuments_Click(object sender, EventArgs e)
+        {
+            panelNavigation.BringToFront();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
