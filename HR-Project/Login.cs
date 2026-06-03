@@ -40,14 +40,13 @@ namespace HR_Project
 
         private void lnklblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();
+             this.Hide();
 
-            using (ApplicantRegistrationForm registerForm = new ApplicantRegistrationForm())
-            {
-                registerForm.ShowDialog();
-            }
+            ApplicantRegistrationForm registerForm = new ApplicantRegistrationForm();
 
-            this.Show();
+            registerForm.FormClosed += (s, args) => this.Show();
+
+            registerForm.Show();
         }
 
         private void lblNoAccount_Click(object sender, EventArgs e)
@@ -121,6 +120,11 @@ namespace HR_Project
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        private void btnLoginClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
