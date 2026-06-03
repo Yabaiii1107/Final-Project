@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class ApplicantRegistrationForm
     {
@@ -56,13 +56,10 @@
             this.picShowConfirmPassword = new System.Windows.Forms.PictureBox();
             this.picShowPassword = new System.Windows.Forms.PictureBox();
             this.errorProviderRegistrationForm = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProviderPassword = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProviderConfirmPassword = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnRegistrationClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picShowConfirmPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picShowPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderRegistrationForm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPassword)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderConfirmPassword)).BeginInit();
             this.SuspendLayout();
             // 
             // lblApplicantRegistration
@@ -316,13 +313,19 @@
             // 
             this.errorProviderRegistrationForm.ContainerControl = this;
             // 
-            // errorProviderPassword
+            // btnRegistrationClose
             // 
-            this.errorProviderPassword.ContainerControl = this;
-            // 
-            // errorProviderConfirmPassword
-            // 
-            this.errorProviderConfirmPassword.ContainerControl = this;
+            this.btnRegistrationClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnRegistrationClose.FlatAppearance.BorderSize = 0;
+            this.btnRegistrationClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRegistrationClose.ForeColor = System.Drawing.Color.Red;
+            this.btnRegistrationClose.Location = new System.Drawing.Point(742, 13);
+            this.btnRegistrationClose.Name = "btnRegistrationClose";
+            this.btnRegistrationClose.Size = new System.Drawing.Size(30, 23);
+            this.btnRegistrationClose.TabIndex = 27;
+            this.btnRegistrationClose.Text = "X";
+            this.btnRegistrationClose.UseVisualStyleBackColor = false;
+            this.btnRegistrationClose.Click += new System.EventHandler(this.btnRegistrationClose_Click);
             // 
             // ApplicantRegistrationForm
             // 
@@ -330,6 +333,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(784, 362);
+            this.Controls.Add(this.btnRegistrationClose);
             this.Controls.Add(this.picShowConfirmPassword);
             this.Controls.Add(this.picShowPassword);
             this.Controls.Add(this.linklblLogin);
@@ -356,14 +360,13 @@
             this.Controls.Add(this.lblPersonalInformation);
             this.Controls.Add(this.lblLine);
             this.Controls.Add(this.lblApplicantRegistration);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ApplicantRegistrationForm";
             this.Text = "Registration Form";
             this.Load += new System.EventHandler(this.Registration_Form_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picShowConfirmPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picShowPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderRegistrationForm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderPassword)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProviderConfirmPassword)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -398,8 +401,7 @@
         private System.Windows.Forms.PictureBox picShowPassword;
         private System.Windows.Forms.PictureBox picShowConfirmPassword;
         private System.Windows.Forms.ErrorProvider errorProviderRegistrationForm;
-        private System.Windows.Forms.ErrorProvider errorProviderPassword;
-        private System.Windows.Forms.ErrorProvider errorProviderConfirmPassword;
+        private System.Windows.Forms.Button btnRegistrationClose;
     }
 }
 
