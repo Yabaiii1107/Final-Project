@@ -101,6 +101,7 @@ namespace HR_Project
             this.lblFirstName.Size = new System.Drawing.Size(65, 16);
             this.lblFirstName.TabIndex = 3;
             this.lblFirstName.Text = "First Name:";
+            this.lblFirstName.Click += new System.EventHandler(this.lblFirstName_Click);
             // 
             // txtBoxFirstName
             // 
@@ -108,6 +109,7 @@ namespace HR_Project
             this.txtBoxFirstName.Name = "txtBoxFirstName";
             this.txtBoxFirstName.Size = new System.Drawing.Size(100, 20);
             this.txtBoxFirstName.TabIndex = 4;
+            this.txtBoxFirstName.TextChanged += new System.EventHandler(this.txtBoxFirstName_TextChanged);
             this.txtBoxFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxFirstName_KeyPress);
             // 
             // lblLastName
