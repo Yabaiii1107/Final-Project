@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class Dashboard
     {
@@ -106,7 +106,7 @@
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(800, 51);
+            this.panelHeader.Size = new System.Drawing.Size(800, 60);
             this.panelHeader.TabIndex = 0;
             this.panelHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -118,6 +118,7 @@
             this.btnLogout.TabIndex = 3;
             this.btnLogout.Text = "Logout";
             this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // lblApplicantName
             // 
@@ -159,7 +160,7 @@
             this.panelNavigation.Controls.Add(this.btnDashboard);
             this.panelNavigation.Location = new System.Drawing.Point(0, 57);
             this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(800, 41);
+            this.panelNavigation.Size = new System.Drawing.Size(800, 42);
             this.panelNavigation.TabIndex = 1;
             // 
             // btnStatusTracking
@@ -180,6 +181,7 @@
             this.btnDocuments.TabIndex = 2;
             this.btnDocuments.Text = "Documents";
             this.btnDocuments.UseVisualStyleBackColor = true;
+            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
             // 
             // btnMyApplication
             // 
@@ -189,6 +191,7 @@
             this.btnMyApplication.TabIndex = 2;
             this.btnMyApplication.Text = "My Application";
             this.btnMyApplication.UseVisualStyleBackColor = true;
+            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
             // 
             // btnJobVacancies
             // 
@@ -198,6 +201,7 @@
             this.btnJobVacancies.TabIndex = 2;
             this.btnJobVacancies.Text = "Job Vacancies";
             this.btnJobVacancies.UseVisualStyleBackColor = true;
+            this.btnJobVacancies.Click += new System.EventHandler(this.btnJobVacancies_Click);
             // 
             // btnMyProfile
             // 
@@ -207,6 +211,7 @@
             this.btnMyProfile.TabIndex = 1;
             this.btnMyProfile.Text = "My Profile";
             this.btnMyProfile.UseVisualStyleBackColor = true;
+            this.btnMyProfile.Click += new System.EventHandler(this.btnMyProfile_Click);
             // 
             // btnDashboard
             // 
@@ -216,6 +221,7 @@
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.UseVisualStyleBackColor = true;
+            this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
             // panelMain
             // 
