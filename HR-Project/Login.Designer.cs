@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -35,13 +35,14 @@ namespace HR_Project
             this.lblApplicantLogin = new System.Windows.Forms.Label();
             this.lblLoginEmail = new System.Windows.Forms.Label();
             this.lblLoginPassword = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtBoxLoginEmail = new System.Windows.Forms.TextBox();
             this.txtBoxLoginPassword = new System.Windows.Forms.TextBox();
             this.btnLogin = new System.Windows.Forms.Button();
             this.chckbxLoginRememberMe = new System.Windows.Forms.CheckBox();
             this.lblNoAccount = new System.Windows.Forms.Label();
             this.lnklblRegister = new System.Windows.Forms.LinkLabel();
             this.picLoginShowPassword = new System.Windows.Forms.PictureBox();
+            this.btnLoginClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picLoginShowPassword)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,12 +80,12 @@ namespace HR_Project
             this.lblLoginPassword.TabIndex = 2;
             this.lblLoginPassword.Text = "Password";
             // 
-            // textBox1
+            // txtBoxLoginEmail
             // 
-            this.textBox1.Location = new System.Drawing.Point(46, 107);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(315, 20);
-            this.textBox1.TabIndex = 3;
+            this.txtBoxLoginEmail.Location = new System.Drawing.Point(46, 107);
+            this.txtBoxLoginEmail.Name = "txtBoxLoginEmail";
+            this.txtBoxLoginEmail.Size = new System.Drawing.Size(315, 20);
+            this.txtBoxLoginEmail.TabIndex = 3;
             // 
             // txtBoxLoginPassword
             // 
@@ -102,6 +103,7 @@ namespace HR_Project
             this.btnLogin.TabIndex = 5;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // chckbxLoginRememberMe
             // 
@@ -150,19 +152,34 @@ namespace HR_Project
             this.picLoginShowPassword.TabStop = false;
             this.picLoginShowPassword.Click += new System.EventHandler(this.picLoginShowPassword_Click);
             // 
+            // btnLoginClose
+            // 
+            this.btnLoginClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoginClose.FlatAppearance.BorderSize = 0;
+            this.btnLoginClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoginClose.ForeColor = System.Drawing.Color.Red;
+            this.btnLoginClose.Location = new System.Drawing.Point(384, 13);
+            this.btnLoginClose.Name = "btnLoginClose";
+            this.btnLoginClose.Size = new System.Drawing.Size(24, 23);
+            this.btnLoginClose.TabIndex = 11;
+            this.btnLoginClose.Text = "X";
+            this.btnLoginClose.UseVisualStyleBackColor = false;
+            this.btnLoginClose.Click += new System.EventHandler(this.btnLoginClose_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::HR_Project.Properties.Resources.green;
             this.ClientSize = new System.Drawing.Size(420, 329);
+            this.Controls.Add(this.btnLoginClose);
             this.Controls.Add(this.picLoginShowPassword);
             this.Controls.Add(this.lnklblRegister);
             this.Controls.Add(this.lblNoAccount);
             this.Controls.Add(this.chckbxLoginRememberMe);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtBoxLoginPassword);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBoxLoginEmail);
             this.Controls.Add(this.lblLoginPassword);
             this.Controls.Add(this.lblLoginEmail);
             this.Controls.Add(this.lblApplicantLogin);
@@ -182,12 +199,13 @@ namespace HR_Project
         private System.Windows.Forms.Label lblApplicantLogin;
         private System.Windows.Forms.Label lblLoginEmail;
         private System.Windows.Forms.Label lblLoginPassword;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtBoxLoginEmail;
         private System.Windows.Forms.TextBox txtBoxLoginPassword;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.CheckBox chckbxLoginRememberMe;
         private Label lblNoAccount;
         private LinkLabel lnklblRegister;
         private PictureBox picLoginShowPassword;
+        private Button btnLoginClose;
     }
 }
