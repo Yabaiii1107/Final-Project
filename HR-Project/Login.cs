@@ -79,7 +79,7 @@ namespace HR_Project
                 picLoginShowPassword.Image = Properties.Resources.eye;
             }
 
-             private void btnLogin_Click(object sender, EventArgs e)
+        private void btnLogin_Click(object sender, EventArgs e)
         {
             string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
