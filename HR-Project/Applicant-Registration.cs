@@ -214,10 +214,6 @@ namespace HR_Project
 
         private void linklblLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Login loginForm = new Login();
-
-            loginForm.Show();
-
             this.Close();
         }
 
@@ -258,6 +254,11 @@ namespace HR_Project
             {
                 e.Handled = true;
             }
+        }
+
+        private void btnRegistrationClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
