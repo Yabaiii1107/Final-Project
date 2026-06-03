@@ -79,6 +79,48 @@ namespace HR_Project
             {
                 picLoginShowPassword.Image = Properties.Resources.eye;
             }
+
+             private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    string query = @"SELECT COUNT(*) 
+                             FROM applicants
+                             WHERE email=@email
+                             AND password=@password";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@email", txtBoxLoginEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@password", txtBoxLoginPassword.Text);
+
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    if (count > 0)
+                    {
+                        MessageBox.Show("Login Successful!");
+
+                        Dashboard dash = new Dashboard();
+                        dash.Show();
+
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid Email or Password.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
