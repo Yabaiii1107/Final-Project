@@ -238,9 +238,9 @@ namespace HR_Project
                     // INSERT
                     string query = @"INSERT INTO applicants
                             (first_name, last_name, middle_name,
-                             email, contact, password)
+                             email, contact, password, birth_date)
                             VALUES
-                            (@fn, @ln, @mn, @em, @ct, @pw)";
+                            (@fn, @ln, @mn, @em, @ct, @pw, @dob)";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
 
@@ -250,8 +250,17 @@ namespace HR_Project
                     cmd.Parameters.AddWithValue("@em", txtBoxEmail.Text.Trim());
                     cmd.Parameters.AddWithValue("@ct", txtBoxContact.Text.Trim());
                     cmd.Parameters.AddWithValue("@pw", txtBoxPassword.Text);
+                    cmd.Parameters.AddWithValue("@dob", dtpDOB.Value);
 
                     cmd.ExecuteNonQuery();
+
+                    long newApplicantId = cmd.LastInsertedId;
+                    string profileQuery = @"INSERT INTO applicant_profiles (applicant_id)
+                    VALUES (@id)";
+
+                    MySqlCommand profileCmd = new MySqlCommand(profileQuery, conn);
+                    profileCmd.Parameters.AddWithValue("@id", newApplicantId);
+                    profileCmd.ExecuteNonQuery();
 
                     MessageBox.Show("Registration successful!");
                 }
@@ -309,6 +318,16 @@ namespace HR_Project
         private void btnRegistrationClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void txtBoxFirstName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblFirstName_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
