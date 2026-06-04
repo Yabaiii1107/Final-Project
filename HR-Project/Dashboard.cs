@@ -12,11 +12,25 @@ namespace HR_Project
 {
     public partial class Dashboard : Form
     {
-        public string ApplicantName { get; set; }
+        public int ApplicantId { get; set; }
+
+        private string _applicantName;
+
+        public string ApplicantName
+        {
+            get { return _applicantName; }
+            set
+            {
+                _applicantName = value;
+            }
+        }
 
         public Dashboard()
         {
             InitializeComponent();
+            this.Text = "Dashboard";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -117,6 +131,11 @@ namespace HR_Project
         private void btnMyProfile_Click(object sender, EventArgs e)
         {
             panelNavigation.BringToFront();
+
+            profilepage profile = new profilepage(ApplicantId);
+
+            profile.Show();
+            this.Hide();
         }
 
         private void btnJobVacancies_Click(object sender, EventArgs e)
