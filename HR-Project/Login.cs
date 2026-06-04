@@ -14,13 +14,12 @@ namespace HR_Project
     public partial class Login : Form
     {
         private bool passwordVisible3 = false;
-      
+
         public Login()
         {
             InitializeComponent();
             this.Text = "Applicant Login";
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.FormBorderStyle = FormBorderStyle.Sizable;
             this.MaximizeBox = false;
 
             txtBoxLoginPassword.UseSystemPasswordChar = true;
@@ -40,7 +39,7 @@ namespace HR_Project
 
         private void lnklblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-             this.Hide();
+            this.Hide();
 
             ApplicantRegistrationForm registerForm = new ApplicantRegistrationForm();
 
@@ -78,6 +77,7 @@ namespace HR_Project
             {
                 picLoginShowPassword.Image = Properties.Resources.eye;
             }
+        }
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
@@ -89,23 +89,33 @@ namespace HR_Project
                 {
                     conn.Open();
 
-                    string query = @"SELECT first_name
-                             FROM applicants
-                             WHERE email=@email
-                             AND password=@password";
+                    string query = @"SELECT id, first_name
+                                    FROM applicants
+                                    WHERE email=@email
+                                    AND password=@password";
 
                     MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                    cmd.Parameters.AddWithValue("@email", txtBoxLoginEmail.Text.Trim());
-                    cmd.Parameters.AddWithValue("@password", txtBoxLoginPassword.Text);
+                    cmd.Parameters.AddWithValue("@email",
+                        txtBoxLoginEmail.Text.Trim());
+
+                    cmd.Parameters.AddWithValue("@password",
+                        txtBoxLoginPassword.Text);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
+                        int applicantId =
+                            Convert.ToInt32(reader["id"]);
+
+                        string firstName =
+                            reader["first_name"].ToString();
+
                         Dashboard dash = new Dashboard();
 
-                        dash.ApplicantName = reader["first_name"].ToString();
+                        dash.ApplicantId = applicantId;
+                        dash.ApplicantName = firstName;
 
                         dash.Show();
 
@@ -113,15 +123,25 @@ namespace HR_Project
                     }
                     else
                     {
-                        MessageBox.Show("Invalid Email or Password.");
+                        MessageBox.Show(
+                            "Invalid Email or Password.",
+                            "Login Failed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
                     }
+
+                    reader.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(
+                        "Error: " + ex.Message,
+                        "Database Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             }
-        }
+        } 
 
         private void btnLoginClose_Click(object sender, EventArgs e)
         {
