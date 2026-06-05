@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -198,6 +198,99 @@ namespace HR_Project
                     dateTimePicker1.Value);
 
                 edu.ExecuteNonQuery();
+
+                SaveSkills(conn);
+                SaveWorkExperience(conn);
+            }
+        }
+
+        private void SaveSkills(MySqlConnection conn)
+        {
+            string deleteQuery =
+                "DELETE FROM skills WHERE applicant_id=@id";
+
+            MySqlCommand deleteCmd =
+                new MySqlCommand(deleteQuery, conn);
+
+            deleteCmd.Parameters.AddWithValue("@id", applicantId);
+
+            deleteCmd.ExecuteNonQuery();
+
+            string[] skills =
+                rtxtProfilePageSkills.Text
+                .Split(new[] { Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string skill in skills)
+            {
+                string insertQuery =
+                    @"INSERT INTO skills
+                    (applicant_id, skill_name)
+                    VALUES
+                    (@id, @skill)";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(insertQuery, conn);
+
+                cmd.Parameters.AddWithValue("@id", applicantId);
+                cmd.Parameters.AddWithValue("@skill", skill.Trim());
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private void SaveWorkExperience(MySqlConnection conn)
+        {
+            string deleteQuery =
+                "DELETE FROM work_experience WHERE applicant_id=@id";
+
+            MySqlCommand deleteCmd =
+                new MySqlCommand(deleteQuery, conn);
+
+            deleteCmd.Parameters.AddWithValue("@id", applicantId);
+
+            deleteCmd.ExecuteNonQuery();
+
+            string[] experiences =
+                rtxtProfilePageWorkExp.Text
+                .Split(new[] { Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string exp in experiences)
+            {
+                string[] parts = exp.Split('-');
+
+                if (parts.Length >= 2)
+                {
+                    string company =
+                        parts[0].Trim();
+
+                    string position =
+                        parts[1].Trim();
+
+                    string query =
+                        @"INSERT INTO work_experience
+                        (
+                            applicant_id,
+                            company_name,
+                            position_title
+                        )
+                        VALUES
+                        (
+                            @id,
+                            @company,
+                            @position
+                        )";
+
+                    MySqlCommand cmd =
+                        new MySqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@id", applicantId);
+                    cmd.Parameters.AddWithValue("@company", company);
+                    cmd.Parameters.AddWithValue("@position", position);
+
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
