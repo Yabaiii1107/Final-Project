@@ -3,7 +3,7 @@ USE hr_db;
 CREATE TABLE applicant_profiles (
     profile_id INT AUTO_INCREMENT PRIMARY KEY,
 
-    applicant_id INT NOT NULL,
+    applicant_id INT NOT NULL UNIQUE,
 
     gender ENUM('Male','Female'),
 
