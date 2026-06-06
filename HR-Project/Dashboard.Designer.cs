@@ -29,9 +29,10 @@ namespace HR_Project
         private void InitializeComponent()
         {
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.btnDashboardClose = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
-            this.lblApplicantName = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblApplicantFirstName = new System.Windows.Forms.Label();
+            this.picBoxDashboardpfp = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.btnStatusTracking = new System.Windows.Forms.Button();
@@ -81,9 +82,9 @@ namespace HR_Project
             this.lblCurrentStatus = new System.Windows.Forms.Label();
             this.lblApplicantName1 = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
-            this.btnDashboardClose = new System.Windows.Forms.Button();
+            this.lblApplicantLastName = new System.Windows.Forms.Label();
             this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxDashboardpfp)).BeginInit();
             this.panelNavigation.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.groupBoxRequiredDocuments.SuspendLayout();
@@ -98,10 +99,11 @@ namespace HR_Project
             // panelHeader
             // 
             this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.panelHeader.Controls.Add(this.lblApplicantLastName);
             this.panelHeader.Controls.Add(this.btnDashboardClose);
             this.panelHeader.Controls.Add(this.btnLogout);
-            this.panelHeader.Controls.Add(this.lblApplicantName);
-            this.panelHeader.Controls.Add(this.pictureBox1);
+            this.panelHeader.Controls.Add(this.lblApplicantFirstName);
+            this.panelHeader.Controls.Add(this.picBoxDashboardpfp);
             this.panelHeader.Controls.Add(this.lblTitle);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
@@ -109,6 +111,21 @@ namespace HR_Project
             this.panelHeader.Size = new System.Drawing.Size(800, 60);
             this.panelHeader.TabIndex = 0;
             this.panelHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // btnDashboardClose
+            // 
+            this.btnDashboardClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnDashboardClose.FlatAppearance.BorderSize = 0;
+            this.btnDashboardClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDashboardClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDashboardClose.ForeColor = System.Drawing.Color.Red;
+            this.btnDashboardClose.Location = new System.Drawing.Point(764, 0);
+            this.btnDashboardClose.Name = "btnDashboardClose";
+            this.btnDashboardClose.Size = new System.Drawing.Size(36, 29);
+            this.btnDashboardClose.TabIndex = 4;
+            this.btnDashboardClose.Text = "X";
+            this.btnDashboardClose.UseVisualStyleBackColor = false;
+            this.btnDashboardClose.Click += new System.EventHandler(this.btnDashboardClose_Click);
             // 
             // btnLogout
             // 
@@ -120,22 +137,24 @@ namespace HR_Project
             this.btnLogout.UseVisualStyleBackColor = true;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
-            // lblApplicantName
+            // lblApplicantFirstName
             // 
-            this.lblApplicantName.AutoSize = true;
-            this.lblApplicantName.Location = new System.Drawing.Point(582, 41);
-            this.lblApplicantName.Name = "lblApplicantName";
-            this.lblApplicantName.Size = new System.Drawing.Size(79, 13);
-            this.lblApplicantName.TabIndex = 2;
-            this.lblApplicantName.Text = "ApplicantName";
+            this.lblApplicantFirstName.AutoSize = true;
+            this.lblApplicantFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicantFirstName.Location = new System.Drawing.Point(579, 41);
+            this.lblApplicantFirstName.Name = "lblApplicantFirstName";
+            this.lblApplicantFirstName.Size = new System.Drawing.Size(63, 13);
+            this.lblApplicantFirstName.TabIndex = 2;
+            this.lblApplicantFirstName.Text = "FirstName";
             // 
-            // pictureBox1
+            // picBoxDashboardpfp
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(606, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(39, 33);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.picBoxDashboardpfp.Location = new System.Drawing.Point(606, 5);
+            this.picBoxDashboardpfp.Name = "picBoxDashboardpfp";
+            this.picBoxDashboardpfp.Size = new System.Drawing.Size(39, 33);
+            this.picBoxDashboardpfp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBoxDashboardpfp.TabIndex = 1;
+            this.picBoxDashboardpfp.TabStop = false;
             // 
             // lblTitle
             // 
@@ -165,62 +184,87 @@ namespace HR_Project
             // 
             // btnStatusTracking
             // 
+            this.btnStatusTracking.BackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnStatusTracking.Location = new System.Drawing.Point(669, 9);
             this.btnStatusTracking.Name = "btnStatusTracking";
             this.btnStatusTracking.Size = new System.Drawing.Size(96, 23);
             this.btnStatusTracking.TabIndex = 3;
             this.btnStatusTracking.Text = "Status Tracking";
-            this.btnStatusTracking.UseVisualStyleBackColor = true;
+            this.btnStatusTracking.UseVisualStyleBackColor = false;
             this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
             // 
             // btnDocuments
             // 
+            this.btnDocuments.BackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDocuments.Location = new System.Drawing.Point(539, 9);
             this.btnDocuments.Name = "btnDocuments";
             this.btnDocuments.Size = new System.Drawing.Size(75, 23);
             this.btnDocuments.TabIndex = 2;
             this.btnDocuments.Text = "Documents";
-            this.btnDocuments.UseVisualStyleBackColor = true;
+            this.btnDocuments.UseVisualStyleBackColor = false;
             this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
             // 
             // btnMyApplication
             // 
+            this.btnMyApplication.BackColor = System.Drawing.Color.Blue;
+            this.btnMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMyApplication.Location = new System.Drawing.Point(402, 9);
             this.btnMyApplication.Name = "btnMyApplication";
             this.btnMyApplication.Size = new System.Drawing.Size(89, 23);
             this.btnMyApplication.TabIndex = 2;
             this.btnMyApplication.Text = "My Application";
-            this.btnMyApplication.UseVisualStyleBackColor = true;
+            this.btnMyApplication.UseVisualStyleBackColor = false;
             this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
             // 
             // btnJobVacancies
             // 
+            this.btnJobVacancies.BackColor = System.Drawing.Color.Blue;
+            this.btnJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnJobVacancies.Location = new System.Drawing.Point(265, 9);
             this.btnJobVacancies.Name = "btnJobVacancies";
             this.btnJobVacancies.Size = new System.Drawing.Size(89, 23);
             this.btnJobVacancies.TabIndex = 2;
             this.btnJobVacancies.Text = "Job Vacancies";
-            this.btnJobVacancies.UseVisualStyleBackColor = true;
+            this.btnJobVacancies.UseVisualStyleBackColor = false;
             this.btnJobVacancies.Click += new System.EventHandler(this.btnJobVacancies_Click);
             // 
             // btnMyProfile
             // 
+            this.btnMyProfile.BackColor = System.Drawing.Color.Blue;
+            this.btnMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMyProfile.Location = new System.Drawing.Point(149, 9);
             this.btnMyProfile.Name = "btnMyProfile";
             this.btnMyProfile.Size = new System.Drawing.Size(75, 23);
             this.btnMyProfile.TabIndex = 1;
             this.btnMyProfile.Text = "My Profile";
-            this.btnMyProfile.UseVisualStyleBackColor = true;
+            this.btnMyProfile.UseVisualStyleBackColor = false;
             this.btnMyProfile.Click += new System.EventHandler(this.btnMyProfile_Click);
             // 
             // btnDashboard
             // 
+            this.btnDashboard.BackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.Enabled = false;
+            this.btnDashboard.FlatAppearance.BorderSize = 0;
+            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(75, 23);
+            this.btnDashboard.Size = new System.Drawing.Size(84, 23);
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
-            this.btnDashboard.UseVisualStyleBackColor = true;
+            this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
             // panelMain
@@ -666,6 +710,7 @@ namespace HR_Project
             this.lblApplicantName1.Size = new System.Drawing.Size(156, 20);
             this.lblApplicantName1.TabIndex = 1;
             this.lblApplicantName1.Text = "ApplicantName1";
+            this.lblApplicantName1.Click += new System.EventHandler(this.lblApplicantName1_Click);
             // 
             // lblWelcome
             // 
@@ -679,20 +724,15 @@ namespace HR_Project
             this.lblWelcome.TabIndex = 0;
             this.lblWelcome.Text = "Welcome Applicant,";
             // 
-            // btnDashboardClose
+            // lblApplicantLastName
             // 
-            this.btnDashboardClose.BackColor = System.Drawing.Color.Transparent;
-            this.btnDashboardClose.FlatAppearance.BorderSize = 0;
-            this.btnDashboardClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDashboardClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDashboardClose.ForeColor = System.Drawing.Color.Red;
-            this.btnDashboardClose.Location = new System.Drawing.Point(764, 0);
-            this.btnDashboardClose.Name = "btnDashboardClose";
-            this.btnDashboardClose.Size = new System.Drawing.Size(36, 29);
-            this.btnDashboardClose.TabIndex = 4;
-            this.btnDashboardClose.Text = "X";
-            this.btnDashboardClose.UseVisualStyleBackColor = false;
-            this.btnDashboardClose.Click += new System.EventHandler(this.btnDashboardClose_Click);
+            this.lblApplicantLastName.AutoSize = true;
+            this.lblApplicantLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicantLastName.Location = new System.Drawing.Point(615, 41);
+            this.lblApplicantLastName.Name = "lblApplicantLastName";
+            this.lblApplicantLastName.Size = new System.Drawing.Size(67, 13);
+            this.lblApplicantLastName.TabIndex = 5;
+            this.lblApplicantLastName.Text = "Last Name";
             // 
             // Dashboard
             // 
@@ -708,7 +748,7 @@ namespace HR_Project
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxDashboardpfp)).EndInit();
             this.panelNavigation.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
@@ -734,8 +774,8 @@ namespace HR_Project
 
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Label lblApplicantName;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblApplicantFirstName;
+        private System.Windows.Forms.PictureBox picBoxDashboardpfp;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Panel panelNavigation;
         private System.Windows.Forms.Button btnMyApplication;
@@ -786,5 +826,6 @@ namespace HR_Project
         private System.Windows.Forms.Label lblCertificates;
         private System.Windows.Forms.Label lblDocuStatus3;
         private System.Windows.Forms.Button btnDashboardClose;
+        private System.Windows.Forms.Label lblApplicantLastName;
     }
 }
