@@ -7,12 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySqlConnector;
+using System.IO;
 
 namespace HR_Project
 {
     public partial class Dashboard : Form
     {
         public int ApplicantId { get; set; }
+
+        string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
         private string _applicantName;
 
@@ -31,6 +35,57 @@ namespace HR_Project
             this.Text = "Dashboard";
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximizeBox = false;
+        }
+
+        private void LoadApplicantInfo()
+        {
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+        SELECT
+            a.first_name,
+            a.last_name,
+            ap.profile_picture
+        FROM applicants a
+        LEFT JOIN applicant_profiles ap
+            ON a.id = ap.applicant_id
+        WHERE a.id = @id";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                MySqlDataReader reader =
+                    cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    lblApplicantFirstName.Text =
+                        reader["first_name"].ToString();
+
+                    lblApplicantLastName.Text =
+                        reader["last_name"].ToString();
+
+                    if (reader["profile_picture"] != DBNull.Value)
+                    {
+                        byte[] imageBytes =
+                            (byte[])reader["profile_picture"];
+
+                        using (MemoryStream ms =
+                            new MemoryStream(imageBytes))
+                        {
+                            picBoxDashboardpfp.Image =
+                                Image.FromStream(ms);
+                        }
+                    }
+                }
+
+                reader.Close();
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -121,6 +176,8 @@ namespace HR_Project
         private void Dashboard_Load(object sender, EventArgs e)
         {
             lblApplicantName1.Text = ApplicantName;
+
+            LoadApplicantInfo();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -156,6 +213,11 @@ namespace HR_Project
         private void btnLogout_Click(object sender, EventArgs e)
         {
             
+        }
+
+        private void lblApplicantName1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
