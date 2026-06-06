@@ -128,6 +128,37 @@ namespace HR_Project
                 isValid = false;
             }
 
+            // DOB
+            if (dtpDOB.Value > DateTime.Today)
+            {
+                errorProviderRegistrationForm.SetError(
+                    dtpDOB,
+                    "Birth date cannot be in the future."
+                );
+
+                isValid = false;
+            }
+
+            int age =
+            DateTime.Today.Year -
+            dtpDOB.Value.Year;
+
+            if (dtpDOB.Value.Date >
+                DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            if (age < 18)
+            {
+                errorProviderRegistrationForm.SetError(
+                    dtpDOB,
+                    "Applicant must be at least 18 years old."
+                );
+
+                isValid = false;
+            }
+
             return isValid;
         }
 
@@ -262,7 +293,13 @@ namespace HR_Project
                     profileCmd.Parameters.AddWithValue("@id", newApplicantId);
                     profileCmd.ExecuteNonQuery();
 
-                    MessageBox.Show("Registration successful!");
+                    MessageBox.Show("Registration successful! Please log in.");
+
+                    Login loginForm = new Login();
+                    loginForm.Show();
+
+
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
