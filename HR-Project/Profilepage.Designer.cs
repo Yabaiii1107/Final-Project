@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class profilepage
     {
@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.grpBoxProfilePagePersonalInfo = new System.Windows.Forms.GroupBox();
+            this.txtBoxProfilePageMiddleName = new System.Windows.Forms.TextBox();
+            this.lblProfilePageMiddleName = new System.Windows.Forms.Label();
             this.btnProfilePageChangePass = new System.Windows.Forms.Button();
             this.txtBoxProfilePageEmail = new System.Windows.Forms.TextBox();
             this.lblProfilePageEmail = new System.Windows.Forms.Label();
-            this.btnProfilePageUploadPhoto = new System.Windows.Forms.Button();
-            this.picBoxProfilePageProfilepfp = new System.Windows.Forms.PictureBox();
             this.lblProfilePageGender = new System.Windows.Forms.Label();
             this.radbtnProfilePageFemale = new System.Windows.Forms.RadioButton();
             this.radbtnProfilePageMale = new System.Windows.Forms.RadioButton();
@@ -43,6 +44,8 @@
             this.txtBoxProfilePageFirstName = new System.Windows.Forms.TextBox();
             this.lblProfilePageLastName = new System.Windows.Forms.Label();
             this.lblProfilePageFirstName = new System.Windows.Forms.Label();
+            this.btnProfilePageUploadPhoto = new System.Windows.Forms.Button();
+            this.picBoxProfilePagepfp = new System.Windows.Forms.PictureBox();
             this.grpBoxProfilePageContactDetails = new System.Windows.Forms.GroupBox();
             this.txtBoxProfilePagePostCode = new System.Windows.Forms.TextBox();
             this.txtBoxProfilePageState = new System.Windows.Forms.TextBox();
@@ -55,16 +58,15 @@
             this.txtBoxProfilePageContact = new System.Windows.Forms.TextBox();
             this.lblProflePagePhoneNumber = new System.Windows.Forms.Label();
             this.grpBoxProfilePageEducation = new System.Windows.Forms.GroupBox();
-            this.tabCtrlProfilePageWorkExperience = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.rtxtProfilePageWorkExp = new System.Windows.Forms.RichTextBox();
-            this.tabCtrlProfilePageSkills = new System.Windows.Forms.TabControl();
-            this.tpSkills = new System.Windows.Forms.TabPage();
-            this.rtxtProfilePageSkills = new System.Windows.Forms.RichTextBox();
+            this.grpBoxProfilePageSkills = new System.Windows.Forms.GroupBox();
+            this.lstBoxProfilePageSkills = new System.Windows.Forms.ListBox();
+            this.btnProfilePageSkillsRemove = new System.Windows.Forms.Button();
+            this.btnProfilePageSkillsAdd = new System.Windows.Forms.Button();
+            this.txtBoxProfilePageSkills = new System.Windows.Forms.TextBox();
             this.tabCtrlEducation = new System.Windows.Forms.TabControl();
             this.tpProfilePageEducation = new System.Windows.Forms.TabPage();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.label4 = new System.Windows.Forms.Label();
+            this.dtpProfilePageGraduationYear = new System.Windows.Forms.DateTimePicker();
+            this.lblProfilePageGradYear = new System.Windows.Forms.Label();
             this.txtBoxProfilePageMajor = new System.Windows.Forms.TextBox();
             this.lblProfilePageMajor = new System.Windows.Forms.Label();
             this.txtBoxProfilePageInstitution = new System.Windows.Forms.TextBox();
@@ -85,20 +87,17 @@
             this.btnProfilePageMyProfile = new System.Windows.Forms.Button();
             this.btnProfilePageDashboard = new System.Windows.Forms.Button();
             this.btnProfilePageEdit = new System.Windows.Forms.Button();
-            this.lblProfilePageMiddleName = new System.Windows.Forms.Label();
-            this.txtBoxProfilePageMiddleName = new System.Windows.Forms.TextBox();
+            this.errorProviderProfilePage = new System.Windows.Forms.ErrorProvider(this.components);
             this.grpBoxProfilePagePersonalInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePageProfilepfp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePagepfp)).BeginInit();
             this.grpBoxProfilePageContactDetails.SuspendLayout();
             this.grpBoxProfilePageEducation.SuspendLayout();
-            this.tabCtrlProfilePageWorkExperience.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabCtrlProfilePageSkills.SuspendLayout();
-            this.tpSkills.SuspendLayout();
+            this.grpBoxProfilePageSkills.SuspendLayout();
             this.tabCtrlEducation.SuspendLayout();
             this.tpProfilePageEducation.SuspendLayout();
             this.panelProfilePageHeader.SuspendLayout();
             this.panelProfilePageNavigation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderProfilePage)).BeginInit();
             this.SuspendLayout();
             // 
             // grpBoxProfilePagePersonalInfo
@@ -128,6 +127,25 @@
             this.grpBoxProfilePagePersonalInfo.TabStop = false;
             this.grpBoxProfilePagePersonalInfo.Text = "Personal Information";
             // 
+            // txtBoxProfilePageMiddleName
+            // 
+            this.txtBoxProfilePageMiddleName.Location = new System.Drawing.Point(520, 33);
+            this.txtBoxProfilePageMiddleName.Margin = new System.Windows.Forms.Padding(2);
+            this.txtBoxProfilePageMiddleName.Name = "txtBoxProfilePageMiddleName";
+            this.txtBoxProfilePageMiddleName.Size = new System.Drawing.Size(118, 23);
+            this.txtBoxProfilePageMiddleName.TabIndex = 15;
+            this.txtBoxProfilePageMiddleName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProfilePageMiddleName_KeyPress);
+            // 
+            // lblProfilePageMiddleName
+            // 
+            this.lblProfilePageMiddleName.AutoSize = true;
+            this.lblProfilePageMiddleName.Location = new System.Drawing.Point(434, 36);
+            this.lblProfilePageMiddleName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProfilePageMiddleName.Name = "lblProfilePageMiddleName";
+            this.lblProfilePageMiddleName.Size = new System.Drawing.Size(82, 15);
+            this.lblProfilePageMiddleName.TabIndex = 14;
+            this.lblProfilePageMiddleName.Text = "Middle Name:";
+            // 
             // btnProfilePageChangePass
             // 
             this.btnProfilePageChangePass.BackColor = System.Drawing.Color.Transparent;
@@ -156,27 +174,6 @@
             this.lblProfilePageEmail.Size = new System.Drawing.Size(39, 15);
             this.lblProfilePageEmail.TabIndex = 11;
             this.lblProfilePageEmail.Text = "Email:";
-            // 
-            // btnProfilePageUploadPhoto
-            // 
-            this.btnProfilePageUploadPhoto.Location = new System.Drawing.Point(706, 224);
-            this.btnProfilePageUploadPhoto.Margin = new System.Windows.Forms.Padding(2);
-            this.btnProfilePageUploadPhoto.Name = "btnProfilePageUploadPhoto";
-            this.btnProfilePageUploadPhoto.Size = new System.Drawing.Size(101, 23);
-            this.btnProfilePageUploadPhoto.TabIndex = 10;
-            this.btnProfilePageUploadPhoto.Text = "Upload Button";
-            this.btnProfilePageUploadPhoto.UseVisualStyleBackColor = true;
-            this.btnProfilePageUploadPhoto.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // picBoxProfilePageProfilepfp
-            // 
-            this.picBoxProfilePageProfilepfp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBoxProfilePageProfilepfp.Location = new System.Drawing.Point(706, 122);
-            this.picBoxProfilePageProfilepfp.Margin = new System.Windows.Forms.Padding(2);
-            this.picBoxProfilePageProfilepfp.Name = "picBoxProfilePageProfilepfp";
-            this.picBoxProfilePageProfilepfp.Size = new System.Drawing.Size(101, 98);
-            this.picBoxProfilePageProfilepfp.TabIndex = 9;
-            this.picBoxProfilePageProfilepfp.TabStop = false;
             // 
             // lblProfilePageGender
             // 
@@ -239,6 +236,7 @@
             this.txtBoxProfilePageLastName.Name = "txtBoxProfilePageLastName";
             this.txtBoxProfilePageLastName.Size = new System.Drawing.Size(118, 23);
             this.txtBoxProfilePageLastName.TabIndex = 3;
+            this.txtBoxProfilePageLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProfilePageLastName_KeyPress);
             // 
             // txtBoxProfilePageFirstName
             // 
@@ -247,6 +245,7 @@
             this.txtBoxProfilePageFirstName.Name = "txtBoxProfilePageFirstName";
             this.txtBoxProfilePageFirstName.Size = new System.Drawing.Size(108, 23);
             this.txtBoxProfilePageFirstName.TabIndex = 2;
+            this.txtBoxProfilePageFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProfilePageFirstName_KeyPress);
             // 
             // lblProfilePageLastName
             // 
@@ -269,6 +268,28 @@
             this.lblProfilePageFirstName.TabIndex = 0;
             this.lblProfilePageFirstName.Text = "First Name:";
             this.lblProfilePageFirstName.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // btnProfilePageUploadPhoto
+            // 
+            this.btnProfilePageUploadPhoto.Location = new System.Drawing.Point(706, 224);
+            this.btnProfilePageUploadPhoto.Margin = new System.Windows.Forms.Padding(2);
+            this.btnProfilePageUploadPhoto.Name = "btnProfilePageUploadPhoto";
+            this.btnProfilePageUploadPhoto.Size = new System.Drawing.Size(101, 23);
+            this.btnProfilePageUploadPhoto.TabIndex = 10;
+            this.btnProfilePageUploadPhoto.Text = "Upload Button";
+            this.btnProfilePageUploadPhoto.UseVisualStyleBackColor = true;
+            this.btnProfilePageUploadPhoto.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // picBoxProfilePagepfp
+            // 
+            this.picBoxProfilePagepfp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picBoxProfilePagepfp.Location = new System.Drawing.Point(706, 122);
+            this.picBoxProfilePagepfp.Margin = new System.Windows.Forms.Padding(2);
+            this.picBoxProfilePagepfp.Name = "picBoxProfilePagepfp";
+            this.picBoxProfilePagepfp.Size = new System.Drawing.Size(101, 98);
+            this.picBoxProfilePagepfp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBoxProfilePagepfp.TabIndex = 9;
+            this.picBoxProfilePagepfp.TabStop = false;
             // 
             // grpBoxProfilePageContactDetails
             // 
@@ -358,6 +379,7 @@
             this.txtBoxProfilePageAltContact.Name = "txtBoxProfilePageAltContact";
             this.txtBoxProfilePageAltContact.Size = new System.Drawing.Size(124, 20);
             this.txtBoxProfilePageAltContact.TabIndex = 15;
+            this.txtBoxProfilePageAltContact.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProfilePageAltContact_KeyPress);
             // 
             // lblProfilePageAltContact
             // 
@@ -377,6 +399,7 @@
             this.txtBoxProfilePageContact.Name = "txtBoxProfilePageContact";
             this.txtBoxProfilePageContact.Size = new System.Drawing.Size(113, 20);
             this.txtBoxProfilePageContact.TabIndex = 13;
+            this.txtBoxProfilePageContact.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBoxProfilePageContact_KeyPress);
             // 
             // lblProflePagePhoneNumber
             // 
@@ -392,8 +415,7 @@
             // grpBoxProfilePageEducation
             // 
             this.grpBoxProfilePageEducation.BackColor = System.Drawing.Color.Transparent;
-            this.grpBoxProfilePageEducation.Controls.Add(this.tabCtrlProfilePageWorkExperience);
-            this.grpBoxProfilePageEducation.Controls.Add(this.tabCtrlProfilePageSkills);
+            this.grpBoxProfilePageEducation.Controls.Add(this.grpBoxProfilePageSkills);
             this.grpBoxProfilePageEducation.Controls.Add(this.tabCtrlEducation);
             this.grpBoxProfilePageEducation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpBoxProfilePageEducation.Location = new System.Drawing.Point(0, 398);
@@ -405,67 +427,53 @@
             this.grpBoxProfilePageEducation.TabStop = false;
             this.grpBoxProfilePageEducation.Text = "Education and Professional Backround";
             // 
-            // tabCtrlProfilePageWorkExperience
+            // grpBoxProfilePageSkills
             // 
-            this.tabCtrlProfilePageWorkExperience.Controls.Add(this.tabPage1);
-            this.tabCtrlProfilePageWorkExperience.Location = new System.Drawing.Point(624, 19);
-            this.tabCtrlProfilePageWorkExperience.Margin = new System.Windows.Forms.Padding(2);
-            this.tabCtrlProfilePageWorkExperience.Name = "tabCtrlProfilePageWorkExperience";
-            this.tabCtrlProfilePageWorkExperience.SelectedIndex = 0;
-            this.tabCtrlProfilePageWorkExperience.Size = new System.Drawing.Size(224, 117);
-            this.tabCtrlProfilePageWorkExperience.TabIndex = 2;
+            this.grpBoxProfilePageSkills.Controls.Add(this.lstBoxProfilePageSkills);
+            this.grpBoxProfilePageSkills.Controls.Add(this.btnProfilePageSkillsRemove);
+            this.grpBoxProfilePageSkills.Controls.Add(this.btnProfilePageSkillsAdd);
+            this.grpBoxProfilePageSkills.Controls.Add(this.txtBoxProfilePageSkills);
+            this.grpBoxProfilePageSkills.Location = new System.Drawing.Point(359, 36);
+            this.grpBoxProfilePageSkills.Name = "grpBoxProfilePageSkills";
+            this.grpBoxProfilePageSkills.Size = new System.Drawing.Size(355, 127);
+            this.grpBoxProfilePageSkills.TabIndex = 1;
+            this.grpBoxProfilePageSkills.TabStop = false;
+            this.grpBoxProfilePageSkills.Text = "Skills";
             // 
-            // tabPage1
+            // lstBoxProfilePageSkills
             // 
-            this.tabPage1.Controls.Add(this.rtxtProfilePageWorkExp);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(216, 89);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Work Experience Tab";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.lstBoxProfilePageSkills.ItemHeight = 15;
+            this.lstBoxProfilePageSkills.Location = new System.Drawing.Point(179, 27);
+            this.lstBoxProfilePageSkills.Name = "lstBoxProfilePageSkills";
+            this.lstBoxProfilePageSkills.Size = new System.Drawing.Size(120, 94);
+            this.lstBoxProfilePageSkills.TabIndex = 0;
             // 
-            // rtxtProfilePageWorkExp
+            // btnProfilePageSkillsRemove
             // 
-            this.rtxtProfilePageWorkExp.Location = new System.Drawing.Point(4, 4);
-            this.rtxtProfilePageWorkExp.Margin = new System.Windows.Forms.Padding(2);
-            this.rtxtProfilePageWorkExp.Name = "rtxtProfilePageWorkExp";
-            this.rtxtProfilePageWorkExp.Size = new System.Drawing.Size(210, 83);
-            this.rtxtProfilePageWorkExp.TabIndex = 0;
-            this.rtxtProfilePageWorkExp.Text = "";
+            this.btnProfilePageSkillsRemove.Location = new System.Drawing.Point(86, 52);
+            this.btnProfilePageSkillsRemove.Name = "btnProfilePageSkillsRemove";
+            this.btnProfilePageSkillsRemove.Size = new System.Drawing.Size(59, 23);
+            this.btnProfilePageSkillsRemove.TabIndex = 2;
+            this.btnProfilePageSkillsRemove.Text = "Remove";
+            this.btnProfilePageSkillsRemove.UseVisualStyleBackColor = true;
+            this.btnProfilePageSkillsRemove.Click += new System.EventHandler(this.btnProfilePageSkillsRemove_Click);
             // 
-            // tabCtrlProfilePageSkills
+            // btnProfilePageSkillsAdd
             // 
-            this.tabCtrlProfilePageSkills.Controls.Add(this.tpSkills);
-            this.tabCtrlProfilePageSkills.Location = new System.Drawing.Point(340, 19);
-            this.tabCtrlProfilePageSkills.Margin = new System.Windows.Forms.Padding(2);
-            this.tabCtrlProfilePageSkills.Name = "tabCtrlProfilePageSkills";
-            this.tabCtrlProfilePageSkills.SelectedIndex = 0;
-            this.tabCtrlProfilePageSkills.Size = new System.Drawing.Size(263, 117);
-            this.tabCtrlProfilePageSkills.TabIndex = 1;
+            this.btnProfilePageSkillsAdd.Location = new System.Drawing.Point(6, 52);
+            this.btnProfilePageSkillsAdd.Name = "btnProfilePageSkillsAdd";
+            this.btnProfilePageSkillsAdd.Size = new System.Drawing.Size(59, 23);
+            this.btnProfilePageSkillsAdd.TabIndex = 1;
+            this.btnProfilePageSkillsAdd.Text = "Add";
+            this.btnProfilePageSkillsAdd.UseVisualStyleBackColor = true;
+            this.btnProfilePageSkillsAdd.Click += new System.EventHandler(this.btnProfilePageSkillsAdd_Click);
             // 
-            // tpSkills
+            // txtBoxProfilePageSkills
             // 
-            this.tpSkills.Controls.Add(this.rtxtProfilePageSkills);
-            this.tpSkills.Location = new System.Drawing.Point(4, 24);
-            this.tpSkills.Margin = new System.Windows.Forms.Padding(2);
-            this.tpSkills.Name = "tpSkills";
-            this.tpSkills.Padding = new System.Windows.Forms.Padding(2);
-            this.tpSkills.Size = new System.Drawing.Size(255, 89);
-            this.tpSkills.TabIndex = 0;
-            this.tpSkills.Text = "Skills Tab";
-            this.tpSkills.UseVisualStyleBackColor = true;
-            // 
-            // rtxtProfilePageSkills
-            // 
-            this.rtxtProfilePageSkills.Location = new System.Drawing.Point(2, 4);
-            this.rtxtProfilePageSkills.Margin = new System.Windows.Forms.Padding(2);
-            this.rtxtProfilePageSkills.Name = "rtxtProfilePageSkills";
-            this.rtxtProfilePageSkills.Size = new System.Drawing.Size(249, 83);
-            this.rtxtProfilePageSkills.TabIndex = 0;
-            this.rtxtProfilePageSkills.Text = "";
+            this.txtBoxProfilePageSkills.Location = new System.Drawing.Point(14, 23);
+            this.txtBoxProfilePageSkills.Name = "txtBoxProfilePageSkills";
+            this.txtBoxProfilePageSkills.Size = new System.Drawing.Size(100, 23);
+            this.txtBoxProfilePageSkills.TabIndex = 0;
             // 
             // tabCtrlEducation
             // 
@@ -480,8 +488,8 @@
             // tpProfilePageEducation
             // 
             this.tpProfilePageEducation.BackColor = System.Drawing.Color.Transparent;
-            this.tpProfilePageEducation.Controls.Add(this.dateTimePicker1);
-            this.tpProfilePageEducation.Controls.Add(this.label4);
+            this.tpProfilePageEducation.Controls.Add(this.dtpProfilePageGraduationYear);
+            this.tpProfilePageEducation.Controls.Add(this.lblProfilePageGradYear);
             this.tpProfilePageEducation.Controls.Add(this.txtBoxProfilePageMajor);
             this.tpProfilePageEducation.Controls.Add(this.lblProfilePageMajor);
             this.tpProfilePageEducation.Controls.Add(this.txtBoxProfilePageInstitution);
@@ -496,27 +504,26 @@
             this.tpProfilePageEducation.TabIndex = 0;
             this.tpProfilePageEducation.Text = "Education";
             // 
-            // dateTimePicker1
+            // dtpProfilePageGraduationYear
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(120, 101);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(135, 23);
-            this.dateTimePicker1.TabIndex = 18;
+            this.dtpProfilePageGraduationYear.Location = new System.Drawing.Point(120, 101);
+            this.dtpProfilePageGraduationYear.Margin = new System.Windows.Forms.Padding(2);
+            this.dtpProfilePageGraduationYear.Name = "dtpProfilePageGraduationYear";
+            this.dtpProfilePageGraduationYear.Size = new System.Drawing.Size(135, 23);
+            this.dtpProfilePageGraduationYear.TabIndex = 18;
             // 
-            // label4
+            // lblProfilePageGradYear
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 105);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 15);
-            this.label4.TabIndex = 17;
-            this.label4.Text = "Major/Field of study:";
+            this.lblProfilePageGradYear.AutoSize = true;
+            this.lblProfilePageGradYear.Location = new System.Drawing.Point(4, 105);
+            this.lblProfilePageGradYear.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProfilePageGradYear.Name = "lblProfilePageGradYear";
+            this.lblProfilePageGradYear.Size = new System.Drawing.Size(94, 15);
+            this.lblProfilePageGradYear.TabIndex = 17;
+            this.lblProfilePageGradYear.Text = "Graduation Year:";
             // 
             // txtBoxProfilePageMajor
             // 
-            this.txtBoxProfilePageMajor.Enabled = false;
             this.txtBoxProfilePageMajor.Location = new System.Drawing.Point(120, 70);
             this.txtBoxProfilePageMajor.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxProfilePageMajor.Name = "txtBoxProfilePageMajor";
@@ -536,7 +543,6 @@
             // 
             // txtBoxProfilePageInstitution
             // 
-            this.txtBoxProfilePageInstitution.Enabled = false;
             this.txtBoxProfilePageInstitution.Location = new System.Drawing.Point(103, 36);
             this.txtBoxProfilePageInstitution.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxProfilePageInstitution.Name = "txtBoxProfilePageInstitution";
@@ -566,10 +572,18 @@
             // cmbBoxProfilePageDegree
             // 
             this.cmbBoxProfilePageDegree.FormattingEnabled = true;
+            this.cmbBoxProfilePageDegree.Items.AddRange(new object[] {
+            "High School",
+            "Senior High School",
+            "Vocational",
+            "Associate\'s Degree",
+            "Bachelor\'s Degree",
+            "Master\'s Degree",
+            "Doctorate"});
             this.cmbBoxProfilePageDegree.Location = new System.Drawing.Point(103, 4);
             this.cmbBoxProfilePageDegree.Margin = new System.Windows.Forms.Padding(2);
             this.cmbBoxProfilePageDegree.Name = "cmbBoxProfilePageDegree";
-            this.cmbBoxProfilePageDegree.Size = new System.Drawing.Size(82, 23);
+            this.cmbBoxProfilePageDegree.Size = new System.Drawing.Size(136, 23);
             this.cmbBoxProfilePageDegree.TabIndex = 0;
             // 
             // rdoSaveChanges
@@ -658,85 +672,102 @@
             // 
             // btnProfilePageStatusTracking
             // 
+            this.btnProfilePageStatusTracking.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageStatusTracking.Location = new System.Drawing.Point(669, 9);
             this.btnProfilePageStatusTracking.Name = "btnProfilePageStatusTracking";
             this.btnProfilePageStatusTracking.Size = new System.Drawing.Size(96, 23);
             this.btnProfilePageStatusTracking.TabIndex = 3;
             this.btnProfilePageStatusTracking.Text = "Status Tracking";
-            this.btnProfilePageStatusTracking.UseVisualStyleBackColor = true;
+            this.btnProfilePageStatusTracking.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageDocuments
             // 
+            this.btnProfilePageDocuments.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageDocuments.Location = new System.Drawing.Point(539, 9);
             this.btnProfilePageDocuments.Name = "btnProfilePageDocuments";
             this.btnProfilePageDocuments.Size = new System.Drawing.Size(75, 23);
             this.btnProfilePageDocuments.TabIndex = 2;
             this.btnProfilePageDocuments.Text = "Documents";
-            this.btnProfilePageDocuments.UseVisualStyleBackColor = true;
+            this.btnProfilePageDocuments.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageMyApplication
             // 
+            this.btnProfilePageMyApplication.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageMyApplication.Location = new System.Drawing.Point(402, 9);
             this.btnProfilePageMyApplication.Name = "btnProfilePageMyApplication";
             this.btnProfilePageMyApplication.Size = new System.Drawing.Size(89, 23);
             this.btnProfilePageMyApplication.TabIndex = 2;
             this.btnProfilePageMyApplication.Text = "My Application";
-            this.btnProfilePageMyApplication.UseVisualStyleBackColor = true;
+            this.btnProfilePageMyApplication.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageJobVacancies
             // 
+            this.btnProfilePageJobVacancies.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageJobVacancies.Location = new System.Drawing.Point(265, 9);
             this.btnProfilePageJobVacancies.Name = "btnProfilePageJobVacancies";
             this.btnProfilePageJobVacancies.Size = new System.Drawing.Size(89, 23);
             this.btnProfilePageJobVacancies.TabIndex = 2;
             this.btnProfilePageJobVacancies.Text = "Job Vacancies";
-            this.btnProfilePageJobVacancies.UseVisualStyleBackColor = true;
+            this.btnProfilePageJobVacancies.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageMyProfile
             // 
+            this.btnProfilePageMyProfile.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyProfile.Enabled = false;
+            this.btnProfilePageMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfilePageMyProfile.Location = new System.Drawing.Point(149, 9);
             this.btnProfilePageMyProfile.Name = "btnProfilePageMyProfile";
             this.btnProfilePageMyProfile.Size = new System.Drawing.Size(75, 23);
             this.btnProfilePageMyProfile.TabIndex = 1;
             this.btnProfilePageMyProfile.Text = "My Profile";
-            this.btnProfilePageMyProfile.UseVisualStyleBackColor = true;
+            this.btnProfilePageMyProfile.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageDashboard
             // 
+            this.btnProfilePageDashboard.BackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnProfilePageDashboard.Name = "btnProfilePageDashboard";
             this.btnProfilePageDashboard.Size = new System.Drawing.Size(75, 23);
             this.btnProfilePageDashboard.TabIndex = 0;
             this.btnProfilePageDashboard.Text = "Dashboard";
-            this.btnProfilePageDashboard.UseVisualStyleBackColor = true;
+            this.btnProfilePageDashboard.UseVisualStyleBackColor = false;
+            this.btnProfilePageDashboard.Click += new System.EventHandler(this.btnProfilePageDashboard_Click);
             // 
             // btnProfilePageEdit
             // 
-            this.btnProfilePageEdit.Location = new System.Drawing.Point(782, 577);
+            this.btnProfilePageEdit.BackColor = System.Drawing.SystemColors.Control;
+            this.btnProfilePageEdit.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageEdit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnProfilePageEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageEdit.Location = new System.Drawing.Point(766, 561);
             this.btnProfilePageEdit.Name = "btnProfilePageEdit";
-            this.btnProfilePageEdit.Size = new System.Drawing.Size(75, 23);
+            this.btnProfilePageEdit.Size = new System.Drawing.Size(91, 39);
             this.btnProfilePageEdit.TabIndex = 11;
             this.btnProfilePageEdit.Text = "Edit/Update";
-            this.btnProfilePageEdit.UseVisualStyleBackColor = true;
+            this.btnProfilePageEdit.UseVisualStyleBackColor = false;
             this.btnProfilePageEdit.Click += new System.EventHandler(this.btnProfilePageEdit_Click);
             // 
-            // lblProfilePageMiddleName
+            // errorProviderProfilePage
             // 
-            this.lblProfilePageMiddleName.AutoSize = true;
-            this.lblProfilePageMiddleName.Location = new System.Drawing.Point(434, 36);
-            this.lblProfilePageMiddleName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblProfilePageMiddleName.Name = "lblProfilePageMiddleName";
-            this.lblProfilePageMiddleName.Size = new System.Drawing.Size(82, 15);
-            this.lblProfilePageMiddleName.TabIndex = 14;
-            this.lblProfilePageMiddleName.Text = "Middle Name:";
-            // 
-            // txtBoxProfilePageMiddleName
-            // 
-            this.txtBoxProfilePageMiddleName.Location = new System.Drawing.Point(520, 33);
-            this.txtBoxProfilePageMiddleName.Margin = new System.Windows.Forms.Padding(2);
-            this.txtBoxProfilePageMiddleName.Name = "txtBoxProfilePageMiddleName";
-            this.txtBoxProfilePageMiddleName.Size = new System.Drawing.Size(118, 23);
-            this.txtBoxProfilePageMiddleName.TabIndex = 15;
+            this.errorProviderProfilePage.ContainerControl = this;
             // 
             // profilepage
             // 
@@ -750,7 +781,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnProfilePageUploadPhoto);
             this.Controls.Add(this.rdoSaveChanges);
-            this.Controls.Add(this.picBoxProfilePageProfilepfp);
+            this.Controls.Add(this.picBoxProfilePagepfp);
             this.Controls.Add(this.grpBoxProfilePageEducation);
             this.Controls.Add(this.grpBoxProfilePageContactDetails);
             this.Controls.Add(this.grpBoxProfilePagePersonalInfo);
@@ -761,20 +792,19 @@
             this.Load += new System.EventHandler(this.profilepage_Load);
             this.grpBoxProfilePagePersonalInfo.ResumeLayout(false);
             this.grpBoxProfilePagePersonalInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePageProfilepfp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePagepfp)).EndInit();
             this.grpBoxProfilePageContactDetails.ResumeLayout(false);
             this.grpBoxProfilePageContactDetails.PerformLayout();
             this.grpBoxProfilePageEducation.ResumeLayout(false);
-            this.tabCtrlProfilePageWorkExperience.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabCtrlProfilePageSkills.ResumeLayout(false);
-            this.tpSkills.ResumeLayout(false);
+            this.grpBoxProfilePageSkills.ResumeLayout(false);
+            this.grpBoxProfilePageSkills.PerformLayout();
             this.tabCtrlEducation.ResumeLayout(false);
             this.tpProfilePageEducation.ResumeLayout(false);
             this.tpProfilePageEducation.PerformLayout();
             this.panelProfilePageHeader.ResumeLayout(false);
             this.panelProfilePageHeader.PerformLayout();
             this.panelProfilePageNavigation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProviderProfilePage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -791,7 +821,7 @@
         private System.Windows.Forms.Label lblProfilePageGender;
         private System.Windows.Forms.RadioButton radbtnProfilePageFemale;
         private System.Windows.Forms.RadioButton radbtnProfilePageMale;
-        private System.Windows.Forms.PictureBox picBoxProfilePageProfilepfp;
+        private System.Windows.Forms.PictureBox picBoxProfilePagepfp;
         private System.Windows.Forms.Button btnProfilePageUploadPhoto;
         private System.Windows.Forms.Label lblProfilePageEmail;
         private System.Windows.Forms.TextBox txtBoxProfilePageEmail;
@@ -814,16 +844,10 @@
         private System.Windows.Forms.Label lblProfilePageInstitution;
         private System.Windows.Forms.Label lblProfilePageHighestDegree;
         private System.Windows.Forms.ComboBox cmbBoxProfilePageDegree;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DateTimePicker dtpProfilePageGraduationYear;
+        private System.Windows.Forms.Label lblProfilePageGradYear;
         private System.Windows.Forms.TextBox txtBoxProfilePageMajor;
         private System.Windows.Forms.Label lblProfilePageMajor;
-        private System.Windows.Forms.TabControl tabCtrlProfilePageSkills;
-        private System.Windows.Forms.TabPage tpSkills;
-        private System.Windows.Forms.RichTextBox rtxtProfilePageSkills;
-        private System.Windows.Forms.TabControl tabCtrlProfilePageWorkExperience;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.RichTextBox rtxtProfilePageWorkExp;
         private System.Windows.Forms.RadioButton rdoSaveChanges;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Panel panelProfilePageHeader;
@@ -840,6 +864,12 @@
         private System.Windows.Forms.Button btnProfilePageEdit;
         private System.Windows.Forms.TextBox txtBoxProfilePageMiddleName;
         private System.Windows.Forms.Label lblProfilePageMiddleName;
+        private System.Windows.Forms.GroupBox grpBoxProfilePageSkills;
+        private System.Windows.Forms.ListBox lstBoxProfilePageSkills;
+        private System.Windows.Forms.Button btnProfilePageSkillsRemove;
+        private System.Windows.Forms.Button btnProfilePageSkillsAdd;
+        private System.Windows.Forms.TextBox txtBoxProfilePageSkills;
+        private System.Windows.Forms.ErrorProvider errorProviderProfilePage;
     }
 }
 
