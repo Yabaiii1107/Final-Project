@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,8 @@ namespace HR_Project
     public partial class profilepage : Form
     {
         private bool editMode = false;
+
+        private byte[] profileImageBytes = null;
 
         public int applicantId;
 
@@ -33,6 +36,12 @@ namespace HR_Project
             SetEditMode(false);
 
             btnProfilePageEdit.Text = "Edit";
+
+            btnProfilePageEdit.BackColor = Color.RoyalBlue;
+            btnProfilePageEdit.ForeColor = Color.White;
+            btnProfilePageEdit.FlatStyle = FlatStyle.Flat;
+            btnProfilePageEdit.FlatAppearance.BorderSize = 0;
+            btnProfilePageEdit.Font = new Font("Segoe UI", 10, FontStyle.Bold);
         }
 
         private void SetEditMode(bool editing)
@@ -56,15 +65,162 @@ namespace HR_Project
             cmbBoxProfilePageDegree.Enabled = editing;
 
             dtpProfilePageDOB.Enabled = editing;
-            dateTimePicker1.Enabled = editing;
+            dtpProfilePageGraduationYear.Enabled = editing;
 
             radbtnProfilePageMale.Enabled = editing;
             radbtnProfilePageFemale.Enabled = editing;
 
-            rtxtProfilePageSkills.ReadOnly = !editing;
-            rtxtProfilePageWorkExp.ReadOnly = !editing;
+            txtBoxProfilePageSkills.ReadOnly = !editing;
+            btnProfilePageSkillsAdd.Enabled = editing;
+            btnProfilePageSkillsRemove.Enabled = editing;
+            btnProfilePageUploadPhoto.Enabled = editing;
+            btnProfilePageChangePass.Enabled = editing;
         }
 
+        private bool ValidateProfile()
+        {
+            MessageBox.Show("Validation Running");
+
+            bool isValid = true;
+
+            errorProviderProfilePage.Clear();
+
+            // First Name
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageFirstName.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageFirstName,
+                    "First Name is required."
+                );
+                isValid = false;
+            }
+
+            // Last Name
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageLastName.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageLastName,
+                    "Last Name is required."
+                );
+                isValid = false;
+            }
+
+            // Email
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageEmail.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageEmail,
+                    "Email is required."
+                );
+                isValid = false;
+            }
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(
+                txtBoxProfilePageEmail.Text.Trim(),
+                @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageEmail,
+                    "Invalid Email Address."
+                );
+                isValid = false;
+            }
+
+            // Contact Number
+            if (!System.Text.RegularExpressions.Regex.IsMatch(
+                txtBoxProfilePageContact.Text,
+                @"^09\d{9}$"))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageContact,
+                    "Enter a valid 11-digit mobile number."
+                );
+                isValid = false;
+            }
+
+            // Alternate Number
+            if (!string.IsNullOrWhiteSpace(txtBoxProfilePageAltContact.Text))
+            {
+                if (!System.Text.RegularExpressions.Regex.IsMatch(
+                    txtBoxProfilePageAltContact.Text,
+                    @"^09\d{9}$"))
+                {
+                    errorProviderProfilePage.SetError(
+                        txtBoxProfilePageAltContact,
+                        "Enter a valid 11-digit mobile number."
+                    );
+                    isValid = false;
+                }
+            }
+
+            // Address
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageCurrentAddress.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageCurrentAddress,
+                    "Address is required."
+                );
+                isValid = false;
+            }
+
+            // Degree
+            if (string.IsNullOrWhiteSpace(cmbBoxProfilePageDegree.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    cmbBoxProfilePageDegree,
+                    "Select a degree."
+                );
+                isValid = false;
+            }
+
+            // Institution
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageInstitution.Text))
+            {
+                errorProviderProfilePage.SetError(
+                    txtBoxProfilePageInstitution,
+                    "Institution is required."
+                );
+                isValid = false;
+            }
+
+            // DOB
+            if (dtpProfilePageDOB.Value > DateTime.Today)
+            {
+                errorProviderProfilePage.SetError(
+                    dtpProfilePageDOB,
+                    "Birth date cannot be in the future."
+                );
+
+                isValid = false;
+            }
+
+            int age =
+            DateTime.Today.Year -
+            dtpProfilePageDOB.Value.Year;
+
+            if (dtpProfilePageDOB.Value.Date >
+                DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            if (age < 18)
+            {
+                errorProviderProfilePage.SetError(
+                    dtpProfilePageDOB,
+                    "Applicant must be at least 18 years old."
+                );
+
+                isValid = false;
+            }
+
+            // Profile Picture
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.Filter =
+                "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+            return isValid;
+        }
         private void SaveProfile()
         {
             using (MySqlConnection conn =
@@ -119,7 +275,8 @@ namespace HR_Project
                     alternate_phone,
                     address,
                     province,
-                    postal_code
+                    postal_code,
+                    profile_picture
                 )
                 VALUES
                 (
@@ -128,7 +285,8 @@ namespace HR_Project
                     @altphone,
                     @address,
                     @province,
-                    @postcode
+                    @postcode,
+                    @pic
                 )
                 ON DUPLICATE KEY UPDATE
 
@@ -136,7 +294,14 @@ namespace HR_Project
                     alternate_phone=@altphone,
                     address=@address,
                     province=@province,
-                    postal_code=@postcode";
+                    postal_code=@postcode,
+
+                    profile_picture =
+                    CASE
+                    WHEN @pic IS NULL
+                    THEN profile_picture
+                    ELSE @pic
+                END";
 
                     MySqlCommand cmd2 =
                         new MySqlCommand(profileQuery, conn);
@@ -159,7 +324,16 @@ namespace HR_Project
                     cmd2.Parameters.AddWithValue("@postcode",
                         txtBoxProfilePagePostCode.Text);
 
-                    cmd2.ExecuteNonQuery();
+                if (profileImageBytes == null)
+                {
+                    cmd2.Parameters.AddWithValue("@pic", DBNull.Value);
+                }
+                else
+                {
+                    cmd2.Parameters.AddWithValue("@pic", profileImageBytes);
+                }
+
+                cmd2.ExecuteNonQuery();
 
                 string eduQuery = @"
                 INSERT INTO education
@@ -177,7 +351,13 @@ namespace HR_Project
                     @institution,
                     @major,
                     @grad
-                )";
+                )
+                ON DUPLICATE KEY UPDATE
+
+                highest_degree = @degree,
+                institution_name = @institution,
+                field_of_study = @major,
+                graduation_date = @grad";
 
                 MySqlCommand edu =
                     new MySqlCommand(eduQuery, conn);
@@ -195,101 +375,118 @@ namespace HR_Project
                     txtBoxProfilePageMajor.Text);
 
                 edu.Parameters.AddWithValue("@grad",
-                    dateTimePicker1.Value);
+                    dtpProfilePageGraduationYear.Value);
 
                 edu.ExecuteNonQuery();
-
-                SaveSkills(conn);
-                SaveWorkExperience(conn);
+                SaveSkills();
             }
         }
 
-        private void SaveSkills(MySqlConnection conn)
+        private void LoadSkills()
         {
-            string deleteQuery =
-                "DELETE FROM skills WHERE applicant_id=@id";
+            lstBoxProfilePageSkills.Items.Clear();
 
-            MySqlCommand deleteCmd =
-                new MySqlCommand(deleteQuery, conn);
-
-            deleteCmd.Parameters.AddWithValue("@id", applicantId);
-
-            deleteCmd.ExecuteNonQuery();
-
-            string[] skills =
-                rtxtProfilePageSkills.Text
-                .Split(new[] { Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string skill in skills)
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
             {
-                string insertQuery =
+                conn.Open();
+
+                string query =
+                @"SELECT skill_name
+                FROM skills
+                WHERE applicant_id=@id";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", applicantId);
+
+                MySqlDataReader reader =
+                    cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lstBoxProfilePageSkills.Items.Add(
+                        reader["skill_name"].ToString());
+                }
+
+                reader.Close();
+            }
+        }
+
+        private void SaveSkills()
+        {
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string deleteQuery =
+                @"DELETE FROM skills
+                WHERE applicant_id=@id";
+
+                MySqlCommand deleteCmd =
+                    new MySqlCommand(deleteQuery, conn);
+
+                deleteCmd.Parameters.AddWithValue(
+                    "@id",
+                    applicantId);
+
+                deleteCmd.ExecuteNonQuery();
+
+                foreach (var item in lstBoxProfilePageSkills.Items)
+                {
+                    string insertQuery =
                     @"INSERT INTO skills
                     (applicant_id, skill_name)
                     VALUES
                     (@id, @skill)";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(insertQuery, conn);
+                    MySqlCommand insertCmd =
+                        new MySqlCommand(insertQuery, conn);
 
-                cmd.Parameters.AddWithValue("@id", applicantId);
-                cmd.Parameters.AddWithValue("@skill", skill.Trim());
+                    insertCmd.Parameters.AddWithValue(
+                        "@id",
+                        applicantId);
 
-                cmd.ExecuteNonQuery();
+                    insertCmd.Parameters.AddWithValue(
+                        "@skill",
+                        item.ToString());
+
+                    insertCmd.ExecuteNonQuery();
+                }
             }
         }
 
-        private void SaveWorkExperience(MySqlConnection conn)
+        private void LoadApplicantPhoto()
         {
-            string deleteQuery =
-                "DELETE FROM work_experience WHERE applicant_id=@id";
-
-            MySqlCommand deleteCmd =
-                new MySqlCommand(deleteQuery, conn);
-
-            deleteCmd.Parameters.AddWithValue("@id", applicantId);
-
-            deleteCmd.ExecuteNonQuery();
-
-            string[] experiences =
-                rtxtProfilePageWorkExp.Text
-                .Split(new[] { Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries);
-
-            foreach (string exp in experiences)
+            using (MySqlConnection conn =
+        new MySqlConnection(connectionString))
             {
-                string[] parts = exp.Split('-');
+                conn.Open();
 
-                if (parts.Length >= 2)
+                string query =
+                @"SELECT profile_picture
+                FROM applicant_profiles
+                WHERE applicant_id=@id";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", applicantId);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != DBNull.Value && result != null)
                 {
-                    string company =
-                        parts[0].Trim();
+                    profileImageBytes = (byte[])result;
 
-                    string position =
-                        parts[1].Trim();
-
-                    string query =
-                        @"INSERT INTO work_experience
-                        (
-                            applicant_id,
-                            company_name,
-                            position_title
-                        )
-                        VALUES
-                        (
-                            @id,
-                            @company,
-                            @position
-                        )";
-
-                    MySqlCommand cmd =
-                        new MySqlCommand(query, conn);
-
-                    cmd.Parameters.AddWithValue("@id", applicantId);
-                    cmd.Parameters.AddWithValue("@company", company);
-                    cmd.Parameters.AddWithValue("@position", position);
-
-                    cmd.ExecuteNonQuery();
+                    using (MemoryStream ms =
+                        new MemoryStream(profileImageBytes))
+                    {
+                        picBoxProfilePagepfp.Image =
+                            Image.FromStream(ms);
+                    }
                 }
             }
         }
@@ -303,24 +500,22 @@ namespace HR_Project
 
                 string query = @"
                 SELECT
-                a.first_name,
-                a.last_name,
-                a.middle_name,
-                a.email,
-                a.birth_date,
-                a.contact,
-                ap.gender,
-                ap.alternate_phone,
-                ap.address,
-                ap.province,
-                ap.postal_code
-
+                    a.first_name,
+                    a.last_name,
+                    a.middle_name,
+                    a.email,
+                    a.birth_date,
+                    a.contact,
+                    ap.gender,
+                    ap.alternate_phone,
+                    ap.address,
+                    ap.province,
+                    ap.postal_code,
+                    ap.profile_picture
                 FROM applicants a
-
                 LEFT JOIN applicant_profiles ap
-                ON a.id = ap.applicant_id
-
-                WHERE a.id=@id";
+                    ON a.id = ap.applicant_id
+                WHERE a.id = @id";
 
                 MySqlCommand cmd =
                     new MySqlCommand(query, conn);
@@ -373,6 +568,21 @@ namespace HR_Project
 
                     if (gender == "Female")
                         radbtnProfilePageFemale.Checked = true;
+
+                    if (reader["profile_picture"] != DBNull.Value)
+                    {
+                        byte[] imgBytes =
+                            (byte[])reader["profile_picture"];
+
+                        using (MemoryStream ms =
+                            new MemoryStream(imgBytes))
+                        {
+                            picBoxProfilePagepfp.Image =
+                                Image.FromStream(ms);
+                        }
+
+                        profileImageBytes = imgBytes;
+                    }
                 }
 
                 reader.Close();
@@ -380,7 +590,6 @@ namespace HR_Project
 
             LoadEducation();
             LoadSkills();
-            LoadWorkExperience();
         }
 
         private void LoadEducation()
@@ -416,7 +625,7 @@ namespace HR_Project
 
                     if (reader["graduation_date"] != DBNull.Value)
                     {
-                        dateTimePicker1.Value =
+                        dtpProfilePageGraduationYear.Value =
                             Convert.ToDateTime(
                             reader["graduation_date"]);
                     }
@@ -426,74 +635,13 @@ namespace HR_Project
             }
         }
 
-        private void LoadSkills()
+        private void LettersOnly(KeyPressEventArgs e)
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
             {
-                conn.Open();
-
-                string query =
-                @"SELECT skill_name
-                FROM skills
-                WHERE applicant_id=@id";
-
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id",
-                    applicantId);
-
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
-
-                rtxtProfilePageSkills.Clear();
-
-                while (reader.Read())
-                {
-                    rtxtProfilePageSkills.AppendText(
-                        reader["skill_name"].ToString()
-                        + Environment.NewLine);
-                }
-
-                reader.Close();
-            }
-        }
-
-        private void LoadWorkExperience()
-        {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query =
-                @"SELECT company_name,
-                position_title
-                FROM work_experience
-                WHERE applicant_id=@id";
-
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id",
-                    applicantId);
-
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
-
-                rtxtProfilePageWorkExp.Clear();
-
-                while (reader.Read())
-                {
-                    rtxtProfilePageWorkExp.AppendText(
-                        reader["company_name"] +
-                        " - " +
-                        reader["position_title"] +
-                        Environment.NewLine);
-                }
-
-                reader.Close();
+                e.Handled = true;
             }
         }
 
@@ -529,7 +677,28 @@ namespace HR_Project
 
         private void button1_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofd = new OpenFileDialog();
 
+            ofd.Filter =
+                "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                picBoxProfilePagepfp.Image =
+                    Image.FromFile(ofd.FileName);
+
+                profileImageBytes =
+                    File.ReadAllBytes(ofd.FileName);
+            }
+        }
+
+        private void NumbersOnly(KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
 
         private void label2_Click_3(object sender, EventArgs e)
@@ -565,6 +734,7 @@ namespace HR_Project
         private void profilepage_Load(object sender, EventArgs e)
         {
             LoadProfile();
+            LoadApplicantPhoto();
         }
 
         private void btnProfilePageEdit_Click(object sender, EventArgs e)
@@ -579,6 +749,9 @@ namespace HR_Project
             }
             else
             {
+                if (!ValidateProfile())
+                    return;
+
                 SaveProfile();
 
                 editMode = false;
@@ -589,12 +762,85 @@ namespace HR_Project
 
                 MessageBox.Show("Profile Updated Successfully.");
             }
-        
+
         }
 
         private void txtBoxProfilePageState_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void tpSkills_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProfilePageSkillsAdd_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBoxProfilePageSkills.Text))
+            {
+                MessageBox.Show("Enter a skill.");
+                return;
+            }
+
+            lstBoxProfilePageSkills.Items.Add(txtBoxProfilePageSkills.Text.Trim());
+
+            txtBoxProfilePageSkills.Clear();
+        }
+
+        private void btnProfilePageSkillsRemove_Click(object sender, EventArgs e)
+        {
+            if (lstBoxProfilePageSkills.SelectedIndex >= 0)
+            {
+                lstBoxProfilePageSkills.Items.RemoveAt(
+                    lstBoxProfilePageSkills.SelectedIndex);
+            }
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProfilePageDashboard_Click(object sender, EventArgs e)
+        {
+            Dashboard dashboard = new Dashboard();
+
+            dashboard.ApplicantId = applicantId;
+
+            dashboard.Show();
+
+            this.Hide();
+        }
+
+        private void txtBoxProfilePageFirstName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            LettersOnly(e);
+        }
+
+        private void txtBoxProfilePageLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            LettersOnly(e);
+        }
+
+        private void txtBoxProfilePageMiddleName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            LettersOnly(e);
+        }
+
+        private void txtBoxProfilePageContact_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            NumbersOnly(e);
+        }
+
+        private void txtBoxProfilePageAltContact_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            NumbersOnly(e);
         }
     }
 }
