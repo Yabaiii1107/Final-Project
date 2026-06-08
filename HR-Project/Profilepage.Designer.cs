@@ -58,6 +58,7 @@ namespace HR_Project
             this.txtBoxProfilePageContact = new System.Windows.Forms.TextBox();
             this.lblProflePagePhoneNumber = new System.Windows.Forms.Label();
             this.grpBoxProfilePageEducation = new System.Windows.Forms.GroupBox();
+            this.btnProfilePageWorkExperience = new System.Windows.Forms.Button();
             this.grpBoxProfilePageSkills = new System.Windows.Forms.GroupBox();
             this.lstBoxProfilePageSkills = new System.Windows.Forms.ListBox();
             this.btnProfilePageSkillsRemove = new System.Windows.Forms.Button();
@@ -415,6 +416,7 @@ namespace HR_Project
             // grpBoxProfilePageEducation
             // 
             this.grpBoxProfilePageEducation.BackColor = System.Drawing.Color.Transparent;
+            this.grpBoxProfilePageEducation.Controls.Add(this.btnProfilePageWorkExperience);
             this.grpBoxProfilePageEducation.Controls.Add(this.grpBoxProfilePageSkills);
             this.grpBoxProfilePageEducation.Controls.Add(this.tabCtrlEducation);
             this.grpBoxProfilePageEducation.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -427,6 +429,15 @@ namespace HR_Project
             this.grpBoxProfilePageEducation.TabStop = false;
             this.grpBoxProfilePageEducation.Text = "Education and Professional Backround";
             // 
+            // btnProfilePageWorkExperience
+            // 
+            this.btnProfilePageWorkExperience.Location = new System.Drawing.Point(732, 122);
+            this.btnProfilePageWorkExperience.Name = "btnProfilePageWorkExperience";
+            this.btnProfilePageWorkExperience.Size = new System.Drawing.Size(121, 23);
+            this.btnProfilePageWorkExperience.TabIndex = 2;
+            this.btnProfilePageWorkExperience.Text = "Add Work Experience";
+            this.btnProfilePageWorkExperience.UseVisualStyleBackColor = true;
+            // 
             // grpBoxProfilePageSkills
             // 
             this.grpBoxProfilePageSkills.Controls.Add(this.lstBoxProfilePageSkills);
@@ -435,7 +446,7 @@ namespace HR_Project
             this.grpBoxProfilePageSkills.Controls.Add(this.txtBoxProfilePageSkills);
             this.grpBoxProfilePageSkills.Location = new System.Drawing.Point(359, 36);
             this.grpBoxProfilePageSkills.Name = "grpBoxProfilePageSkills";
-            this.grpBoxProfilePageSkills.Size = new System.Drawing.Size(355, 127);
+            this.grpBoxProfilePageSkills.Size = new System.Drawing.Size(312, 127);
             this.grpBoxProfilePageSkills.TabIndex = 1;
             this.grpBoxProfilePageSkills.TabStop = false;
             this.grpBoxProfilePageSkills.Text = "Skills";
@@ -676,6 +687,7 @@ namespace HR_Project
             this.btnProfilePageStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageStatusTracking.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageStatusTracking.Location = new System.Drawing.Point(669, 9);
             this.btnProfilePageStatusTracking.Name = "btnProfilePageStatusTracking";
             this.btnProfilePageStatusTracking.Size = new System.Drawing.Size(96, 23);
@@ -689,6 +701,7 @@ namespace HR_Project
             this.btnProfilePageDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageDocuments.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageDocuments.Location = new System.Drawing.Point(539, 9);
             this.btnProfilePageDocuments.Name = "btnProfilePageDocuments";
             this.btnProfilePageDocuments.Size = new System.Drawing.Size(75, 23);
@@ -702,6 +715,7 @@ namespace HR_Project
             this.btnProfilePageMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageMyApplication.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageMyApplication.Location = new System.Drawing.Point(402, 9);
             this.btnProfilePageMyApplication.Name = "btnProfilePageMyApplication";
             this.btnProfilePageMyApplication.Size = new System.Drawing.Size(89, 23);
@@ -715,6 +729,7 @@ namespace HR_Project
             this.btnProfilePageJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageJobVacancies.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageJobVacancies.Location = new System.Drawing.Point(265, 9);
             this.btnProfilePageJobVacancies.Name = "btnProfilePageJobVacancies";
             this.btnProfilePageJobVacancies.Size = new System.Drawing.Size(89, 23);
@@ -730,6 +745,7 @@ namespace HR_Project
             this.btnProfilePageMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnProfilePageMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageMyProfile.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageMyProfile.Location = new System.Drawing.Point(149, 9);
             this.btnProfilePageMyProfile.Name = "btnProfilePageMyProfile";
             this.btnProfilePageMyProfile.Size = new System.Drawing.Size(75, 23);
@@ -743,6 +759,7 @@ namespace HR_Project
             this.btnProfilePageDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnProfilePageDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnProfilePageDashboard.ForeColor = System.Drawing.Color.White;
             this.btnProfilePageDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnProfilePageDashboard.Name = "btnProfilePageDashboard";
             this.btnProfilePageDashboard.Size = new System.Drawing.Size(75, 23);
@@ -870,6 +887,7 @@ namespace HR_Project
         private System.Windows.Forms.Button btnProfilePageSkillsAdd;
         private System.Windows.Forms.TextBox txtBoxProfilePageSkills;
         private System.Windows.Forms.ErrorProvider errorProviderProfilePage;
+        private System.Windows.Forms.Button btnProfilePageWorkExperience;
     }
 }
 
