@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +25,9 @@ namespace HR_Project
         public DocumentPage()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
         }
 
         private void LoadDocuments()
@@ -85,20 +88,27 @@ namespace HR_Project
 
                 while (reader.Read())
                 {
-                    string docType =
-                        reader["document_type"].ToString();
+                    string docType = reader["document_type"].ToString();
 
-                    if (docType == "Resume/CV")
+                    if (docType.Trim() == "Resume/CV")
+                    {
                         chkMyDocumentsResume.Checked = true;
+                    }
 
-                    else if (docType == "Government ID")
+                    if (docType.Trim() == "Government ID")
+                    {
                         chkMyDocumentsGovernmentID.Checked = true;
+                    }
 
-                    else if (docType == "Transcript")
+                    if (docType.Trim() == "Transcript")
+                    {
                         chkMyDocumentsTranscript.Checked = true;
+                    }
 
-                    else if (docType == "Certificates")
+                    if (docType.Trim() == "Certificates")
+                    {
                         chkMyDocumentsCertificates.Checked = true;
+                    }
                 }
 
                 reader.Close();
@@ -222,6 +232,34 @@ namespace HR_Project
                 LoadDocuments();
                 UpdateDocumentSummary();
             }
+        }
+
+        private void cmbMyDocumentsDocuType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnProfilePageClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
+        {
+            Dashboard dashboard = new Dashboard();
+
+            dashboard.ApplicantId = ApplicantId;
+
+            dashboard.Show();
+            this.Hide();
+        }
+
+        private void btnMyDocumentsMyProfile_Click(object sender, EventArgs e)
+        {
+            profilepage profile = new profilepage(ApplicantId);
+
+            profile.Show();
+            this.Hide();
         }
     }
     }
