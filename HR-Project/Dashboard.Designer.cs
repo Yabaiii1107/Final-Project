@@ -44,10 +44,10 @@ namespace HR_Project
             this.btnDashboard = new System.Windows.Forms.Button();
             this.panelMain = new System.Windows.Forms.Panel();
             this.groupBoxRequiredDocuments = new System.Windows.Forms.GroupBox();
-            this.lblDocuStatus3 = new System.Windows.Forms.Label();
-            this.lblDocuStatus2 = new System.Windows.Forms.Label();
-            this.lblDocuStatus1 = new System.Windows.Forms.Label();
-            this.lblDocuStatus = new System.Windows.Forms.Label();
+            this.lblCertificatesStatus = new System.Windows.Forms.Label();
+            this.lblTranscriptStatus = new System.Windows.Forms.Label();
+            this.lblGovernmentIDStatus = new System.Windows.Forms.Label();
+            this.lblResumeStatus = new System.Windows.Forms.Label();
             this.lblCertificates = new System.Windows.Forms.Label();
             this.lblTranscript = new System.Windows.Forms.Label();
             this.lblGovernmentID = new System.Windows.Forms.Label();
@@ -305,10 +305,10 @@ namespace HR_Project
             // groupBoxRequiredDocuments
             // 
             this.groupBoxRequiredDocuments.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblDocuStatus3);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblDocuStatus2);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblDocuStatus1);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblDocuStatus);
+            this.groupBoxRequiredDocuments.Controls.Add(this.lblCertificatesStatus);
+            this.groupBoxRequiredDocuments.Controls.Add(this.lblTranscriptStatus);
+            this.groupBoxRequiredDocuments.Controls.Add(this.lblGovernmentIDStatus);
+            this.groupBoxRequiredDocuments.Controls.Add(this.lblResumeStatus);
             this.groupBoxRequiredDocuments.Controls.Add(this.lblCertificates);
             this.groupBoxRequiredDocuments.Controls.Add(this.lblTranscript);
             this.groupBoxRequiredDocuments.Controls.Add(this.lblGovernmentID);
@@ -322,46 +322,46 @@ namespace HR_Project
             this.groupBoxRequiredDocuments.TabStop = false;
             this.groupBoxRequiredDocuments.Text = "RequiredDocuments";
             // 
-            // lblDocuStatus3
+            // lblCertificatesStatus
             // 
-            this.lblDocuStatus3.AutoSize = true;
-            this.lblDocuStatus3.ForeColor = System.Drawing.Color.Red;
-            this.lblDocuStatus3.Location = new System.Drawing.Point(128, 98);
-            this.lblDocuStatus3.Name = "lblDocuStatus3";
-            this.lblDocuStatus3.Size = new System.Drawing.Size(67, 13);
-            this.lblDocuStatus3.TabIndex = 14;
-            this.lblDocuStatus3.Text = " ✗ Missing ";
+            this.lblCertificatesStatus.AutoSize = true;
+            this.lblCertificatesStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblCertificatesStatus.Location = new System.Drawing.Point(128, 98);
+            this.lblCertificatesStatus.Name = "lblCertificatesStatus";
+            this.lblCertificatesStatus.Size = new System.Drawing.Size(67, 13);
+            this.lblCertificatesStatus.TabIndex = 14;
+            this.lblCertificatesStatus.Text = " ✗ Missing ";
             // 
-            // lblDocuStatus2
+            // lblTranscriptStatus
             // 
-            this.lblDocuStatus2.AutoSize = true;
-            this.lblDocuStatus2.ForeColor = System.Drawing.Color.Red;
-            this.lblDocuStatus2.Location = new System.Drawing.Point(128, 72);
-            this.lblDocuStatus2.Name = "lblDocuStatus2";
-            this.lblDocuStatus2.Size = new System.Drawing.Size(67, 13);
-            this.lblDocuStatus2.TabIndex = 13;
-            this.lblDocuStatus2.Text = " ✗ Missing ";
-            this.lblDocuStatus2.Click += new System.EventHandler(this.lblDocuStatus2_Click);
+            this.lblTranscriptStatus.AutoSize = true;
+            this.lblTranscriptStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblTranscriptStatus.Location = new System.Drawing.Point(128, 72);
+            this.lblTranscriptStatus.Name = "lblTranscriptStatus";
+            this.lblTranscriptStatus.Size = new System.Drawing.Size(67, 13);
+            this.lblTranscriptStatus.TabIndex = 13;
+            this.lblTranscriptStatus.Text = " ✗ Missing ";
+            this.lblTranscriptStatus.Click += new System.EventHandler(this.lblDocuStatus2_Click);
             // 
-            // lblDocuStatus1
+            // lblGovernmentIDStatus
             // 
-            this.lblDocuStatus1.AutoSize = true;
-            this.lblDocuStatus1.ForeColor = System.Drawing.Color.Green;
-            this.lblDocuStatus1.Location = new System.Drawing.Point(128, 46);
-            this.lblDocuStatus1.Name = "lblDocuStatus1";
-            this.lblDocuStatus1.Size = new System.Drawing.Size(76, 13);
-            this.lblDocuStatus1.TabIndex = 12;
-            this.lblDocuStatus1.Text = " ✓ Submitted";
+            this.lblGovernmentIDStatus.AutoSize = true;
+            this.lblGovernmentIDStatus.ForeColor = System.Drawing.Color.Green;
+            this.lblGovernmentIDStatus.Location = new System.Drawing.Point(128, 46);
+            this.lblGovernmentIDStatus.Name = "lblGovernmentIDStatus";
+            this.lblGovernmentIDStatus.Size = new System.Drawing.Size(76, 13);
+            this.lblGovernmentIDStatus.TabIndex = 12;
+            this.lblGovernmentIDStatus.Text = " ✓ Submitted";
             // 
-            // lblDocuStatus
+            // lblResumeStatus
             // 
-            this.lblDocuStatus.AutoSize = true;
-            this.lblDocuStatus.ForeColor = System.Drawing.Color.Green;
-            this.lblDocuStatus.Location = new System.Drawing.Point(128, 20);
-            this.lblDocuStatus.Name = "lblDocuStatus";
-            this.lblDocuStatus.Size = new System.Drawing.Size(76, 13);
-            this.lblDocuStatus.TabIndex = 11;
-            this.lblDocuStatus.Text = " ✓ Submitted";
+            this.lblResumeStatus.AutoSize = true;
+            this.lblResumeStatus.ForeColor = System.Drawing.Color.Green;
+            this.lblResumeStatus.Location = new System.Drawing.Point(128, 20);
+            this.lblResumeStatus.Name = "lblResumeStatus";
+            this.lblResumeStatus.Size = new System.Drawing.Size(76, 13);
+            this.lblResumeStatus.TabIndex = 11;
+            this.lblResumeStatus.Text = " ✓ Submitted";
             // 
             // lblCertificates
             // 
@@ -826,11 +826,11 @@ namespace HR_Project
         private System.Windows.Forms.GroupBox groupBoxRequiredDocuments;
         private System.Windows.Forms.Label lblGovernmentID;
         private System.Windows.Forms.Label lblResume;
-        private System.Windows.Forms.Label lblDocuStatus2;
-        private System.Windows.Forms.Label lblDocuStatus1;
-        private System.Windows.Forms.Label lblDocuStatus;
+        private System.Windows.Forms.Label lblTranscriptStatus;
+        private System.Windows.Forms.Label lblGovernmentIDStatus;
+        private System.Windows.Forms.Label lblResumeStatus;
         private System.Windows.Forms.Label lblCertificates;
-        private System.Windows.Forms.Label lblDocuStatus3;
+        private System.Windows.Forms.Label lblCertificatesStatus;
         private System.Windows.Forms.Button btnDashboardClose;
         private System.Windows.Forms.Label lblApplicantLastName;
     }
