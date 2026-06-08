@@ -240,9 +240,12 @@ namespace HR_Project
                     last_name=@ln,
                     middle_name=@mn,
                     email=@em,
-                    contact=@ct
+                    contact=@ct,
+                    birth_date=@bd
 
-                WHERE id=@id";
+                    WHERE id=@id";
+
+               
 
                 MySqlCommand cmd =
                     new MySqlCommand(query, conn);
@@ -264,6 +267,9 @@ namespace HR_Project
 
                 cmd.Parameters.AddWithValue("@ct",
                     txtBoxProfilePageContact.Text);
+
+                cmd.Parameters.AddWithValue("@bd",
+                    dtpProfilePageDOB.Value.Date);
 
                 cmd.ExecuteNonQuery();
 
