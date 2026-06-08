@@ -1,40 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 using System.Windows.Forms;
 
 namespace HR_Project
 {
     public partial class WorkExperience : Form
     {
+        public int ApplicantId { get; set; }
+
+        public string WorkCompanyName
+        {
+            get { return txtCompanyName.Text; }
+        }
+
+        public string PositionTitle
+        {
+            get { return txtPosition.Text; }
+        }
+
+        public string EmploymentType
+        {
+            get { return cmbEmploymentType.Text; }
+        }
+
+        public DateTime StartDate
+        {
+            get { return dtpStartDate.Value; }
+        }
+
+        public DateTime EndDate
+        {
+            get { return dtpEndDate.Value; }
+        }
+
+        public bool CurrentlyWorking
+        {
+            get { return chkCurrentWork.Checked; }
+        }
+
+        public string JobDescription
+        {
+            get { return txtJobDescription.Text; }
+        }
+
         public WorkExperience()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void chkCurrentWork_CheckedChanged(object sender, EventArgs e)
         {
-
+            dtpEndDate.Enabled = !chkCurrentWork.Checked;
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-          
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnDashboardClose_Click(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }
