@@ -88,6 +88,116 @@ namespace HR_Project
             }
         }
 
+        private void LoadDocumentStatus()
+        {
+            int submitted = 0;
+
+            bool hasResume = false;
+            bool hasGovID = false;
+            bool hasTranscript = false;
+            bool hasCertificates = false;
+
+            string connectionString =
+                "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query =
+                @"SELECT document_type
+                  FROM applicant_documents
+                  WHERE applicant_id=@id";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                MySqlDataReader reader =
+                    cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string docType =
+                        reader["document_type"].ToString();
+
+                    MessageBox.Show(
+                        "Document Found: [" + docType + "]");
+
+                    if (docType.Trim() == "Resume/CV")
+                        hasResume = true;
+
+                    if (docType.Trim() == "Government ID")
+                        hasGovID = true;
+
+                    if (docType.Trim() == "Transcript")
+                        hasTranscript = true;
+
+                    if (docType.Trim() == "Certificates")
+                        hasCertificates = true;
+                }
+            }
+
+            if (hasResume) submitted++;
+            if (hasGovID) submitted++;
+            if (hasTranscript) submitted++;
+            if (hasCertificates) submitted++;
+
+            int missing = 4 - submitted;
+
+            lblMissDocu.Text =
+                missing + " Documents";
+
+            if (hasResume)
+            {
+                lblResumeStatus.Text = "✔ Submitted";
+                lblResumeStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblResumeStatus.Text = "✘ Missing";
+                lblResumeStatus.ForeColor = Color.Red;
+            }
+
+            // Government ID
+            if (hasGovID)
+            {
+                lblGovernmentIDStatus.Text = "✔ Submitted";
+                lblGovernmentIDStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblGovernmentIDStatus.Text = "✘ Missing";
+                lblGovernmentIDStatus.ForeColor = Color.Red;
+            }
+
+            // Transcript
+            if (hasTranscript)
+            {
+                lblTranscriptStatus.Text = "✔ Submitted";
+                lblTranscriptStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblTranscriptStatus.Text = "✘ Missing";
+                lblTranscriptStatus.ForeColor = Color.Red;
+            }
+
+            // Certificates
+            if (hasCertificates)
+            {
+                lblCertificatesStatus.Text = "✔ Submitted";
+                lblCertificatesStatus.ForeColor = Color.Green;
+            }
+            else
+            {
+                lblCertificatesStatus.Text = "✘ Missing";
+                lblCertificatesStatus.ForeColor = Color.Red;
+            }
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -178,6 +288,7 @@ namespace HR_Project
             lblApplicantName1.Text = ApplicantName;
 
             LoadApplicantInfo();
+            LoadDocumentStatus();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -207,6 +318,13 @@ namespace HR_Project
 
         private void btnDocuments_Click(object sender, EventArgs e)
         {
+            DocumentPage doc = new DocumentPage();
+
+            doc.ApplicantId = ApplicantId;
+
+            doc.Show();
+            this.Hide();
+
             panelNavigation.BringToFront();
         }
 
@@ -218,6 +336,11 @@ namespace HR_Project
         private void lblApplicantName1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Dashboard_Activated(object sender, EventArgs e)
+        {
+            LoadDocumentStatus();
         }
     }
 }
