@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class DocumentPage
     {
@@ -31,6 +31,10 @@
             this.lblReqAppDoc = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.grpMyDocumentsSummary = new System.Windows.Forms.GroupBox();
+            this.chkMyDocumentsCertificates = new System.Windows.Forms.CheckBox();
+            this.chkMyDocumentsTranscript = new System.Windows.Forms.CheckBox();
+            this.chkMyDocumentsGovernmentID = new System.Windows.Forms.CheckBox();
+            this.chkMyDocumentsResume = new System.Windows.Forms.CheckBox();
             this.lblMyDocumentsMissingCount = new System.Windows.Forms.Label();
             this.lbMyDocumentslMissingRequirements = new System.Windows.Forms.Label();
             this.lblMyDocumentsSubmittedCount = new System.Windows.Forms.Label();
@@ -63,10 +67,6 @@
             this.btnMyDocumentsMyProfile = new System.Windows.Forms.Button();
             this.btnMyDocumentsDashboard = new System.Windows.Forms.Button();
             this.mySqlCommand1 = new MySqlConnector.MySqlCommand();
-            this.chkMyDocumentsResume = new System.Windows.Forms.CheckBox();
-            this.chkMyDocumentsGovernmentID = new System.Windows.Forms.CheckBox();
-            this.chkMyDocumentsTranscript = new System.Windows.Forms.CheckBox();
-            this.chkMyDocumentsCertificates = new System.Windows.Forms.CheckBox();
             this.grpMyDocumentsSummary.SuspendLayout();
             this.grpMyDocumentsSubmissionPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMyDocumentsStatusTrap)).BeginInit();
@@ -100,13 +100,57 @@
             this.grpMyDocumentsSummary.Controls.Add(this.lblMyDocumentsSubmittedDocuments);
             this.grpMyDocumentsSummary.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpMyDocumentsSummary.Location = new System.Drawing.Point(433, 148);
-            this.grpMyDocumentsSummary.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpMyDocumentsSummary.Margin = new System.Windows.Forms.Padding(2);
             this.grpMyDocumentsSummary.Name = "grpMyDocumentsSummary";
-            this.grpMyDocumentsSummary.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpMyDocumentsSummary.Padding = new System.Windows.Forms.Padding(2);
             this.grpMyDocumentsSummary.Size = new System.Drawing.Size(431, 133);
             this.grpMyDocumentsSummary.TabIndex = 8;
             this.grpMyDocumentsSummary.TabStop = false;
             this.grpMyDocumentsSummary.Text = "Document Compliance Summary";
+            // 
+            // chkMyDocumentsCertificates
+            // 
+            this.chkMyDocumentsCertificates.AutoSize = true;
+            this.chkMyDocumentsCertificates.Enabled = false;
+            this.chkMyDocumentsCertificates.Location = new System.Drawing.Point(276, 96);
+            this.chkMyDocumentsCertificates.Name = "chkMyDocumentsCertificates";
+            this.chkMyDocumentsCertificates.Size = new System.Drawing.Size(90, 19);
+            this.chkMyDocumentsCertificates.TabIndex = 8;
+            this.chkMyDocumentsCertificates.Text = "Certificates";
+            this.chkMyDocumentsCertificates.UseVisualStyleBackColor = true;
+            // 
+            // chkMyDocumentsTranscript
+            // 
+            this.chkMyDocumentsTranscript.AutoSize = true;
+            this.chkMyDocumentsTranscript.Enabled = false;
+            this.chkMyDocumentsTranscript.Location = new System.Drawing.Point(275, 71);
+            this.chkMyDocumentsTranscript.Name = "chkMyDocumentsTranscript";
+            this.chkMyDocumentsTranscript.Size = new System.Drawing.Size(81, 19);
+            this.chkMyDocumentsTranscript.TabIndex = 7;
+            this.chkMyDocumentsTranscript.Text = "Transcript";
+            this.chkMyDocumentsTranscript.UseVisualStyleBackColor = true;
+            // 
+            // chkMyDocumentsGovernmentID
+            // 
+            this.chkMyDocumentsGovernmentID.AutoSize = true;
+            this.chkMyDocumentsGovernmentID.Enabled = false;
+            this.chkMyDocumentsGovernmentID.Location = new System.Drawing.Point(275, 46);
+            this.chkMyDocumentsGovernmentID.Name = "chkMyDocumentsGovernmentID";
+            this.chkMyDocumentsGovernmentID.Size = new System.Drawing.Size(111, 19);
+            this.chkMyDocumentsGovernmentID.TabIndex = 6;
+            this.chkMyDocumentsGovernmentID.Text = "GovernmentID";
+            this.chkMyDocumentsGovernmentID.UseVisualStyleBackColor = true;
+            // 
+            // chkMyDocumentsResume
+            // 
+            this.chkMyDocumentsResume.AutoSize = true;
+            this.chkMyDocumentsResume.Enabled = false;
+            this.chkMyDocumentsResume.Location = new System.Drawing.Point(275, 21);
+            this.chkMyDocumentsResume.Name = "chkMyDocumentsResume";
+            this.chkMyDocumentsResume.Size = new System.Drawing.Size(91, 19);
+            this.chkMyDocumentsResume.TabIndex = 5;
+            this.chkMyDocumentsResume.Text = "Resume/CV";
+            this.chkMyDocumentsResume.UseVisualStyleBackColor = true;
             // 
             // lblMyDocumentsMissingCount
             // 
@@ -169,9 +213,9 @@
             this.grpMyDocumentsSubmissionPanel.Controls.Add(this.lblMyDocumentsSelectDocuType);
             this.grpMyDocumentsSubmissionPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpMyDocumentsSubmissionPanel.Location = new System.Drawing.Point(11, 285);
-            this.grpMyDocumentsSubmissionPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpMyDocumentsSubmissionPanel.Margin = new System.Windows.Forms.Padding(2);
             this.grpMyDocumentsSubmissionPanel.Name = "grpMyDocumentsSubmissionPanel";
-            this.grpMyDocumentsSubmissionPanel.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grpMyDocumentsSubmissionPanel.Padding = new System.Windows.Forms.Padding(2);
             this.grpMyDocumentsSubmissionPanel.Size = new System.Drawing.Size(523, 87);
             this.grpMyDocumentsSubmissionPanel.TabIndex = 9;
             this.grpMyDocumentsSubmissionPanel.TabStop = false;
@@ -183,7 +227,7 @@
             this.btnMyDocumentsUploadFile.Font = new System.Drawing.Font("Segoe UI", 5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMyDocumentsUploadFile.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btnMyDocumentsUploadFile.Location = new System.Drawing.Point(291, 54);
-            this.btnMyDocumentsUploadFile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMyDocumentsUploadFile.Margin = new System.Windows.Forms.Padding(2);
             this.btnMyDocumentsUploadFile.Name = "btnMyDocumentsUploadFile";
             this.btnMyDocumentsUploadFile.Size = new System.Drawing.Size(51, 27);
             this.btnMyDocumentsUploadFile.TabIndex = 8;
@@ -196,7 +240,7 @@
             this.button2.BackColor = System.Drawing.Color.DarkOliveGreen;
             this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button2.Location = new System.Drawing.Point(323, 109);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(88, 23);
             this.button2.TabIndex = 7;
@@ -206,7 +250,7 @@
             // txtRemarks
             // 
             this.txtRemarks.Location = new System.Drawing.Point(133, 86);
-            this.txtRemarks.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtRemarks.Margin = new System.Windows.Forms.Padding(2);
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.ReadOnly = true;
@@ -228,7 +272,7 @@
             // 
             this.btnMyDocumentsBrowse.Font = new System.Drawing.Font("Segoe UI Light", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMyDocumentsBrowse.Location = new System.Drawing.Point(207, 56);
-            this.btnMyDocumentsBrowse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnMyDocumentsBrowse.Margin = new System.Windows.Forms.Padding(2);
             this.btnMyDocumentsBrowse.Name = "btnMyDocumentsBrowse";
             this.btnMyDocumentsBrowse.Size = new System.Drawing.Size(55, 19);
             this.btnMyDocumentsBrowse.TabIndex = 4;
@@ -239,7 +283,7 @@
             // txtMyDocumentsFilePath
             // 
             this.txtMyDocumentsFilePath.Location = new System.Drawing.Point(75, 57);
-            this.txtMyDocumentsFilePath.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtMyDocumentsFilePath.Margin = new System.Windows.Forms.Padding(2);
             this.txtMyDocumentsFilePath.Name = "txtMyDocumentsFilePath";
             this.txtMyDocumentsFilePath.ReadOnly = true;
             this.txtMyDocumentsFilePath.Size = new System.Drawing.Size(130, 23);
@@ -259,11 +303,17 @@
             // 
             this.cmbMyDocumentsDocuType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMyDocumentsDocuType.FormattingEnabled = true;
+            this.cmbMyDocumentsDocuType.Items.AddRange(new object[] {
+            "Resume/CV\n",
+            "Government ID\n",
+            "Transcript",
+            "\nCertificates"});
             this.cmbMyDocumentsDocuType.Location = new System.Drawing.Point(153, 28);
-            this.cmbMyDocumentsDocuType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbMyDocumentsDocuType.Margin = new System.Windows.Forms.Padding(2);
             this.cmbMyDocumentsDocuType.Name = "cmbMyDocumentsDocuType";
             this.cmbMyDocumentsDocuType.Size = new System.Drawing.Size(111, 23);
             this.cmbMyDocumentsDocuType.TabIndex = 1;
+            this.cmbMyDocumentsDocuType.SelectedIndexChanged += new System.EventHandler(this.cmbMyDocumentsDocuType_SelectedIndexChanged);
             // 
             // lblMyDocumentsSelectDocuType
             // 
@@ -286,7 +336,7 @@
             this.colRemarks,
             this.colFileName});
             this.dgvMyDocumentsStatusTrap.Location = new System.Drawing.Point(7, 404);
-            this.dgvMyDocumentsStatusTrap.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvMyDocumentsStatusTrap.Margin = new System.Windows.Forms.Padding(2);
             this.dgvMyDocumentsStatusTrap.Name = "dgvMyDocumentsStatusTrap";
             this.dgvMyDocumentsStatusTrap.ReadOnly = true;
             this.dgvMyDocumentsStatusTrap.RowHeadersWidth = 62;
@@ -330,7 +380,7 @@
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(0, 0);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(50, 15);
             this.button3.TabIndex = 11;
@@ -363,6 +413,7 @@
             this.btnProfilePageClose.TabIndex = 4;
             this.btnProfilePageClose.Text = "X";
             this.btnProfilePageClose.UseVisualStyleBackColor = false;
+            this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click);
             // 
             // btnMyDocumentsLogout
             // 
@@ -404,6 +455,7 @@
             this.btnMyDocumentsStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMyDocumentsStatusTracking.ForeColor = System.Drawing.Color.White;
             this.btnMyDocumentsStatusTracking.Location = new System.Drawing.Point(669, 9);
             this.btnMyDocumentsStatusTracking.Name = "btnMyDocumentsStatusTracking";
             this.btnMyDocumentsStatusTracking.Size = new System.Drawing.Size(96, 23);
@@ -419,6 +471,7 @@
             this.btnMyDocumentsDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMyDocumentsDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyDocumentsDocuments.ForeColor = System.Drawing.Color.Transparent;
             this.btnMyDocumentsDocuments.Location = new System.Drawing.Point(539, 9);
             this.btnMyDocumentsDocuments.Name = "btnMyDocumentsDocuments";
             this.btnMyDocumentsDocuments.Size = new System.Drawing.Size(75, 23);
@@ -432,6 +485,7 @@
             this.btnMyDocumentsMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMyDocumentsMyApplication.ForeColor = System.Drawing.Color.Transparent;
             this.btnMyDocumentsMyApplication.Location = new System.Drawing.Point(402, 9);
             this.btnMyDocumentsMyApplication.Name = "btnMyDocumentsMyApplication";
             this.btnMyDocumentsMyApplication.Size = new System.Drawing.Size(89, 23);
@@ -445,6 +499,7 @@
             this.btnMyDocumentsJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMyDocumentsJobVacancies.ForeColor = System.Drawing.Color.Transparent;
             this.btnMyDocumentsJobVacancies.Location = new System.Drawing.Point(265, 9);
             this.btnMyDocumentsJobVacancies.Name = "btnMyDocumentsJobVacancies";
             this.btnMyDocumentsJobVacancies.Size = new System.Drawing.Size(89, 23);
@@ -459,12 +514,14 @@
             this.btnMyDocumentsMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMyDocumentsMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyDocumentsMyProfile.ForeColor = System.Drawing.Color.Transparent;
             this.btnMyDocumentsMyProfile.Location = new System.Drawing.Point(149, 9);
             this.btnMyDocumentsMyProfile.Name = "btnMyDocumentsMyProfile";
             this.btnMyDocumentsMyProfile.Size = new System.Drawing.Size(75, 23);
             this.btnMyDocumentsMyProfile.TabIndex = 1;
             this.btnMyDocumentsMyProfile.Text = "My Profile";
             this.btnMyDocumentsMyProfile.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsMyProfile.Click += new System.EventHandler(this.btnMyDocumentsMyProfile_Click);
             // 
             // btnMyDocumentsDashboard
             // 
@@ -472,12 +529,14 @@
             this.btnMyDocumentsDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
             this.btnMyDocumentsDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMyDocumentsDashboard.ForeColor = System.Drawing.Color.Transparent;
             this.btnMyDocumentsDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnMyDocumentsDashboard.Name = "btnMyDocumentsDashboard";
             this.btnMyDocumentsDashboard.Size = new System.Drawing.Size(75, 23);
             this.btnMyDocumentsDashboard.TabIndex = 0;
             this.btnMyDocumentsDashboard.Text = "Dashboard";
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsDashboard.Click += new System.EventHandler(this.btnMyDocumentsDashboard_Click);
             // 
             // mySqlCommand1
             // 
@@ -485,46 +544,6 @@
             this.mySqlCommand1.Connection = null;
             this.mySqlCommand1.Transaction = null;
             this.mySqlCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
-            // 
-            // chkMyDocumentsResume
-            // 
-            this.chkMyDocumentsResume.AutoSize = true;
-            this.chkMyDocumentsResume.Location = new System.Drawing.Point(275, 21);
-            this.chkMyDocumentsResume.Name = "chkMyDocumentsResume";
-            this.chkMyDocumentsResume.Size = new System.Drawing.Size(91, 19);
-            this.chkMyDocumentsResume.TabIndex = 5;
-            this.chkMyDocumentsResume.Text = "Resume/CV";
-            this.chkMyDocumentsResume.UseVisualStyleBackColor = true;
-            // 
-            // chkMyDocumentsGovernmentID
-            // 
-            this.chkMyDocumentsGovernmentID.AutoSize = true;
-            this.chkMyDocumentsGovernmentID.Location = new System.Drawing.Point(275, 46);
-            this.chkMyDocumentsGovernmentID.Name = "chkMyDocumentsGovernmentID";
-            this.chkMyDocumentsGovernmentID.Size = new System.Drawing.Size(111, 19);
-            this.chkMyDocumentsGovernmentID.TabIndex = 6;
-            this.chkMyDocumentsGovernmentID.Text = "GovernmentID";
-            this.chkMyDocumentsGovernmentID.UseVisualStyleBackColor = true;
-            // 
-            // chkMyDocumentsTranscript
-            // 
-            this.chkMyDocumentsTranscript.AutoSize = true;
-            this.chkMyDocumentsTranscript.Location = new System.Drawing.Point(275, 71);
-            this.chkMyDocumentsTranscript.Name = "chkMyDocumentsTranscript";
-            this.chkMyDocumentsTranscript.Size = new System.Drawing.Size(81, 19);
-            this.chkMyDocumentsTranscript.TabIndex = 7;
-            this.chkMyDocumentsTranscript.Text = "Transcript";
-            this.chkMyDocumentsTranscript.UseVisualStyleBackColor = true;
-            // 
-            // chkMyDocumentsCertificates
-            // 
-            this.chkMyDocumentsCertificates.AutoSize = true;
-            this.chkMyDocumentsCertificates.Location = new System.Drawing.Point(276, 96);
-            this.chkMyDocumentsCertificates.Name = "chkMyDocumentsCertificates";
-            this.chkMyDocumentsCertificates.Size = new System.Drawing.Size(90, 19);
-            this.chkMyDocumentsCertificates.TabIndex = 8;
-            this.chkMyDocumentsCertificates.Text = "Certificates";
-            this.chkMyDocumentsCertificates.UseVisualStyleBackColor = true;
             // 
             // DocumentPage
             // 
@@ -540,7 +559,7 @@
             this.Controls.Add(this.grpMyDocumentsSummary);
             this.Controls.Add(this.lblReqAppDoc);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "DocumentPage";
             this.Text = "0";
             this.Load += new System.EventHandler(this.Form1_Load);
