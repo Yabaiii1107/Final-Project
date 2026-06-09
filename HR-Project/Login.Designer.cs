@@ -51,11 +51,11 @@ namespace HR_Project
             this.lblApplicantLogin.AutoSize = true;
             this.lblApplicantLogin.BackColor = System.Drawing.Color.Transparent;
             this.lblApplicantLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.lblApplicantLogin.Location = new System.Drawing.Point(123, 52);
+            this.lblApplicantLogin.Location = new System.Drawing.Point(161, 41);
             this.lblApplicantLogin.Name = "lblApplicantLogin";
-            this.lblApplicantLogin.Size = new System.Drawing.Size(161, 26);
+            this.lblApplicantLogin.Size = new System.Drawing.Size(65, 26);
             this.lblApplicantLogin.TabIndex = 0;
-            this.lblApplicantLogin.Text = "Applicant Login";
+            this.lblApplicantLogin.Text = "Login";
             this.lblApplicantLogin.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblLoginEmail
