@@ -1,4 +1,4 @@
-namespace HR_Project
+﻿namespace HR_Project
 {
     partial class JobVacancies
     {
@@ -88,6 +88,7 @@ namespace HR_Project
             this.btnProfilePageClose.TabIndex = 4;
             this.btnProfilePageClose.Text = "X";
             this.btnProfilePageClose.UseVisualStyleBackColor = false;
+            this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click);
             // 
             // btnProfilePageLogout
             // 
@@ -165,6 +166,7 @@ namespace HR_Project
             this.btnMyApplication.TabIndex = 2;
             this.btnMyApplication.Text = "My Application";
             this.btnMyApplication.UseVisualStyleBackColor = false;
+            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
             // 
             // btnJobVacancies
             // 

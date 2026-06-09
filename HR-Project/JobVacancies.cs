@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySqlConnector;
 
 namespace HR_Project
 {
@@ -20,6 +21,9 @@ namespace HR_Project
         {
             InitializeComponent();
 
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
+
         }
 
         private List<Job> jobs = new List<Job>();
@@ -28,44 +32,51 @@ namespace HR_Project
         {
             jobs.Clear();
 
-            jobs.Add(new Job
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
             {
-                JobId = 1,
-                Position = "IT Support Specialist",
-                Department = "IT",
-                EmploymentType = "Full-Time",
-                Status = "Open",
-                Qualifications =
-                    "Bachelor's Degree in IT or related field",
-                Requirements =
-                    "Resume\r\nTranscript\r\nValid ID"
-            });
+                conn.Open();
 
-            jobs.Add(new Job
-            {
-                JobId = 2,
-                Position = "HR Assistant",
-                Department = "Human Resources",
-                EmploymentType = "Full-Time",
-                Status = "Open",
-                Qualifications =
-                    "Graduate of Psychology or HRM",
-                Requirements =
-                    "Resume\r\nTOR\r\nCertificate"
-            });
+                string query =
+                @"SELECT *
+                  FROM job_vacancies";
 
-            jobs.Add(new Job
-            {
-                JobId = 3,
-                Position = "Accountant",
-                Department = "Finance",
-                EmploymentType = "Full-Time",
-                Status = "Open",
-                Qualifications =
-                    "CPA Preferred",
-                Requirements =
-                    "Resume\r\nBoard Certificate"
-            });
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                MySqlDataReader reader =
+                    cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    jobs.Add(new Job
+                    {
+                        JobId =
+                            Convert.ToInt32(
+                            reader["vacancy_id"]),
+
+                        Position =
+                            reader["position"].ToString(),
+
+                        Department =
+                            reader["department"].ToString(),
+
+                        EmploymentType =
+                            reader["employment_type"].ToString(),
+
+                        Status =
+                            reader["status"].ToString(),
+
+                        Qualifications =
+                            reader["qualifications"].ToString(),
+
+                        Requirements =
+                            reader["requirements"].ToString()
+                    });
+                }
+
+                reader.Close();
+            }
 
             RefreshGrid(jobs);
         }
@@ -161,8 +172,7 @@ namespace HR_Project
         {
             if (dgvJobVacancies.SelectedRows.Count == 0)
             {
-                MessageBox.Show(
-                    "Please select a job first.");
+                MessageBox.Show("Please select a job first.");
                 return;
             }
 
@@ -170,17 +180,86 @@ namespace HR_Project
                 dgvJobVacancies.SelectedRows[0]
                 .Cells[0].Value.ToString();
 
+            Job selectedJob =
+                jobs.FirstOrDefault(j => j.Position == position);
+
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string existingApplicationQuery = @"
+                SELECT COUNT(*)
+                FROM applications
+                WHERE applicant_id = @applicant";
+
+                MySqlCommand existingCmd =
+                    new MySqlCommand(existingApplicationQuery, conn);
+
+                existingCmd.Parameters.AddWithValue(
+                    "@applicant",
+                    applicantId);
+
+                int existingCount =
+                    Convert.ToInt32(existingCmd.ExecuteScalar());
+
+                if (existingCount > 0)
+                {
+                    MessageBox.Show(
+                        "You have already applied for a job. Only one application is allowed.",
+                        "Application Exists",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    return;
+                }
+
+                string insertQuery =
+                @"INSERT INTO applications
+                (
+                    applicant_id,
+                    vacancy_id,
+                    status
+                )
+                VALUES
+                (
+                    @applicant,
+                    @vacancy,
+                    'Submitted'
+                )";
+
+                MySqlCommand insertCmd =
+                    new MySqlCommand(insertQuery, conn);
+
+                insertCmd.Parameters.AddWithValue(
+                    "@applicant",
+                    applicantId);
+
+                insertCmd.Parameters.AddWithValue(
+                    "@vacancy",
+                    selectedJob.JobId);
+
+                insertCmd.ExecuteNonQuery();
+            }
+
             MessageBox.Show(
-                "Application submitted for: " +
-                position);
+                "Application submitted successfully!");
         }
 
         private void btnProfilePageMyProfile_Click(object sender, EventArgs e)
         {
-            profilepage profile = new profilepage(applicantId);
+            this.Hide();
+
+            profilepage profile =
+                Application.OpenForms["profilepage"]
+                as profilepage;
+
+            if (profile == null)
+            {
+                profile = new profilepage(applicantId);
+            }
 
             profile.Show();
-            this.Hide();
         }
 
         private void btnProfilePageDashboard_Click(object sender, EventArgs e)
@@ -202,6 +281,23 @@ namespace HR_Project
 
             doc.Show();
             this.Hide();
+        }
+
+        private void btnMyApplication_Click(object sender, EventArgs e)
+        {
+            ApplicantPage1 app =
+                new ApplicantPage1();
+
+            app.ApplicantId = applicantId;
+
+            app.Show();
+
+            this.Hide();
+        }
+
+        private void btnProfilePageClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
