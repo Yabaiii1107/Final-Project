@@ -3,7 +3,7 @@ USE hr_db;
 CREATE TABLE education (
     education_id INT AUTO_INCREMENT PRIMARY KEY,
 
-    applicant_id INT NOT NULL,
+    applicant_id INT NOT NULL UNIQUE,
 
     highest_degree VARCHAR(100),
     institution_name VARCHAR(255),

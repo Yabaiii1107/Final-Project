@@ -19,9 +19,14 @@ CREATE TABLE applications (
         'Rejected'
     ) DEFAULT 'Submitted',
 
+    profile_completed TINYINT(1) DEFAULT 0,
+    documents_uploaded TINYINT(1) DEFAULT 0,
+    hr_review TINYINT(1) DEFAULT 0,
+    technical_interview TINYINT(1) DEFAULT 0,
+
     FOREIGN KEY (applicant_id)
-    REFERENCES applicants(id),
+        REFERENCES applicants(id),
 
     FOREIGN KEY (vacancy_id)
-    REFERENCES job_vacancies(vacancy_id)
+        REFERENCES job_vacancies(vacancy_id)
 );

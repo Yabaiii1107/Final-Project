@@ -1,12 +1,15 @@
 USE hr_db;
 
-CREATE TABLE job_vacancies (
+CREATE TABLE job_vacancies
+(
     vacancy_id INT AUTO_INCREMENT PRIMARY KEY,
 
-    position_name VARCHAR(255),
-    department VARCHAR(255),
+    position VARCHAR(100) NOT NULL,
+    department VARCHAR(100) NOT NULL,
 
-    description TEXT,
+    employment_type VARCHAR(50),
+    status VARCHAR(50),
 
-    status ENUM('Open','Closed') DEFAULT 'Open'
+    qualifications TEXT,
+    requirements TEXT
 );

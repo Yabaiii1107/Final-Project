@@ -15,3 +15,4 @@ CREATE TABLE applicants (
 
     registration_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
