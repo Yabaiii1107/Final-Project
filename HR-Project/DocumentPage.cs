@@ -18,8 +18,7 @@ namespace HR_Project
 
         public int ApplicantId { get; set; }
 
-        string connectionString =
-            "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+        string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
 
         public DocumentPage()
@@ -260,6 +259,18 @@ namespace HR_Project
 
             profile.Show();
             this.Hide();
+        }
+
+        private void btnMyDocumentsJobVacancies_Click(object sender, EventArgs e)
+        {
+            JobVacancies jobVacancies =
+               new JobVacancies();
+
+            jobVacancies.Show();
+
+            this.Hide();
+
+            panelMyDocumentsNavigation.BringToFront();
         }
     }
     }
