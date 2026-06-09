@@ -255,22 +255,42 @@ namespace HR_Project
 
         private void btnMyDocumentsMyProfile_Click(object sender, EventArgs e)
         {
-            profilepage profile = new profilepage(ApplicantId);
+            this.Hide();
+
+            profilepage profile =
+                Application.OpenForms["profilepage"]
+                as profilepage;
+
+            if (profile == null)
+            {
+                profile = new profilepage(ApplicantId);
+            }
 
             profile.Show();
-            this.Hide();
         }
 
         private void btnMyDocumentsJobVacancies_Click(object sender, EventArgs e)
         {
-            JobVacancies jobVacancies =
-               new JobVacancies();
+            JobVacancies jobs = new JobVacancies();
 
-            jobVacancies.Show();
+            jobs.applicantId = ApplicantId;
 
+            jobs.Show();
             this.Hide();
 
             panelMyDocumentsNavigation.BringToFront();
+        }
+
+        private void btnMyDocumentsMyApplication_Click(object sender, EventArgs e)
+        {
+            ApplicantPage1 app =
+                new ApplicantPage1();
+
+            app.ApplicantId = ApplicantId;
+
+            app.Show();
+
+            this.Hide();
         }
     }
     }
