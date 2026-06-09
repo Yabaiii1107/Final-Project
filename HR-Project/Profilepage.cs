@@ -891,9 +891,11 @@
                 private void profilepage_Load(object sender, EventArgs e)
                 {
                     LoadProfile();
-                    LoadApplicantPhoto();
+                    LoadEducation();
+                    LoadSkills();
                     LoadWorkExperience();
-                }
+                    LoadApplicantPhoto();
+        }
 
                 private void btnProfilePageEdit_Click(object sender, EventArgs e)
                 {
@@ -1093,7 +1095,31 @@
         {
             DocumentPage doc = new DocumentPage();
 
+            doc.ApplicantId = applicantId;
+
             doc.Show();
+            this.Hide();
+
+            panelProfilePageNavigation.BringToFront();
+        }
+
+        private void btnProfilePageChangePass_Click(object sender, EventArgs e)
+        {
+            ChangePasswordForm form = new ChangePasswordForm();
+
+            form.ApplicantId = this.applicantId;        
+
+            form.ShowDialog();
+        }
+
+        private void btnProfilePageJobVacancies_Click(object sender, EventArgs e)
+        {
+            JobVacancies job = new JobVacancies();
+
+            job.applicantId = applicantId;
+
+            job.Show();
+
             this.Hide();
 
             panelProfilePageNavigation.BringToFront();
