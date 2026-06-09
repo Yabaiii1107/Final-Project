@@ -648,7 +648,7 @@ namespace HR_Project
             this.lblMissingDocuments.Name = "lblMissingDocuments";
             this.lblMissingDocuments.Size = new System.Drawing.Size(133, 15);
             this.lblMissingDocuments.TabIndex = 0;
-            this.lblMissingDocuments.Text = "Missing Documents";
+            this.lblMissingDocuments.Text = "Missing Documents":
             this.lblMissingDocuments.Click += new System.EventHandler(this.lblMissingDocuments_Click);
             // 
             // panelAppliedPosition0
