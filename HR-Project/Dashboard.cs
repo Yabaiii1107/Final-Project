@@ -37,7 +37,7 @@ namespace HR_Project
             this.MaximizeBox = false;
         }
 
-        private void LoadApplicantInfo()
+        private void LoadAppliedPosition()
         {
             using (MySqlConnection conn =
                 new MySqlConnection(connectionString))
@@ -45,14 +45,50 @@ namespace HR_Project
                 conn.Open();
 
                 string query = @"
-        SELECT
-            a.first_name,
-            a.last_name,
-            ap.profile_picture
-        FROM applicants a
-        LEFT JOIN applicant_profiles ap
-            ON a.id = ap.applicant_id
-        WHERE a.id = @id";
+                SELECT j.position
+                FROM applications a
+                INNER JOIN job_vacancies j
+                    ON a.vacancy_id = j.vacancy_id
+                WHERE a.applicant_id = @id
+                ORDER BY application_id DESC
+                LIMIT 1";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    lblPosition.Text =
+                        result.ToString();
+                }
+                else
+                {
+                    lblPosition.Text =
+                        "No Application Yet";
+                }
+            }
+        }
+
+        private void LoadApplicantInfo()
+        {
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = 
+                @"SELECT
+                    a.first_name,
+                    a.last_name,
+                    ap.profile_picture
+                FROM applicants a
+                LEFT JOIN applicant_profiles ap
+                    ON a.id = ap.applicant_id
+                WHERE a.id = @id";
 
                 MySqlCommand cmd =
                     new MySqlCommand(query, conn);
@@ -85,6 +121,35 @@ namespace HR_Project
                 }
 
                 reader.Close();
+            }
+        }
+
+        private void LoadApplicationStatus()
+        {
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT status
+                FROM applications
+                WHERE applicant_id=@id
+                ORDER BY application_id DESC
+                LIMIT 1";
+
+                MySqlCommand cmd =
+                    new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                object result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    lblCurrentStatus.Text =
+                        result.ToString();
+                }
             }
         }
 
@@ -122,9 +187,6 @@ namespace HR_Project
                 {
                     string docType =
                         reader["document_type"].ToString();
-
-                    MessageBox.Show(
-                        "Document Found: [" + docType + "]");
 
                     if (docType.Trim() == "Resume/CV")
                         hasResume = true;
@@ -289,6 +351,8 @@ namespace HR_Project
 
             LoadApplicantInfo();
             LoadDocumentStatus();
+            LoadAppliedPosition();
+            LoadApplicationStatus();
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -298,21 +362,27 @@ namespace HR_Project
 
         private void btnMyProfile_Click(object sender, EventArgs e)
         {
-            panelNavigation.BringToFront();
+            this.Hide();
 
-            profilepage profile = new profilepage(ApplicantId);
+            profilepage profile =
+                Application.OpenForms["profilepage"]
+                as profilepage;
+
+            if (profile == null)
+            {
+                profile = new profilepage(ApplicantId);
+            }
 
             profile.Show();
-            this.Hide();
         }
 
         private void btnJobVacancies_Click(object sender, EventArgs e)
         {
-            JobVacancies jobVacancies =
-                new JobVacancies();
+            JobVacancies jobs = new JobVacancies();
 
-            jobVacancies.Show();
+            jobs.applicantId = ApplicantId;
 
+            jobs.Show();
             this.Hide();
 
             panelNavigation.BringToFront();
@@ -320,6 +390,15 @@ namespace HR_Project
 
         private void btnMyApplication_Click(object sender, EventArgs e)
         {
+            ApplicantPage1 app =
+                new ApplicantPage1();
+
+            app.ApplicantId = ApplicantId;
+
+            app.Show();
+
+            this.Hide();
+
             panelNavigation.BringToFront();
         }
 
