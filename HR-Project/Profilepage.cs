@@ -1124,5 +1124,17 @@
 
             panelProfilePageNavigation.BringToFront();
         }
+
+        private void btnProfilePageMyApplication_Click(object sender, EventArgs e)
+        {
+            ApplicantPage1 app =
+               new ApplicantPage1();
+
+            app.ApplicantId = applicantId;
+
+            app.Show();
+
+            this.Hide();
+        }
     }
         }
