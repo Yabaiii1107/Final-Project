@@ -58,6 +58,9 @@ namespace HR_Project
             this.txtBoxProfilePageContact = new System.Windows.Forms.TextBox();
             this.lblProflePagePhoneNumber = new System.Windows.Forms.Label();
             this.grpBoxProfilePageEducation = new System.Windows.Forms.GroupBox();
+            this.lblWorkExp = new System.Windows.Forms.Label();
+            this.btnWorkExpRemove = new System.Windows.Forms.Button();
+            this.dgvWorkExperience = new System.Windows.Forms.DataGridView();
             this.btnProfilePageWorkExperience = new System.Windows.Forms.Button();
             this.grpBoxProfilePageSkills = new System.Windows.Forms.GroupBox();
             this.lstBoxProfilePageSkills = new System.Windows.Forms.ListBox();
@@ -89,20 +92,17 @@ namespace HR_Project
             this.btnProfilePageDashboard = new System.Windows.Forms.Button();
             this.btnProfilePageEdit = new System.Windows.Forms.Button();
             this.errorProviderProfilePage = new System.Windows.Forms.ErrorProvider(this.components);
-            this.dgvWorkExperience = new System.Windows.Forms.DataGridView();
-            this.btnWorkExpRemove = new System.Windows.Forms.Button();
-            this.lblWorkExp = new System.Windows.Forms.Label();
             this.grpBoxProfilePagePersonalInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxProfilePagepfp)).BeginInit();
             this.grpBoxProfilePageContactDetails.SuspendLayout();
             this.grpBoxProfilePageEducation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkExperience)).BeginInit();
             this.grpBoxProfilePageSkills.SuspendLayout();
             this.tabCtrlEducation.SuspendLayout();
             this.tpProfilePageEducation.SuspendLayout();
             this.panelProfilePageHeader.SuspendLayout();
             this.panelProfilePageNavigation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProfilePage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkExperience)).BeginInit();
             this.SuspendLayout();
             // 
             // grpBoxProfilePagePersonalInfo
@@ -161,6 +161,7 @@ namespace HR_Project
             this.btnProfilePageChangePass.TabIndex = 13;
             this.btnProfilePageChangePass.Text = "Change Password";
             this.btnProfilePageChangePass.UseVisualStyleBackColor = false;
+            this.btnProfilePageChangePass.Click += new System.EventHandler(this.btnProfilePageChangePass_Click);
             // 
             // txtBoxProfilePageEmail
             // 
@@ -435,6 +436,33 @@ namespace HR_Project
             this.grpBoxProfilePageEducation.TabIndex = 6;
             this.grpBoxProfilePageEducation.TabStop = false;
             this.grpBoxProfilePageEducation.Text = "Education and Professional Backround";
+            // 
+            // lblWorkExp
+            // 
+            this.lblWorkExp.AutoSize = true;
+            this.lblWorkExp.Location = new System.Drawing.Point(689, 20);
+            this.lblWorkExp.Name = "lblWorkExp";
+            this.lblWorkExp.Size = new System.Drawing.Size(95, 15);
+            this.lblWorkExp.TabIndex = 5;
+            this.lblWorkExp.Text = "Work Experience";
+            // 
+            // btnWorkExpRemove
+            // 
+            this.btnWorkExpRemove.Location = new System.Drawing.Point(757, 134);
+            this.btnWorkExpRemove.Name = "btnWorkExpRemove";
+            this.btnWorkExpRemove.Size = new System.Drawing.Size(70, 23);
+            this.btnWorkExpRemove.TabIndex = 4;
+            this.btnWorkExpRemove.Text = "Remove";
+            this.btnWorkExpRemove.UseVisualStyleBackColor = true;
+            this.btnWorkExpRemove.Click += new System.EventHandler(this.btnWorkExpRemove_Click);
+            // 
+            // dgvWorkExperience
+            // 
+            this.dgvWorkExperience.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvWorkExperience.Location = new System.Drawing.Point(692, 38);
+            this.dgvWorkExperience.Name = "dgvWorkExperience";
+            this.dgvWorkExperience.Size = new System.Drawing.Size(161, 90);
+            this.dgvWorkExperience.TabIndex = 3;
             // 
             // btnProfilePageWorkExperience
             // 
@@ -731,6 +759,7 @@ namespace HR_Project
             this.btnProfilePageMyApplication.TabIndex = 2;
             this.btnProfilePageMyApplication.Text = "My Application";
             this.btnProfilePageMyApplication.UseVisualStyleBackColor = false;
+            this.btnProfilePageMyApplication.Click += new System.EventHandler(this.btnProfilePageMyApplication_Click);
             // 
             // btnProfilePageJobVacancies
             // 
@@ -745,6 +774,7 @@ namespace HR_Project
             this.btnProfilePageJobVacancies.TabIndex = 2;
             this.btnProfilePageJobVacancies.Text = "Job Vacancies";
             this.btnProfilePageJobVacancies.UseVisualStyleBackColor = false;
+            this.btnProfilePageJobVacancies.Click += new System.EventHandler(this.btnProfilePageJobVacancies_Click);
             // 
             // btnProfilePageMyProfile
             // 
@@ -795,33 +825,6 @@ namespace HR_Project
             // 
             this.errorProviderProfilePage.ContainerControl = this;
             // 
-            // dgvWorkExperience
-            // 
-            this.dgvWorkExperience.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvWorkExperience.Location = new System.Drawing.Point(692, 38);
-            this.dgvWorkExperience.Name = "dgvWorkExperience";
-            this.dgvWorkExperience.Size = new System.Drawing.Size(161, 90);
-            this.dgvWorkExperience.TabIndex = 3;
-            // 
-            // btnWorkExpRemove
-            // 
-            this.btnWorkExpRemove.Location = new System.Drawing.Point(757, 134);
-            this.btnWorkExpRemove.Name = "btnWorkExpRemove";
-            this.btnWorkExpRemove.Size = new System.Drawing.Size(70, 23);
-            this.btnWorkExpRemove.TabIndex = 4;
-            this.btnWorkExpRemove.Text = "Remove";
-            this.btnWorkExpRemove.UseVisualStyleBackColor = true;
-            this.btnWorkExpRemove.Click += new System.EventHandler(this.btnWorkExpRemove_Click);
-            // 
-            // lblWorkExp
-            // 
-            this.lblWorkExp.AutoSize = true;
-            this.lblWorkExp.Location = new System.Drawing.Point(689, 20);
-            this.lblWorkExp.Name = "lblWorkExp";
-            this.lblWorkExp.Size = new System.Drawing.Size(95, 15);
-            this.lblWorkExp.TabIndex = 5;
-            this.lblWorkExp.Text = "Work Experience";
-            // 
             // profilepage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -850,6 +853,7 @@ namespace HR_Project
             this.grpBoxProfilePageContactDetails.PerformLayout();
             this.grpBoxProfilePageEducation.ResumeLayout(false);
             this.grpBoxProfilePageEducation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkExperience)).EndInit();
             this.grpBoxProfilePageSkills.ResumeLayout(false);
             this.grpBoxProfilePageSkills.PerformLayout();
             this.tabCtrlEducation.ResumeLayout(false);
@@ -859,7 +863,6 @@ namespace HR_Project
             this.panelProfilePageHeader.PerformLayout();
             this.panelProfilePageNavigation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProviderProfilePage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvWorkExperience)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
