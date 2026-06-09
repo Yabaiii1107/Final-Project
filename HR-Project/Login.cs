@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
+using HR_Project.HR_System;
 
 namespace HR_Project
 {
@@ -83,26 +84,32 @@ namespace HR_Project
         {
             string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection conn =
+                new MySqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
 
-                    string query = @"SELECT id, first_name
-                                    FROM applicants
-                                    WHERE email=@email
-                                    AND password=@password";
+                    string applicantQuery =
+                    @"SELECT id, first_name
+                    FROM applicants
+                    WHERE email=@email
+                    AND password=@password";
 
-                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    MySqlCommand applicantCmd =
+                        new MySqlCommand(applicantQuery, conn);
 
-                    cmd.Parameters.AddWithValue("@email",
+                    applicantCmd.Parameters.AddWithValue(
+                        "@email",
                         txtBoxLoginEmail.Text.Trim());
 
-                    cmd.Parameters.AddWithValue("@password",
+                    applicantCmd.Parameters.AddWithValue(
+                        "@password",
                         txtBoxLoginPassword.Text);
 
-                    MySqlDataReader reader = cmd.ExecuteReader();
+                    MySqlDataReader reader =
+                        applicantCmd.ExecuteReader();
 
                     if (reader.Read())
                     {
@@ -112,25 +119,87 @@ namespace HR_Project
                         string firstName =
                             reader["first_name"].ToString();
 
-                        Dashboard dash = new Dashboard();
+                        reader.Close();
 
-                        dash.ApplicantId = applicantId;
-                        dash.ApplicantName = firstName;
+                        Dashboard dash =
+                            new Dashboard();
+
+                        dash.ApplicantId =
+                            applicantId;
+
+                        dash.ApplicantName =
+                            firstName;
 
                         dash.Show();
 
                         this.Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show(
-                            "Invalid Email or Password.",
-                            "Login Failed",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning);
+
+                        return;
                     }
 
                     reader.Close();
+
+                    string hrQuery =
+                    @"SELECT
+                          u.user_id,
+                          u.first_name,
+                          u.last_name,
+                          r.role_name
+                      FROM users u
+                      INNER JOIN roles r
+                          ON u.role_id = r.role_id
+                      WHERE u.email = @email
+                      AND u.password = @password
+                      AND u.account_status = 'Active'";
+
+                    MySqlCommand hrCmd =
+                        new MySqlCommand(hrQuery, conn);
+
+                    hrCmd.Parameters.AddWithValue(
+                        "@email",
+                        txtBoxLoginEmail.Text.Trim());
+
+                    hrCmd.Parameters.AddWithValue(
+                        "@password",
+                        txtBoxLoginPassword.Text);
+
+                    MySqlDataReader hrReader =
+                        hrCmd.ExecuteReader();
+
+                    if (hrReader.Read())
+                    {
+                        string role =
+                            hrReader["role_name"].ToString();
+
+                        string fullName =
+                            hrReader["first_name"].ToString() + " " +
+                            hrReader["last_name"].ToString();
+
+                        hrReader.Close();
+
+                        HRDashboard hrDashboard =
+                            new HRDashboard();
+
+                        hrDashboard.UserRole =
+                            role;
+
+                        hrDashboard.UserName =
+                            fullName;
+
+                        hrDashboard.Show();
+
+                        this.Hide();
+
+                        return;
+                    }
+
+                    hrReader.Close();
+
+                    MessageBox.Show(
+                        "Invalid Email or Password.",
+                        "Login Failed",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
                 }
                 catch (Exception ex)
                 {
