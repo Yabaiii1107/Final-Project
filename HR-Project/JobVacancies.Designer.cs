@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class JobVacancies
     {
@@ -32,13 +32,13 @@
             this.btnProfilePageClose = new System.Windows.Forms.Button();
             this.btnProfilePageLogout = new System.Windows.Forms.Button();
             this.JobVacancieslblTitle = new System.Windows.Forms.Label();
-            this.panelProfilePageNavigation = new System.Windows.Forms.Panel();
-            this.btnProfilePageStatusTracking = new System.Windows.Forms.Button();
-            this.btnProfilePageDocuments = new System.Windows.Forms.Button();
+            this.panelNavigation = new System.Windows.Forms.Panel();
+            this.btnStatusTracking = new System.Windows.Forms.Button();
+            this.btnDocuments = new System.Windows.Forms.Button();
             this.btnMyApplication = new System.Windows.Forms.Button();
-            this.btnProfilePageJobVacancies = new System.Windows.Forms.Button();
-            this.btnProfilePageMyProfile = new System.Windows.Forms.Button();
-            this.btnProfilePageDashboard = new System.Windows.Forms.Button();
+            this.btnJobVacancies = new System.Windows.Forms.Button();
+            this.btnsMyProfile = new System.Windows.Forms.Button();
+            this.btnDashboard = new System.Windows.Forms.Button();
             this.lblJobVacancies = new System.Windows.Forms.Label();
             this.lblSearchJob = new System.Windows.Forms.Label();
             this.txtSearchJob = new System.Windows.Forms.TextBox();
@@ -58,7 +58,7 @@
             this.lblDepartments = new System.Windows.Forms.Label();
             this.lblPosition = new System.Windows.Forms.Label();
             this.panelProfilePageHeader.SuspendLayout();
-            this.panelProfilePageNavigation.SuspendLayout();
+            this.panelNavigation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobVacancies)).BeginInit();
             this.grpJobDetails.SuspendLayout();
             this.SuspendLayout();
@@ -109,47 +109,48 @@
             this.JobVacancieslblTitle.TabIndex = 0;
             this.JobVacancieslblTitle.Text = "Job Vacancies";
             // 
-            // panelProfilePageNavigation
+            // panelNavigation
             // 
-            this.panelProfilePageNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
-            this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageStatusTracking);
-            this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageDocuments);
-            this.panelProfilePageNavigation.Controls.Add(this.btnMyApplication);
-            this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageJobVacancies);
-            this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageMyProfile);
-            this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageDashboard);
-            this.panelProfilePageNavigation.Location = new System.Drawing.Point(0, 57);
-            this.panelProfilePageNavigation.Name = "panelProfilePageNavigation";
-            this.panelProfilePageNavigation.Size = new System.Drawing.Size(869, 42);
-            this.panelProfilePageNavigation.TabIndex = 11;
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
+            this.panelNavigation.Controls.Add(this.btnStatusTracking);
+            this.panelNavigation.Controls.Add(this.btnDocuments);
+            this.panelNavigation.Controls.Add(this.btnMyApplication);
+            this.panelNavigation.Controls.Add(this.btnJobVacancies);
+            this.panelNavigation.Controls.Add(this.btnsMyProfile);
+            this.panelNavigation.Controls.Add(this.btnDashboard);
+            this.panelNavigation.Location = new System.Drawing.Point(0, 57);
+            this.panelNavigation.Name = "panelNavigation";
+            this.panelNavigation.Size = new System.Drawing.Size(869, 42);
+            this.panelNavigation.TabIndex = 11;
             // 
-            // btnProfilePageStatusTracking
+            // btnStatusTracking
             // 
-            this.btnProfilePageStatusTracking.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageStatusTracking.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageStatusTracking.Location = new System.Drawing.Point(669, 9);
-            this.btnProfilePageStatusTracking.Name = "btnProfilePageStatusTracking";
-            this.btnProfilePageStatusTracking.Size = new System.Drawing.Size(96, 23);
-            this.btnProfilePageStatusTracking.TabIndex = 3;
-            this.btnProfilePageStatusTracking.Text = "Status Tracking";
-            this.btnProfilePageStatusTracking.UseVisualStyleBackColor = false;
+            this.btnStatusTracking.BackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnStatusTracking.ForeColor = System.Drawing.Color.White;
+            this.btnStatusTracking.Location = new System.Drawing.Point(669, 9);
+            this.btnStatusTracking.Name = "btnStatusTracking";
+            this.btnStatusTracking.Size = new System.Drawing.Size(96, 23);
+            this.btnStatusTracking.TabIndex = 3;
+            this.btnStatusTracking.Text = "Status Tracking";
+            this.btnStatusTracking.UseVisualStyleBackColor = false;
             // 
-            // btnProfilePageDocuments
+            // btnDocuments
             // 
-            this.btnProfilePageDocuments.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageDocuments.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageDocuments.Location = new System.Drawing.Point(539, 9);
-            this.btnProfilePageDocuments.Name = "btnProfilePageDocuments";
-            this.btnProfilePageDocuments.Size = new System.Drawing.Size(75, 23);
-            this.btnProfilePageDocuments.TabIndex = 2;
-            this.btnProfilePageDocuments.Text = "Documents";
-            this.btnProfilePageDocuments.UseVisualStyleBackColor = false;
+            this.btnDocuments.BackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDocuments.ForeColor = System.Drawing.Color.White;
+            this.btnDocuments.Location = new System.Drawing.Point(539, 9);
+            this.btnDocuments.Name = "btnDocuments";
+            this.btnDocuments.Size = new System.Drawing.Size(75, 23);
+            this.btnDocuments.TabIndex = 2;
+            this.btnDocuments.Text = "Documents";
+            this.btnDocuments.UseVisualStyleBackColor = false;
+            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
             // 
             // btnMyApplication
             // 
@@ -165,55 +166,57 @@
             this.btnMyApplication.Text = "My Application";
             this.btnMyApplication.UseVisualStyleBackColor = false;
             // 
-            // btnProfilePageJobVacancies
+            // btnJobVacancies
             // 
-            this.btnProfilePageJobVacancies.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.Enabled = false;
-            this.btnProfilePageJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfilePageJobVacancies.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageJobVacancies.Location = new System.Drawing.Point(265, 9);
-            this.btnProfilePageJobVacancies.Name = "btnProfilePageJobVacancies";
-            this.btnProfilePageJobVacancies.Size = new System.Drawing.Size(99, 23);
-            this.btnProfilePageJobVacancies.TabIndex = 2;
-            this.btnProfilePageJobVacancies.Text = "Job Vacancies";
-            this.btnProfilePageJobVacancies.UseVisualStyleBackColor = false;
+            this.btnJobVacancies.BackColor = System.Drawing.Color.Blue;
+            this.btnJobVacancies.Enabled = false;
+            this.btnJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobVacancies.ForeColor = System.Drawing.Color.White;
+            this.btnJobVacancies.Location = new System.Drawing.Point(265, 9);
+            this.btnJobVacancies.Name = "btnJobVacancies";
+            this.btnJobVacancies.Size = new System.Drawing.Size(99, 23);
+            this.btnJobVacancies.TabIndex = 2;
+            this.btnJobVacancies.Text = "Job Vacancies";
+            this.btnJobVacancies.UseVisualStyleBackColor = false;
             // 
-            // btnProfilePageMyProfile
+            // btnsMyProfile
             // 
-            this.btnProfilePageMyProfile.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.Enabled = false;
-            this.btnProfilePageMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfilePageMyProfile.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageMyProfile.Location = new System.Drawing.Point(149, 9);
-            this.btnProfilePageMyProfile.Name = "btnProfilePageMyProfile";
-            this.btnProfilePageMyProfile.Size = new System.Drawing.Size(75, 23);
-            this.btnProfilePageMyProfile.TabIndex = 1;
-            this.btnProfilePageMyProfile.Text = "My Profile";
-            this.btnProfilePageMyProfile.UseVisualStyleBackColor = false;
+            this.btnsMyProfile.BackColor = System.Drawing.Color.Blue;
+            this.btnsMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnsMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnsMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnsMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnsMyProfile.ForeColor = System.Drawing.Color.White;
+            this.btnsMyProfile.Location = new System.Drawing.Point(149, 9);
+            this.btnsMyProfile.Name = "btnsMyProfile";
+            this.btnsMyProfile.Size = new System.Drawing.Size(75, 23);
+            this.btnsMyProfile.TabIndex = 1;
+            this.btnsMyProfile.Text = "My Profile";
+            this.btnsMyProfile.UseVisualStyleBackColor = false;
+            this.btnsMyProfile.Click += new System.EventHandler(this.btnProfilePageMyProfile_Click);
             // 
-            // btnProfilePageDashboard
+            // btnDashboard
             // 
-            this.btnProfilePageDashboard.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageDashboard.Location = new System.Drawing.Point(31, 9);
-            this.btnProfilePageDashboard.Name = "btnProfilePageDashboard";
-            this.btnProfilePageDashboard.Size = new System.Drawing.Size(75, 23);
-            this.btnProfilePageDashboard.TabIndex = 0;
-            this.btnProfilePageDashboard.Text = "Dashboard";
-            this.btnProfilePageDashboard.UseVisualStyleBackColor = false;
+            this.btnDashboard.BackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnDashboard.ForeColor = System.Drawing.Color.White;
+            this.btnDashboard.Location = new System.Drawing.Point(31, 9);
+            this.btnDashboard.Name = "btnDashboard";
+            this.btnDashboard.Size = new System.Drawing.Size(75, 23);
+            this.btnDashboard.TabIndex = 0;
+            this.btnDashboard.Text = "Dashboard";
+            this.btnDashboard.UseVisualStyleBackColor = false;
+            this.btnDashboard.Click += new System.EventHandler(this.btnProfilePageDashboard_Click);
             // 
             // lblJobVacancies
             // 
             this.lblJobVacancies.AutoSize = true;
+            this.lblJobVacancies.BackColor = System.Drawing.Color.Transparent;
             this.lblJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblJobVacancies.Location = new System.Drawing.Point(41, 119);
             this.lblJobVacancies.Name = "lblJobVacancies";
@@ -224,6 +227,7 @@
             // lblSearchJob
             // 
             this.lblSearchJob.AutoSize = true;
+            this.lblSearchJob.BackColor = System.Drawing.Color.Transparent;
             this.lblSearchJob.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSearchJob.Location = new System.Drawing.Point(43, 160);
             this.lblSearchJob.Name = "lblSearchJob";
@@ -246,10 +250,12 @@
             this.btnSearchButton.TabIndex = 15;
             this.btnSearchButton.Text = "Search";
             this.btnSearchButton.UseVisualStyleBackColor = true;
+            this.btnSearchButton.Click += new System.EventHandler(this.btnSearchButton_Click);
             // 
             // lblDepartment
             // 
             this.lblDepartment.AutoSize = true;
+            this.lblDepartment.BackColor = System.Drawing.Color.Transparent;
             this.lblDepartment.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDepartment.Location = new System.Drawing.Point(42, 199);
             this.lblDepartment.Name = "lblDepartment";
@@ -264,6 +270,7 @@
             this.cmbDepartment.Name = "cmbDepartment";
             this.cmbDepartment.Size = new System.Drawing.Size(121, 21);
             this.cmbDepartment.TabIndex = 17;
+            this.cmbDepartment.SelectedIndexChanged += new System.EventHandler(this.cmbDepartment_SelectedIndexChanged);
             // 
             // dgvJobVacancies
             // 
@@ -281,6 +288,7 @@
             this.dgvJobVacancies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvJobVacancies.Size = new System.Drawing.Size(500, 100);
             this.dgvJobVacancies.TabIndex = 18;
+            this.dgvJobVacancies.SelectionChanged += new System.EventHandler(this.dgvJobVacancies_SelectionChanged);
             // 
             // ColJobTitle
             // 
@@ -323,10 +331,10 @@
             // 
             // rtbRequirements
             // 
-            this.rtbRequirements.Location = new System.Drawing.Point(235, 13);
+            this.rtbRequirements.Location = new System.Drawing.Point(301, 13);
             this.rtbRequirements.Name = "rtbRequirements";
             this.rtbRequirements.ReadOnly = true;
-            this.rtbRequirements.Size = new System.Drawing.Size(30, 80);
+            this.rtbRequirements.Size = new System.Drawing.Size(124, 80);
             this.rtbRequirements.TabIndex = 20;
             this.rtbRequirements.Text = "";
             // 
@@ -339,13 +347,14 @@
             this.btnApply.TabIndex = 3;
             this.btnApply.Text = "Apply Now";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // rtbQualification
             // 
-            this.rtbQualification.Location = new System.Drawing.Point(176, 13);
+            this.rtbQualification.Location = new System.Drawing.Point(146, 13);
             this.rtbQualification.Name = "rtbQualification";
             this.rtbQualification.ReadOnly = true;
-            this.rtbQualification.Size = new System.Drawing.Size(30, 80);
+            this.rtbQualification.Size = new System.Drawing.Size(120, 80);
             this.rtbQualification.TabIndex = 3;
             this.rtbQualification.Text = "";
             // 
@@ -390,15 +399,16 @@
             this.Controls.Add(this.txtSearchJob);
             this.Controls.Add(this.lblSearchJob);
             this.Controls.Add(this.lblJobVacancies);
-            this.Controls.Add(this.panelProfilePageNavigation);
+            this.Controls.Add(this.panelNavigation);
             this.Controls.Add(this.panelProfilePageHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Location = new System.Drawing.Point(30, 200);
             this.Name = "JobVacancies";
             this.Text = "JobVacancies";
+            this.Load += new System.EventHandler(this.JobVacancies_Load);
             this.panelProfilePageHeader.ResumeLayout(false);
             this.panelProfilePageHeader.PerformLayout();
-            this.panelProfilePageNavigation.ResumeLayout(false);
+            this.panelNavigation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobVacancies)).EndInit();
             this.grpJobDetails.ResumeLayout(false);
             this.grpJobDetails.PerformLayout();
@@ -413,13 +423,13 @@
         private System.Windows.Forms.Button btnProfilePageClose;
         private System.Windows.Forms.Button btnProfilePageLogout;
         private System.Windows.Forms.Label JobVacancieslblTitle;
-        private System.Windows.Forms.Panel panelProfilePageNavigation;
-        private System.Windows.Forms.Button btnProfilePageStatusTracking;
-        private System.Windows.Forms.Button btnProfilePageDocuments;
+        private System.Windows.Forms.Panel panelNavigation;
+        private System.Windows.Forms.Button btnStatusTracking;
+        private System.Windows.Forms.Button btnDocuments;
         private System.Windows.Forms.Button btnMyApplication;
-        private System.Windows.Forms.Button btnProfilePageJobVacancies;
-        private System.Windows.Forms.Button btnProfilePageMyProfile;
-        private System.Windows.Forms.Button btnProfilePageDashboard;
+        private System.Windows.Forms.Button btnJobVacancies;
+        private System.Windows.Forms.Button btnsMyProfile;
+        private System.Windows.Forms.Button btnDashboard;
         private System.Windows.Forms.Label lblJobVacancies;
         private System.Windows.Forms.Label lblSearchJob;
         private System.Windows.Forms.TextBox txtSearchJob;
