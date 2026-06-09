@@ -308,6 +308,13 @@ namespace HR_Project
 
         private void btnJobVacancies_Click(object sender, EventArgs e)
         {
+            JobVacancies jobVacancies =
+                new JobVacancies();
+
+            jobVacancies.Show();
+
+            this.Hide();
+
             panelNavigation.BringToFront();
         }
 
