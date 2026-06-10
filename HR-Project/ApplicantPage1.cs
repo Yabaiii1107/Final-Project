@@ -27,6 +27,40 @@ namespace HR_Project
             this.MaximizeBox = false;
         }
 
+        private void LoadScreeningNotes()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT update_message, created_at
+                FROM updates
+                WHERE applicant_id = @id
+                ORDER BY created_at DESC
+                LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        string message = reader["update_message"].ToString();
+                        string date = Convert.ToDateTime(reader["created_at"])
+                                             .ToString("MMMM dd, yyyy hh:mm tt");
+
+                        txtScreeningNotes.Text = message + "\n(" + date + ")";
+                    }
+                    else
+                    {
+                        txtScreeningNotes.Text = "No screening notes yet.";
+                    }
+                }
+            }
+        }
+
         private void ApplicantPage1_Load(object sender, EventArgs e)
         {
             LoadApplication();
@@ -100,6 +134,7 @@ namespace HR_Project
                     ColorStepItem(3, interviewDone);
 
                     ApplyApplicationLock(status);
+                    LoadScreeningNotes();
                 }
             }
         }
@@ -133,7 +168,8 @@ namespace HR_Project
 
         private bool CheckHrReviewDone(string status)
         {
-            return status == "Under Review" ||
+            return status == "Submitted" ||
+                   status == "Under Review" ||
                    status == "Shortlisted" ||
                    status == "Interview" ||
                    status == "Final Review" ||
@@ -186,8 +222,7 @@ namespace HR_Project
                 "Technical Panel Interview"
             };
 
-            string prefix = done ? "✓ " : "○ ";
-            clbApplicationSteps.Items[index] = prefix + baseNames[index];
+            clbApplicationSteps.Items[index] = baseNames[index];
         }
 
         private void ApplyApplicationLock(string status)
