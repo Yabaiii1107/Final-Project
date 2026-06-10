@@ -23,6 +23,69 @@ namespace HR_Project.HR_System
             InitializeComponent();
         }
 
+        private void ViewDocument(string documentType)
+        {
+            if (dgvApplicants.CurrentRow == null ||
+                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null)
+            {
+                MessageBox.Show("Please select an applicant first.");
+                return;
+            }
+
+            if (!int.TryParse(
+                    dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
+                    out int applicantId))
+            {
+                MessageBox.Show("Invalid Applicant ID.");
+                return;
+            }
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT file_name, file_data
+                FROM applicant_documents
+                WHERE applicant_id   = @id
+                  AND document_type  LIKE @type
+                ORDER BY upload_date DESC
+                LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", applicantId);
+                cmd.Parameters.AddWithValue("@type", "%" + documentType + "%");
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (!reader.Read())
+                    {
+                        MessageBox.Show(
+                            $"No {documentType} found for this applicant.",
+                            "No Document",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                        return;
+                    }
+
+                    string fileName = reader["file_name"].ToString();
+                    byte[] fileData = (byte[])reader["file_data"];
+
+                    string tempPath = System.IO.Path.Combine(
+                        System.IO.Path.GetTempPath(), fileName);
+
+                    System.IO.File.WriteAllBytes(tempPath, fileData);
+
+                    System.Diagnostics.Process.Start(
+                        new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = tempPath,
+                            UseShellExecute = true
+                        });
+                }
+            }
+        }
+
         private void LoadApplicants()
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -31,12 +94,12 @@ namespace HR_Project.HR_System
 
                 string query = @"
                 SELECT
-                    ap.id AS ApplicantID,
+                    ap.id                                    AS ApplicantID,
                     CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                    j.position AS PositionApplied,  
-                    a.status AS Status
+                    COALESCE(j.position, 'No position yet')  AS PositionApplied,
+                    COALESCE(a.status,   'Draft')            AS Status
                 FROM applicants ap
-                LEFT JOIN applications a ON ap.id = a.applicant_id
+                LEFT JOIN applications a  ON ap.id = a.applicant_id
                 LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id";
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
@@ -44,7 +107,7 @@ namespace HR_Project.HR_System
                 dt.Clear();
                 adapter.Fill(dt);
 
-                dgvApplicants.DataSource = null;   // IMPORTANT RESET
+                dgvApplicants.DataSource = null;
                 dgvApplicants.AutoGenerateColumns = true;
                 dgvApplicants.DataSource = dt;
             }
@@ -57,27 +120,28 @@ namespace HR_Project.HR_System
                 conn.Open();
 
                 string query = @"
-                    SELECT
-                        a.application_id AS ApplicationID,
-                        ap.id AS ApplicantID,
-                        CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                        j.position AS PositionApplied,
-                        a.status AS Status
-                    FROM applicants ap
-                    LEFT JOIN applications a ON ap.id = a.applicant_id
-                    LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
-                    WHERE 1=1";
+                SELECT
+                    a.application_id                        AS ApplicationID,
+                    ap.id                                   AS ApplicantID,
+                    CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
+                    COALESCE(j.position, 'No position yet') AS PositionApplied,
+                    COALESCE(a.status,   'Draft')           AS Status
+                FROM applicants ap
+                LEFT JOIN applications a  ON ap.id = a.applicant_id
+                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
+                WHERE 1=1";
 
                 if (!string.IsNullOrWhiteSpace(txtBoxSearchApplicant.Text))
                     query += " AND CONCAT(ap.first_name, ' ', ap.last_name) LIKE @search";
 
                 if (cmbBoxFilterStatus.Text != "All")
-                    query += " AND a.status = @status";
+                    query += " AND COALESCE(a.status, 'Draft') = @status";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 if (!string.IsNullOrWhiteSpace(txtBoxSearchApplicant.Text))
-                    cmd.Parameters.AddWithValue("@search", "%" + txtBoxSearchApplicant.Text + "%");
+                    cmd.Parameters.AddWithValue("@search",
+                        "%" + txtBoxSearchApplicant.Text + "%");
 
                 if (cmbBoxFilterStatus.Text != "All")
                     cmd.Parameters.AddWithValue("@status", cmbBoxFilterStatus.Text);
@@ -97,22 +161,21 @@ namespace HR_Project.HR_System
                 conn.Open();
 
                 string query = @"
-                    SELECT
-                        ap.id,
-                        CONCAT(ap.first_name,' ',ap.last_name) AS ApplicantName,
-                        ap.first_name,
-                        ap.last_name,
-                        ap.email,
-                        ap.contact,
-                        j.position,
-                        a.application_date,
-                        a.status
-                    FROM applicants ap
-                    LEFT JOIN applications a
-                        ON ap.id = a.applicant_id
-                    LEFT JOIN job_vacancies j
-                        ON a.vacancy_id = j.vacancy_id
-                    WHERE ap.id = @id";
+                SELECT
+                    ap.id,
+                    ap.first_name,
+                    ap.last_name,
+                    ap.email,
+                    ap.contact,
+                    COALESCE(j.position, 'No position yet') AS position,
+                    a.application_date,
+                    COALESCE(a.status, 'Draft')             AS status
+                FROM applicants ap
+                LEFT JOIN applications a
+                    ON ap.id = a.applicant_id
+                LEFT JOIN job_vacancies j
+                    ON a.vacancy_id = j.vacancy_id
+                WHERE ap.id = @id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", applicantId);
@@ -122,34 +185,27 @@ namespace HR_Project.HR_System
                     if (reader.Read())
                     {
                         lblApplicantID1.Text = reader["id"].ToString();
-
-                        lblFullName1.Text =
-                            reader["first_name"].ToString() + " " +
-                            reader["last_name"].ToString();
-
+                        lblFullName1.Text = reader["first_name"] + " " +
+                                                  reader["last_name"];
                         lblEmail1.Text = reader["email"].ToString();
                         lblContactNumber1.Text = reader["contact"].ToString();
-
-                        lblPositionApplied1.Text =
-                            reader["position"]?.ToString() ?? "No application yet";
+                        lblPositionApplied1.Text = reader["position"].ToString();
 
                         lblApplicationDate1.Text =
                             reader["application_date"] == DBNull.Value
-                                ? "N/A"
-                                : Convert.ToDateTime(reader["application_date"])
-                                    .ToString("MMMM dd, yyyy");
+                            ? "N/A"
+                            : Convert.ToDateTime(reader["application_date"])
+                                .ToString("MMMM dd, yyyy");
 
-                        cmbCurrentStatus.Text =
-                            reader["status"]?.ToString() ?? "Pending";
+                        cmbCurrentStatus.Text = reader["status"].ToString();
                     }
                 }
-
             }
         }
 
         private void btnResumeView_Click(object sender, EventArgs e)
         {
-
+            ViewDocument("Resume");
         }
 
         private void dgvApplicants_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -164,6 +220,7 @@ namespace HR_Project.HR_System
             cmbBoxFilterStatus.Items.Clear();
 
             cmbBoxFilterStatus.Items.Add("All");
+            cmbBoxFilterStatus.Items.Add("Draft");
             cmbBoxFilterStatus.Items.Add("Submitted");
             cmbBoxFilterStatus.Items.Add("Under Review");
             cmbBoxFilterStatus.Items.Add("Shortlisted");
@@ -171,6 +228,7 @@ namespace HR_Project.HR_System
             cmbBoxFilterStatus.Items.Add("Final Review");
             cmbBoxFilterStatus.Items.Add("Accepted");
             cmbBoxFilterStatus.Items.Add("Rejected");
+            cmbBoxFilterStatus.Items.Add("Withdrawn");
 
             cmbBoxFilterStatus.SelectedIndex = 0;
 
@@ -178,6 +236,8 @@ namespace HR_Project.HR_System
 
             cmbCurrentStatus.Items.Clear();
 
+            cmbCurrentStatus.Items.Add("Draft");
+            cmbCurrentStatus.Items.Add("Submitted");
             cmbCurrentStatus.Items.Add("Under Review");
             cmbCurrentStatus.Items.Add("Shortlisted");
             cmbCurrentStatus.Items.Add("For Interview");
@@ -186,6 +246,7 @@ namespace HR_Project.HR_System
 
             cmbCurrentStatus.Items.Add("Accepted");
             cmbCurrentStatus.Items.Add("Rejected");
+            cmbCurrentStatus.Items.Add("Withdrawn");
 
             cmbCurrentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
         }
@@ -472,7 +533,8 @@ namespace HR_Project.HR_System
         {
             if (cmbCurrentStatus.Text == "Accepted" || cmbCurrentStatus.Text == "Rejected")
             {
-                string currentStatus = dgvApplicants.CurrentRow?.Cells["Status"]?.Value?.ToString();
+                string currentStatus =
+                    dgvApplicants.CurrentRow?.Cells["Status"]?.Value?.ToString();
 
                 if (currentStatus != "Final Review")
                 {
@@ -535,6 +597,26 @@ namespace HR_Project.HR_System
 
                 this.Hide();
             }
+        }
+
+        private void btnGovernmentIDView_Click(object sender, EventArgs e)
+        {
+            ViewDocument("Government ID");
+        }
+
+        private void btnTranscriptView_Click(object sender, EventArgs e)
+        {
+            ViewDocument("Transcript");
+        }
+
+        private void btnCertificatesView_Click(object sender, EventArgs e)
+        {
+            ViewDocument("Certificate");
+        }
+
+        private void btnResumeView_Click_1(object sender, EventArgs e)
+        {
+            ViewDocument("Resume");
         }
     }
 }
