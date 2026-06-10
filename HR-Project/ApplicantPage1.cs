@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
-using System.IO;
 
 namespace HR_Project
 {
@@ -16,7 +9,8 @@ namespace HR_Project
     {
         public int ApplicantId { get; set; }
 
-        string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+        string connectionString =
+            "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
         public ApplicantPage1()
         {
@@ -33,88 +27,191 @@ namespace HR_Project
             this.MaximizeBox = false;
         }
 
+        private void ApplicantPage1_Load(object sender, EventArgs e)
+        {
+            LoadApplication();
+        }
+
         private void LoadApplication()
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
-                string query =
-                @"SELECT
+                string appQuery = @"
+                SELECT
+                    a.application_id,
                     a.application_date,
                     a.status,
-                    a.profile_completed,
-                    a.documents_uploaded,
-                    a.hr_review,
-                    a.technical_interview,
-
-                    j.position,
-                    j.department
-
+                    COALESCE(j.position,   'Not yet selected') AS position,
+                    COALESCE(j.department, 'Not yet selected') AS department
                 FROM applications a
-
-                INNER JOIN job_vacancies j
+                LEFT JOIN job_vacancies j      
                     ON a.vacancy_id = j.vacancy_id
-
                 WHERE a.applicant_id = @id
-
                 ORDER BY a.application_date DESC
-
                 LIMIT 1";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(appQuery, conn);
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
 
-                cmd.Parameters.AddWithValue(
-                    "@id",
-                    ApplicantId);
-
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    txtJobTitle.Text =
-                        reader["position"].ToString();
+                    if (!reader.Read())
+                    {
+                        txtJobTitle.Text = "No application found";
+                        txtDept.Text = "-";
+                        lblCurrentStatus.Text = "Current Status: None";
+                        lblStatusDescription.Text = "You have not applied for any position yet.";
+                        return;
+                    }
 
-                    txtDept.Text =
-                        reader["department"].ToString();
+                    int applicationId = Convert.ToInt32(reader["application_id"]);
+                    string status = reader["status"].ToString();
 
-                    dtpDataFiled.Value =
-                        Convert.ToDateTime(
-                        reader["application_date"]);
+                    txtJobTitle.Text = reader["position"].ToString();
+                    txtDept.Text = reader["department"].ToString();
+                    dtpDataFiled.Value = Convert.ToDateTime(reader["application_date"]);
+                    lblCurrentStatus.Text = "Current Status: " + status;
 
-                    lblCurrentStatus.Text =
-                        "Current Status: " +
-                        reader["status"].ToString();
+                    lblStatusDescription.Text = GetStatusDescription(status);
+                    lblCurrentStatus.ForeColor = GetStatusColor(status);
 
-                    lblStatusDescription.Text =
-                        GetStatusDescription(
-                        reader["status"].ToString());
+                    reader.Close();
 
-                    clbApplicationSteps.SetItemChecked(
-                        0,
-                        Convert.ToBoolean(
-                        reader["profile_completed"]));
+                    bool profileDone = CheckProfileCompleted(conn);
+                    bool documentsDone = CheckDocumentsUploaded(conn);
+                    bool hrReviewDone = CheckHrReviewDone(status);
+                    bool interviewDone = CheckInterviewDone(status);
 
-                    clbApplicationSteps.SetItemChecked(
-                        1,
-                        Convert.ToBoolean(
-                        reader["documents_uploaded"]));
+                    UpdateStepFlags(
+                        conn, applicationId,
+                        profileDone, documentsDone,
+                        hrReviewDone, interviewDone);
 
-                    clbApplicationSteps.SetItemChecked(
-                        2,
-                        Convert.ToBoolean(
-                        reader["hr_review"]));
+                    clbApplicationSteps.SetItemChecked(0, profileDone);
+                    clbApplicationSteps.SetItemChecked(1, documentsDone);
+                    clbApplicationSteps.SetItemChecked(2, hrReviewDone);
+                    clbApplicationSteps.SetItemChecked(3, interviewDone);
 
-                    clbApplicationSteps.SetItemChecked(
-                        3,
-                        Convert.ToBoolean(
-                        reader["technical_interview"]));
+                    ColorStepItem(0, profileDone);
+                    ColorStepItem(1, documentsDone);
+                    ColorStepItem(2, hrReviewDone);
+                    ColorStepItem(3, interviewDone);
+
+                    ApplyApplicationLock(status);
                 }
+            }
+        }
 
-                reader.Close();
+        private bool CheckProfileCompleted(MySqlConnection conn)
+        {
+            string query = @"
+                SELECT COUNT(*) FROM applicant_profiles
+                WHERE applicant_id = @id
+                  AND gender        IS NOT NULL
+                  AND address       IS NOT NULL
+                  AND address       <> ''
+                  AND province      IS NOT NULL
+                  AND province      <> ''";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", ApplicantId);
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+        }
+
+        private bool CheckDocumentsUploaded(MySqlConnection conn)
+        {
+            string query = @"
+                SELECT COUNT(*) FROM applicant_documents
+                WHERE applicant_id = @id";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", ApplicantId);
+            return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+        }
+
+        private bool CheckHrReviewDone(string status)
+        {
+            return status == "Under Review" ||
+                   status == "Shortlisted" ||
+                   status == "Interview" ||
+                   status == "Final Review" ||
+                   status == "Accepted" ||
+                   status == "Rejected";
+        }
+
+        private bool CheckInterviewDone(string status)
+        {
+            return status == "Interview" ||
+                   status == "Final Review" ||
+                   status == "Accepted" ||
+                   status == "Rejected";
+        }
+
+        private void UpdateStepFlags(
+            MySqlConnection conn,
+            int applicationId,
+            bool profileDone,
+            bool documentsDone,
+            bool hrReviewDone,
+            bool interviewDone)
+        {
+            string query = @"
+            UPDATE applications
+            SET
+               profile_completed    = @p,
+               documents_uploaded   = @d,
+               hr_review            = @h,
+               technical_interview  = @t
+            WHERE application_id = @id";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@p", profileDone ? 1 : 0);
+            cmd.Parameters.AddWithValue("@d", documentsDone ? 1 : 0);
+            cmd.Parameters.AddWithValue("@h", hrReviewDone ? 1 : 0);
+            cmd.Parameters.AddWithValue("@t", interviewDone ? 1 : 0);
+            cmd.Parameters.AddWithValue("@id", applicationId);
+            cmd.ExecuteNonQuery();
+        }
+
+
+        private void ColorStepItem(int index, bool done)
+        {
+            string[] baseNames = new string[]
+            {
+                "Profile Completed",
+                "Mandatory Documents Uploaded",
+                "HR Preliminary Review",
+                "Technical Panel Interview"
+            };
+
+            string prefix = done ? "✓ " : "○ ";
+            clbApplicationSteps.Items[index] = prefix + baseNames[index];
+        }
+
+        private void ApplyApplicationLock(string status)
+        {
+            bool isLocked = status == "Under Review" ||
+                            status == "Shortlisted" ||
+                            status == "Interview" ||
+                            status == "Final Review" ||
+                            status == "Accepted" ||
+                            status == "Rejected";
+
+            if (isLocked)
+            {
+                btnMyDocumentsDocuments.Enabled = false;
+                btnMyDocumentsDocuments.Text = "Documents (Locked)";
+                lblCurrentStatus.ForeColor = Color.OrangeRed;
+                lblStatusDescription.Text =
+                    GetStatusDescription(status) +
+                    "\nDocuments are locked while under review.";
+            }
+            else
+            {
+                btnMyDocumentsDocuments.Enabled = true;
+                btnMyDocumentsDocuments.Text = "Documents";
             }
         }
 
@@ -122,117 +219,111 @@ namespace HR_Project
         {
             switch (status)
             {
-                case "Submitted":
-                    return "Application submitted successfully.";
-
-                case "Under Review":
-                    return "HR is reviewing your application.";
-
-                case "Shortlisted":
-                    return "You have been shortlisted.";
-
-                case "Interview":
-                    return "Interview schedule will be sent.";
-
-                case "Final Review":
-                    return "Final evaluation in progress.";
-
-                case "Accepted":
-                    return "Congratulations! You have been accepted.";
-
-                case "Rejected":
-                    return "Application was not selected.";
-
-                default:
-                    return "Application in progress.";
+                case "Draft": return "You have not submitted an application yet.";
+                case "Submitted": return "Application submitted successfully.";
+                case "Under Review": return "HR is reviewing your application.";
+                case "Shortlisted": return "You have been shortlisted.";
+                case "Interview": return "Interview schedule will be sent.";
+                case "Final Review": return "Final evaluation in progress.";
+                case "Accepted": return "Congratulations! You have been accepted.";
+                case "Rejected": return "Application was not selected.";
+                default: return "Application in progress.";
             }
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private Color GetStatusColor(string status)
         {
-
-        }
-
-        private void grpPositionInfo_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnMyDocumentsMyApplication_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ApplicantPage1_Load(object sender, EventArgs e)
-        {
-            LoadApplication();
+            switch (status)
+            {
+                case "Draft": return Color.Gray;
+                case "Submitted": return Color.SteelBlue;
+                case "Under Review": return Color.Orange;
+                case "Shortlisted": return Color.DodgerBlue;
+                case "Interview": return Color.MediumPurple;
+                case "Final Review": return Color.DarkOrange;
+                case "Accepted": return Color.Green;
+                case "Rejected": return Color.Red;
+                default: return Color.Black;
+            }
         }
 
         private void btnMyDocumentsMyProfile_Click(object sender, EventArgs e)
         {
+            profilepage profile = new profilepage(ApplicantId);
+            profile.FormClosed += (s, args) => this.Show();
             this.Hide();
-
-            profilepage profile =
-                Application.OpenForms["profilepage"]
-                as profilepage;
-
-            if (profile == null)
-            {
-                profile = new profilepage(ApplicantId);
-            }
-
             profile.Show();
         }
 
         private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
         {
             Dashboard dashboard = new Dashboard();
-
             dashboard.ApplicantId = ApplicantId;
-
-            dashboard.Show();
-
+            dashboard.FormClosed += (s, args) => this.Show();
             this.Hide();
+            dashboard.Show();
+        }
+
+        private void btnMyDocumentsDashboard_Click_1(object sender, EventArgs e)
+        {
+            btnMyDocumentsDashboard_Click(sender, e);
         }
 
         private void btnMyDocumentsJobVacancies_Click(object sender, EventArgs e)
         {
             JobVacancies jobs = new JobVacancies();
-
             jobs.applicantId = ApplicantId;
-
-            jobs.Show();
+            jobs.FormClosed += (s, args) => this.Show();
             this.Hide();
-
-            panelMyApplicationNavigation.BringToFront();
+            jobs.Show();
         }
 
         private void btnMyDocumentsDocuments_Click(object sender, EventArgs e)
         {
             DocumentPage doc = new DocumentPage();
-
             doc.ApplicantId = ApplicantId;
-
-            doc.Show();
+            doc.FormClosed += (s, args) => this.Show();
             this.Hide();
-
-            panelMyApplicationNavigation.BringToFront();
+            doc.Show();
         }
 
-        private void btnMyDocumentsDashboard_Click_1(object sender, EventArgs e)
+        private void btnMyDocumentsStatusTracking_Click(object sender, EventArgs e)
         {
-            Dashboard dashboard = new Dashboard();
-
-            dashboard.ApplicantId = ApplicantId;
-
-            dashboard.Show();
-
+            StatusTracking st = new StatusTracking(ApplicantId);
+            st.FormClosed += (s, args) => this.Show();
             this.Hide();
+            st.Show();
+        }
+
+        private void btnMyDocumentsMyApplication_Click(object sender, EventArgs e)
+        {
         }
 
         private void btnProfilePageClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+        private void btnMyDocumentsLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to logout?",
+                "Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Login login = new Login();
+                login.Show();
+                this.Hide();
+            }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) { }
+        private void grpPositionInfo_Enter(object sender, EventArgs e) { }
+        private void panelMyDocumentsHeader_Paint(
+            object sender, System.Windows.Forms.PaintEventArgs e)
+        { }
     }
 }
