@@ -26,6 +26,32 @@ namespace HR_Project
 
         }
 
+        private void LoadDepartments()
+        {
+            cmbDepartment.Items.Clear();
+            cmbDepartment.Items.Add("All");
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT DISTINCT department
+                FROM job_vacancies
+                ORDER BY department ASC";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                        cmbDepartment.Items.Add(reader["department"].ToString());
+                }
+            }
+
+            cmbDepartment.SelectedIndex = 0;
+        }
+
         private void RefreshApplicationButtons()
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -141,11 +167,10 @@ namespace HR_Project
 
             LoadJobs();
 
-            cmbDepartment.Items.Add("All");
-            cmbDepartment.Items.Add("IT");
-            cmbDepartment.Items.Add("Human Resources");
-            cmbDepartment.Items.Add("Finance");
-            cmbDepartment.SelectedIndex = 0;
+            EnsureDraftExists();
+            LoadJobs();
+            LoadDepartments();  
+            RefreshApplicationButtons();
 
             RefreshApplicationButtons();
         }
