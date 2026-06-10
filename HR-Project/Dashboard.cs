@@ -267,6 +267,10 @@ namespace HR_Project
 
         private void btnStatusTracking_Click(object sender, EventArgs e)
         {
+            StatusTracking st = new StatusTracking(ApplicantId);
+            st.Show();
+            this.Hide();
+
             panelNavigation.BringToFront();
         }
 
@@ -416,7 +420,20 @@ namespace HR_Project
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to logout?",
+                "Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Login login = new Login();
+
+                login.Show();
+
+                this.Hide();
+            }
         }
 
         private void lblApplicantName1_Click(object sender, EventArgs e)
