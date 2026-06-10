@@ -187,6 +187,7 @@ namespace HR_Project.HR_System
             this.btnInterviews.TabIndex = 2;
             this.btnInterviews.Text = "Interviews";
             this.btnInterviews.UseVisualStyleBackColor = false;
+            this.btnInterviews.Click += new System.EventHandler(this.btnInterviews_Click);
             // 
             // btnScreening
             // 
@@ -201,6 +202,7 @@ namespace HR_Project.HR_System
             this.btnScreening.TabIndex = 2;
             this.btnScreening.Text = "Screening";
             this.btnScreening.UseVisualStyleBackColor = false;
+            this.btnScreening.Click += new System.EventHandler(this.btnScreening_Click);
             // 
             // btnApplicants
             // 
