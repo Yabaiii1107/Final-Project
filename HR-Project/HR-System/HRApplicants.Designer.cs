@@ -47,6 +47,7 @@ namespace HR_Project.HR_System
             this.cmbBoxFilterStatus = new System.Windows.Forms.ComboBox();
             this.dgvApplicants = new System.Windows.Forms.DataGridView();
             this.grpBoxApplicantDetails = new System.Windows.Forms.GroupBox();
+            this.btnViewFullProfile = new System.Windows.Forms.Button();
             this.cmbCurrentStatus = new System.Windows.Forms.ComboBox();
             this.lblCurrentStatus = new System.Windows.Forms.Label();
             this.lblApplicationDate1 = new System.Windows.Forms.Label();
@@ -73,7 +74,6 @@ namespace HR_Project.HR_System
             this.grpBoxActions = new System.Windows.Forms.GroupBox();
             this.btnScheduleInterview = new System.Windows.Forms.Button();
             this.btnUpdateStatus = new System.Windows.Forms.Button();
-            this.btnViewFullProfile = new System.Windows.Forms.Button();
             this.panelHeader.SuspendLayout();
             this.panelNavigation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApplicants)).BeginInit();
@@ -333,6 +333,16 @@ namespace HR_Project.HR_System
             this.grpBoxApplicantDetails.TabStop = false;
             this.grpBoxApplicantDetails.Text = "Applicant Details";
             // 
+            // btnViewFullProfile
+            // 
+            this.btnViewFullProfile.Location = new System.Drawing.Point(152, 198);
+            this.btnViewFullProfile.Name = "btnViewFullProfile";
+            this.btnViewFullProfile.Size = new System.Drawing.Size(96, 23);
+            this.btnViewFullProfile.TabIndex = 32;
+            this.btnViewFullProfile.Text = "Applicant Profile";
+            this.btnViewFullProfile.UseVisualStyleBackColor = true;
+            this.btnViewFullProfile.Click += new System.EventHandler(this.btnViewFullProfile_Click);
+            // 
             // cmbCurrentStatus
             // 
             this.cmbCurrentStatus.FormattingEnabled = true;
@@ -511,6 +521,7 @@ namespace HR_Project.HR_System
             this.btnCertificatesView.TabIndex = 32;
             this.btnCertificatesView.Text = "View";
             this.btnCertificatesView.UseVisualStyleBackColor = true;
+            this.btnCertificatesView.Click += new System.EventHandler(this.btnCertificatesView_Click);
             // 
             // btnTranscriptView
             // 
@@ -520,6 +531,7 @@ namespace HR_Project.HR_System
             this.btnTranscriptView.TabIndex = 31;
             this.btnTranscriptView.Text = "View";
             this.btnTranscriptView.UseVisualStyleBackColor = true;
+            this.btnTranscriptView.Click += new System.EventHandler(this.btnTranscriptView_Click);
             // 
             // btnGovernmentIDView
             // 
@@ -529,6 +541,7 @@ namespace HR_Project.HR_System
             this.btnGovernmentIDView.TabIndex = 30;
             this.btnGovernmentIDView.Text = "View";
             this.btnGovernmentIDView.UseVisualStyleBackColor = true;
+            this.btnGovernmentIDView.Click += new System.EventHandler(this.btnGovernmentIDView_Click);
             // 
             // btnResumeView
             // 
@@ -538,6 +551,7 @@ namespace HR_Project.HR_System
             this.btnResumeView.TabIndex = 29;
             this.btnResumeView.Text = "View";
             this.btnResumeView.UseVisualStyleBackColor = true;
+            this.btnResumeView.Click += new System.EventHandler(this.btnResumeView_Click_1);
             // 
             // lblCertificates
             // 
@@ -613,16 +627,6 @@ namespace HR_Project.HR_System
             this.btnUpdateStatus.Text = "Update Status";
             this.btnUpdateStatus.UseVisualStyleBackColor = true;
             this.btnUpdateStatus.Click += new System.EventHandler(this.btnUpdateStatus_Click);
-            // 
-            // btnViewFullProfile
-            // 
-            this.btnViewFullProfile.Location = new System.Drawing.Point(152, 198);
-            this.btnViewFullProfile.Name = "btnViewFullProfile";
-            this.btnViewFullProfile.Size = new System.Drawing.Size(96, 23);
-            this.btnViewFullProfile.TabIndex = 32;
-            this.btnViewFullProfile.Text = "Applicant Profile";
-            this.btnViewFullProfile.UseVisualStyleBackColor = true;
-            this.btnViewFullProfile.Click += new System.EventHandler(this.btnViewFullProfile_Click);
             // 
             // HRApplicants
             // 
