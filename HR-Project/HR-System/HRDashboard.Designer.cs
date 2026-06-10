@@ -1,4 +1,4 @@
-﻿namespace HR_Project.HR_System
+namespace HR_Project.HR_System
 {
     partial class HRDashboard
     {
@@ -33,26 +33,26 @@
             this.btnMyDocumentsLogout = new System.Windows.Forms.Button();
             this.lblMyDocumentsTitle = new System.Windows.Forms.Label();
             this.panelMyDocumentsNavigation = new System.Windows.Forms.Panel();
+            this.btnReports = new System.Windows.Forms.Button();
             this.btnHiringDecision = new System.Windows.Forms.Button();
             this.btnInterviews = new System.Windows.Forms.Button();
             this.btnScreening = new System.Windows.Forms.Button();
             this.btnApplicants = new System.Windows.Forms.Button();
             this.btnJobVacanciesManagement = new System.Windows.Forms.Button();
             this.btnMyDocumentsDashboard = new System.Windows.Forms.Button();
-            this.btnReports = new System.Windows.Forms.Button();
             this.panelApplicants = new System.Windows.Forms.Panel();
-            this.panelJobs = new System.Windows.Forms.Panel();
-            this.panelInterviews = new System.Windows.Forms.Panel();
-            this.panelAccepted = new System.Windows.Forms.Panel();
-            this.lblWelcomeHR = new System.Windows.Forms.Label();
-            this.lblApplicants = new System.Windows.Forms.Label();
             this.lblApplicantCount = new System.Windows.Forms.Label();
-            this.lblJobs = new System.Windows.Forms.Label();
+            this.lblApplicants = new System.Windows.Forms.Label();
+            this.panelJobs = new System.Windows.Forms.Panel();
             this.lblOpenJobsCount = new System.Windows.Forms.Label();
-            this.lblInterviews = new System.Windows.Forms.Label();
+            this.lblJobs = new System.Windows.Forms.Label();
+            this.panelInterviews = new System.Windows.Forms.Panel();
             this.lblInterviewsCount = new System.Windows.Forms.Label();
-            this.lblAccepted = new System.Windows.Forms.Label();
+            this.lblInterviews = new System.Windows.Forms.Label();
+            this.panelAccepted = new System.Windows.Forms.Panel();
             this.lblAcceptedCount = new System.Windows.Forms.Label();
+            this.lblAccepted = new System.Windows.Forms.Label();
+            this.lblWelcomeHR = new System.Windows.Forms.Label();
             this.dgvPendingReviews = new System.Windows.Forms.DataGridView();
             this.ApplicantName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -103,6 +103,7 @@
             this.btnProfilePageClose.TabIndex = 4;
             this.btnProfilePageClose.Text = "X";
             this.btnProfilePageClose.UseVisualStyleBackColor = false;
+            this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click);
             // 
             // btnMyDocumentsLogout
             // 
@@ -112,6 +113,7 @@
             this.btnMyDocumentsLogout.TabIndex = 3;
             this.btnMyDocumentsLogout.Text = "Logout";
             this.btnMyDocumentsLogout.UseVisualStyleBackColor = true;
+            this.btnMyDocumentsLogout.Click += new System.EventHandler(this.btnMyDocumentsLogout_Click);
             // 
             // lblMyDocumentsTitle
             // 
@@ -138,6 +140,20 @@
             this.panelMyDocumentsNavigation.Name = "panelMyDocumentsNavigation";
             this.panelMyDocumentsNavigation.Size = new System.Drawing.Size(869, 42);
             this.panelMyDocumentsNavigation.TabIndex = 14;
+            // 
+            // btnReports
+            // 
+            this.btnReports.BackColor = System.Drawing.Color.Blue;
+            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
+            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnReports.ForeColor = System.Drawing.Color.White;
+            this.btnReports.Location = new System.Drawing.Point(731, 9);
+            this.btnReports.Name = "btnReports";
+            this.btnReports.Size = new System.Drawing.Size(96, 23);
+            this.btnReports.TabIndex = 4;
+            this.btnReports.Text = "Reports";
+            this.btnReports.UseVisualStyleBackColor = false;
             // 
             // btnHiringDecision
             // 
@@ -211,6 +227,7 @@
             this.btnJobVacanciesManagement.TabIndex = 1;
             this.btnJobVacanciesManagement.Text = "Job Vacancies";
             this.btnJobVacanciesManagement.UseVisualStyleBackColor = false;
+            this.btnJobVacanciesManagement.Click += new System.EventHandler(this.btnJobVacanciesManagement_Click);
             // 
             // btnMyDocumentsDashboard
             // 
@@ -228,20 +245,6 @@
             this.btnMyDocumentsDashboard.Text = "Dashboard";
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
             // 
-            // btnReports
-            // 
-            this.btnReports.BackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnReports.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Location = new System.Drawing.Point(731, 9);
-            this.btnReports.Name = "btnReports";
-            this.btnReports.Size = new System.Drawing.Size(96, 23);
-            this.btnReports.TabIndex = 4;
-            this.btnReports.Text = "Reports";
-            this.btnReports.UseVisualStyleBackColor = false;
-            // 
             // panelApplicants
             // 
             this.panelApplicants.Controls.Add(this.lblApplicantCount);
@@ -250,56 +253,6 @@
             this.panelApplicants.Name = "panelApplicants";
             this.panelApplicants.Size = new System.Drawing.Size(141, 100);
             this.panelApplicants.TabIndex = 15;
-            // 
-            // panelJobs
-            // 
-            this.panelJobs.Controls.Add(this.lblOpenJobsCount);
-            this.panelJobs.Controls.Add(this.lblJobs);
-            this.panelJobs.Location = new System.Drawing.Point(230, 151);
-            this.panelJobs.Name = "panelJobs";
-            this.panelJobs.Size = new System.Drawing.Size(141, 100);
-            this.panelJobs.TabIndex = 16;
-            // 
-            // panelInterviews
-            // 
-            this.panelInterviews.Controls.Add(this.lblInterviewsCount);
-            this.panelInterviews.Controls.Add(this.lblInterviews);
-            this.panelInterviews.Location = new System.Drawing.Point(468, 151);
-            this.panelInterviews.Name = "panelInterviews";
-            this.panelInterviews.Size = new System.Drawing.Size(141, 100);
-            this.panelInterviews.TabIndex = 16;
-            // 
-            // panelAccepted
-            // 
-            this.panelAccepted.Controls.Add(this.lblAcceptedCount);
-            this.panelAccepted.Controls.Add(this.lblAccepted);
-            this.panelAccepted.Location = new System.Drawing.Point(716, 151);
-            this.panelAccepted.Name = "panelAccepted";
-            this.panelAccepted.Size = new System.Drawing.Size(141, 100);
-            this.panelAccepted.TabIndex = 16;
-            // 
-            // lblWelcomeHR
-            // 
-            this.lblWelcomeHR.AutoSize = true;
-            this.lblWelcomeHR.BackColor = System.Drawing.Color.Transparent;
-            this.lblWelcomeHR.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWelcomeHR.Location = new System.Drawing.Point(27, 114);
-            this.lblWelcomeHR.Name = "lblWelcomeHR";
-            this.lblWelcomeHR.Size = new System.Drawing.Size(161, 20);
-            this.lblWelcomeHR.TabIndex = 17;
-            this.lblWelcomeHR.Text = "Welcome Admin!";
-            // 
-            // lblApplicants
-            // 
-            this.lblApplicants.AutoSize = true;
-            this.lblApplicants.BackColor = System.Drawing.Color.Transparent;
-            this.lblApplicants.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicants.ForeColor = System.Drawing.Color.Black;
-            this.lblApplicants.Location = new System.Drawing.Point(38, 0);
-            this.lblApplicants.Name = "lblApplicants";
-            this.lblApplicants.Size = new System.Drawing.Size(66, 13);
-            this.lblApplicants.TabIndex = 0;
-            this.lblApplicants.Text = "Applicants";
             // 
             // lblApplicantCount
             // 
@@ -314,17 +267,26 @@
             this.lblApplicantCount.TabIndex = 1;
             this.lblApplicantCount.Text = "Applicants Count";
             // 
-            // lblJobs
+            // lblApplicants
             // 
-            this.lblJobs.AutoSize = true;
-            this.lblJobs.BackColor = System.Drawing.Color.Transparent;
-            this.lblJobs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJobs.ForeColor = System.Drawing.Color.Black;
-            this.lblJobs.Location = new System.Drawing.Point(38, 0);
-            this.lblJobs.Name = "lblJobs";
-            this.lblJobs.Size = new System.Drawing.Size(67, 13);
-            this.lblJobs.TabIndex = 1;
-            this.lblJobs.Text = "Open Jobs";
+            this.lblApplicants.AutoSize = true;
+            this.lblApplicants.BackColor = System.Drawing.Color.Transparent;
+            this.lblApplicants.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicants.ForeColor = System.Drawing.Color.Black;
+            this.lblApplicants.Location = new System.Drawing.Point(38, 0);
+            this.lblApplicants.Name = "lblApplicants";
+            this.lblApplicants.Size = new System.Drawing.Size(66, 13);
+            this.lblApplicants.TabIndex = 0;
+            this.lblApplicants.Text = "Applicants";
+            // 
+            // panelJobs
+            // 
+            this.panelJobs.Controls.Add(this.lblOpenJobsCount);
+            this.panelJobs.Controls.Add(this.lblJobs);
+            this.panelJobs.Location = new System.Drawing.Point(230, 151);
+            this.panelJobs.Name = "panelJobs";
+            this.panelJobs.Size = new System.Drawing.Size(141, 100);
+            this.panelJobs.TabIndex = 16;
             // 
             // lblOpenJobsCount
             // 
@@ -339,6 +301,40 @@
             this.lblOpenJobsCount.TabIndex = 2;
             this.lblOpenJobsCount.Text = "Jobs Count";
             // 
+            // lblJobs
+            // 
+            this.lblJobs.AutoSize = true;
+            this.lblJobs.BackColor = System.Drawing.Color.Transparent;
+            this.lblJobs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobs.ForeColor = System.Drawing.Color.Black;
+            this.lblJobs.Location = new System.Drawing.Point(38, 0);
+            this.lblJobs.Name = "lblJobs";
+            this.lblJobs.Size = new System.Drawing.Size(67, 13);
+            this.lblJobs.TabIndex = 1;
+            this.lblJobs.Text = "Open Jobs";
+            // 
+            // panelInterviews
+            // 
+            this.panelInterviews.Controls.Add(this.lblInterviewsCount);
+            this.panelInterviews.Controls.Add(this.lblInterviews);
+            this.panelInterviews.Location = new System.Drawing.Point(468, 151);
+            this.panelInterviews.Name = "panelInterviews";
+            this.panelInterviews.Size = new System.Drawing.Size(141, 100);
+            this.panelInterviews.TabIndex = 16;
+            // 
+            // lblInterviewsCount
+            // 
+            this.lblInterviewsCount.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.lblInterviewsCount.AutoSize = true;
+            this.lblInterviewsCount.BackColor = System.Drawing.Color.Transparent;
+            this.lblInterviewsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInterviewsCount.ForeColor = System.Drawing.Color.Black;
+            this.lblInterviewsCount.Location = new System.Drawing.Point(26, 44);
+            this.lblInterviewsCount.Name = "lblInterviewsCount";
+            this.lblInterviewsCount.Size = new System.Drawing.Size(86, 13);
+            this.lblInterviewsCount.TabIndex = 3;
+            this.lblInterviewsCount.Text = "Interviews Count";
+            // 
             // lblInterviews
             // 
             this.lblInterviews.AutoSize = true;
@@ -351,30 +347,14 @@
             this.lblInterviews.TabIndex = 2;
             this.lblInterviews.Text = "Interviews";
             // 
-            // lblInterviewsCount
+            // panelAccepted
             // 
-            this.lblInterviewsCount.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
-            this.lblInterviewsCount.AutoSize = true;
-            this.lblInterviewsCount.BackColor = System.Drawing.Color.Transparent;
-            this.lblInterviewsCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInterviewsCount.ForeColor = System.Drawing.Color.Black;
-            this.lblInterviewsCount.Location = new System.Drawing.Point(40, 44);
-            this.lblInterviewsCount.Name = "lblInterviewsCount";
-            this.lblInterviewsCount.Size = new System.Drawing.Size(86, 13);
-            this.lblInterviewsCount.TabIndex = 3;
-            this.lblInterviewsCount.Text = "Interviews Count";
-            // 
-            // lblAccepted
-            // 
-            this.lblAccepted.AutoSize = true;
-            this.lblAccepted.BackColor = System.Drawing.Color.Transparent;
-            this.lblAccepted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAccepted.ForeColor = System.Drawing.Color.Black;
-            this.lblAccepted.Location = new System.Drawing.Point(33, 0);
-            this.lblAccepted.Name = "lblAccepted";
-            this.lblAccepted.Size = new System.Drawing.Size(61, 13);
-            this.lblAccepted.TabIndex = 3;
-            this.lblAccepted.Text = "Accepted";
+            this.panelAccepted.Controls.Add(this.lblAcceptedCount);
+            this.panelAccepted.Controls.Add(this.lblAccepted);
+            this.panelAccepted.Location = new System.Drawing.Point(716, 151);
+            this.panelAccepted.Name = "panelAccepted";
+            this.panelAccepted.Size = new System.Drawing.Size(141, 100);
+            this.panelAccepted.TabIndex = 16;
             // 
             // lblAcceptedCount
             // 
@@ -388,6 +368,29 @@
             this.lblAcceptedCount.Size = new System.Drawing.Size(84, 13);
             this.lblAcceptedCount.TabIndex = 4;
             this.lblAcceptedCount.Text = "Accepted Count";
+            // 
+            // lblAccepted
+            // 
+            this.lblAccepted.AutoSize = true;
+            this.lblAccepted.BackColor = System.Drawing.Color.Transparent;
+            this.lblAccepted.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAccepted.ForeColor = System.Drawing.Color.Black;
+            this.lblAccepted.Location = new System.Drawing.Point(33, 0);
+            this.lblAccepted.Name = "lblAccepted";
+            this.lblAccepted.Size = new System.Drawing.Size(61, 13);
+            this.lblAccepted.TabIndex = 3;
+            this.lblAccepted.Text = "Accepted";
+            // 
+            // lblWelcomeHR
+            // 
+            this.lblWelcomeHR.AutoSize = true;
+            this.lblWelcomeHR.BackColor = System.Drawing.Color.Transparent;
+            this.lblWelcomeHR.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcomeHR.Location = new System.Drawing.Point(27, 114);
+            this.lblWelcomeHR.Name = "lblWelcomeHR";
+            this.lblWelcomeHR.Size = new System.Drawing.Size(161, 20);
+            this.lblWelcomeHR.TabIndex = 17;
+            this.lblWelcomeHR.Text = "Welcome Admin!";
             // 
             // dgvPendingReviews
             // 
