@@ -227,6 +227,7 @@ namespace HR_Project
                 case "Final Review": return "Final evaluation in progress.";
                 case "Accepted": return "Congratulations! You have been accepted.";
                 case "Rejected": return "Application was not selected.";
+                case "Withdrawn": return "You have withdrawn your application.";
                 default: return "Application in progress.";
             }
         }
@@ -243,6 +244,7 @@ namespace HR_Project
                 case "Final Review": return Color.DarkOrange;
                 case "Accepted": return Color.Green;
                 case "Rejected": return Color.Red;
+                case "Withdrawn": return Color.DimGray;
                 default: return Color.Black;
             }
         }
