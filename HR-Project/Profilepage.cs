@@ -14,7 +14,10 @@
         {
             public partial class profilepage : Form
             {
-                private DataTable workExperienceTable = new DataTable();
+            private bool _hrViewMode = false;
+            private int _applicationId = -1;
+
+            private DataTable workExperienceTable = new DataTable();
                 private bool editMode = false;
 
                 private byte[] profileImageBytes = null;
@@ -23,41 +26,233 @@
 
                 string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
-                public profilepage(int applicantId)
-                {
-                    InitializeComponent();
+        public profilepage(int applicantId)
+        {
+            InitializeComponent();
 
-                    workExperienceTable.Columns.Add("company_name");
-                    workExperienceTable.Columns.Add("position_title");
-                    workExperienceTable.Columns.Add("employment_type");
-                    workExperienceTable.Columns.Add(
-                        "start_date",
-                        typeof(DateTime));
-                    workExperienceTable.Columns.Add(
-                        "end_date",
-                        typeof(DateTime));
+            workExperienceTable.Columns.Add("company_name");
+            workExperienceTable.Columns.Add("position_title");
+            workExperienceTable.Columns.Add("employment_type");
+            workExperienceTable.Columns.Add(
+                "start_date",
+                typeof(DateTime));
+            workExperienceTable.Columns.Add(
+                "end_date",
+                typeof(DateTime));
             workExperienceTable.Columns.Add("currently_working");
-                    workExperienceTable.Columns.Add("job_description");
+            workExperienceTable.Columns.Add("job_description");
 
             dgvWorkExperience.DataSource = workExperienceTable;
             this.applicantId = applicantId;
 
-                    this.Text = "My Profile";
-                    this.StartPosition = FormStartPosition.CenterScreen;
-                    this.MaximizeBox = false;
+            this.Text = "My Profile";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
 
-                    SetEditMode(false);
+            SetEditMode(false);
 
-                    btnProfilePageEdit.Text = "Edit";
+            btnProfilePageEdit.Text = "Edit";
 
-                    btnProfilePageEdit.BackColor = Color.RoyalBlue;
-                    btnProfilePageEdit.ForeColor = Color.White;
-                    btnProfilePageEdit.FlatStyle = FlatStyle.Flat;
-                    btnProfilePageEdit.FlatAppearance.BorderSize = 0;
-                    btnProfilePageEdit.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            btnProfilePageEdit.BackColor = Color.RoyalBlue;
+            btnProfilePageEdit.ForeColor = Color.White;
+            btnProfilePageEdit.FlatStyle = FlatStyle.Flat;
+            btnProfilePageEdit.FlatAppearance.BorderSize = 0;
+            btnProfilePageEdit.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+        }
+
+        public profilepage(int applicantId, bool hrViewMode)
+        {
+            InitializeComponent();
+
+            workExperienceTable.Columns.Add("company_name");
+            workExperienceTable.Columns.Add("position_title");
+            workExperienceTable.Columns.Add("employment_type");
+            workExperienceTable.Columns.Add("start_date", typeof(DateTime));
+            workExperienceTable.Columns.Add("end_date", typeof(DateTime));
+            workExperienceTable.Columns.Add("currently_working");
+            workExperienceTable.Columns.Add("job_description");
+
+            dgvWorkExperience.DataSource = workExperienceTable;
+            this.applicantId = applicantId;
+            _hrViewMode = hrViewMode;
+
+            this.Text = "Applicant Profile (View Only)";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
+
+            SetEditMode(false);
+
+            if (hrViewMode)
+                SetHRViewMode();
+        }
+
+        public profilepage(int applicantId, int applicationId, bool hrViewMode)
+        {
+            InitializeComponent();
+
+            workExperienceTable.Columns.Add("company_name");
+            workExperienceTable.Columns.Add("position_title");
+            workExperienceTable.Columns.Add("employment_type");
+            workExperienceTable.Columns.Add("start_date", typeof(DateTime));
+            workExperienceTable.Columns.Add("end_date", typeof(DateTime));
+            workExperienceTable.Columns.Add("currently_working");
+            workExperienceTable.Columns.Add("job_description");
+
+            dgvWorkExperience.DataSource = workExperienceTable;
+            this.applicantId = applicantId;
+            _applicationId = applicationId;
+            _hrViewMode = hrViewMode;
+
+            this.Text = "Applicant Profile (View Only)";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
+
+            SetEditMode(false);
+
+            if (hrViewMode)
+                SetHRViewMode();
+        }
+
+        private void SetHRViewMode()
+        {
+            btnProfilePageEdit.Visible = false;
+            btnProfilePageLogout.Visible = false;
+            btnProfilePageChangePass.Visible = false;
+            btnProfilePageUploadPhoto.Visible = false;
+            btnProfilePageWorkExperience.Visible = false;
+            btnWorkExpRemove.Visible = false;
+            btnProfilePageSkillsAdd.Visible = false;
+            btnProfilePageSkillsRemove.Visible = false;
+
+            btnProfilePageDashboard.Visible = false;
+            btnProfilePageDocuments.Visible = false;
+            btnProfilePageJobVacancies.Visible = false;
+            btnProfilePageMyApplication.Visible = false;
+
+            Button btnClose = new Button();
+            btnClose.Text = "Close";
+            btnClose.Size = new Size(100, 35);
+            btnClose.Location = new Point(10, 10);
+            btnClose.BackColor = Color.SteelBlue;
+            btnClose.ForeColor = Color.White;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.Click += (s, e) => this.Close();
+            this.Controls.Add(btnClose);
+            btnClose.BringToFront();
+        }
+
+        private void LoadProfileSnapshot(int applicationId)
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+            SELECT s.*
+            FROM application_profile_snapshots s
+            WHERE s.application_id = @appId";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@appId", applicationId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        txtBoxProfilePageFirstName.Text = reader["first_name"].ToString();
+                        txtBoxProfilePageLastName.Text = reader["last_name"].ToString();
+                        txtBoxProfilePageMiddleName.Text = reader["middle_name"].ToString();
+                        txtBoxProfilePageEmail.Text = reader["email"].ToString();
+                        txtBoxProfilePageContact.Text = reader["contact"].ToString();
+
+                        if (reader["birth_date"] != DBNull.Value)
+                            dtpProfilePageDOB.Value = Convert.ToDateTime(reader["birth_date"]);
+
+                        if (reader["gender"].ToString() == "Male")
+                            radbtnProfilePageMale.Checked = true;
+                        else
+                            radbtnProfilePageFemale.Checked = true;
+
+                        txtBoxProfilePageAltContact.Text = reader["alternate_phone"].ToString();
+                        txtBoxProfilePageCurrentAddress.Text = reader["address"].ToString();
+                        txtBoxProfilePageState.Text = reader["province"].ToString();
+                        txtBoxProfilePagePostCode.Text = reader["postal_code"].ToString();
+
+                        cmbBoxProfilePageDegree.Text = reader["highest_degree"].ToString();
+                        txtBoxProfilePageInstitution.Text = reader["institution_name"].ToString();
+                        txtBoxProfilePageMajor.Text = reader["field_of_study"].ToString();
+
+                        if (reader["graduation_date"] != DBNull.Value)
+                            dtpProfilePageGraduationYear.Value = Convert.ToDateTime(reader["graduation_date"]);
+
+                        if (reader["profile_picture"] != DBNull.Value)
+                        {
+                            byte[] imgBytes = (byte[])reader["profile_picture"];
+                            using (MemoryStream ms = new MemoryStream(imgBytes))
+                                picBoxProfilePagepfp.Image = Image.FromStream(ms);
+                        }
+
+                        long snapshotId = Convert.ToInt64(reader["snapshot_id"]);
+                        reader.Close();
+
+                        lstBoxProfilePageSkills.Items.Clear();
+                        string skillQuery = @"
+                        SELECT skill_name FROM snapshot_skills
+                        WHERE snapshot_id = @snapId";
+                        MySqlCommand skillCmd = new MySqlCommand(skillQuery, conn);
+                        skillCmd.Parameters.AddWithValue("@snapId", snapshotId);
+                        using (MySqlDataReader sr = skillCmd.ExecuteReader())
+                        {
+                            while (sr.Read())
+                                lstBoxProfilePageSkills.Items.Add(sr["skill_name"].ToString());
+                        }
+
+                        workExperienceTable.Rows.Clear();
+                        string workQuery = @"
+                        SELECT company_name, position_title, employment_type,
+                               start_date, end_date, currently_working, job_description
+                        FROM snapshot_work_experience
+                        WHERE snapshot_id = @snapId";
+                        MySqlCommand workCmd = new MySqlCommand(workQuery, conn);
+                        workCmd.Parameters.AddWithValue("@snapId", snapshotId);
+                        using (MySqlDataReader wr = workCmd.ExecuteReader())
+                        {
+                            while (wr.Read())
+                            {
+                                workExperienceTable.Rows.Add(
+                                    wr["company_name"],
+                                    wr["position_title"],
+                                    wr["employment_type"],
+                                    wr["start_date"] == DBNull.Value ? (object)DBNull.Value : Convert.ToDateTime(wr["start_date"]),
+                                    wr["end_date"] == DBNull.Value ? (object)DBNull.Value : Convert.ToDateTime(wr["end_date"]),
+                                    wr["currently_working"],
+                                    wr["job_description"]
+                                );
+                            }
+                        }
+                    }
+                    else
+                    {
+                       
+                        reader.Close();
+                        MessageBox.Show(
+                            "No snapshot found for this application.\n" +
+                            "Showing current live profile instead.",
+                            "Snapshot Not Available",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        LoadProfile();
+                        LoadApplicantPhoto();
+                        LoadSkills();
+                        LoadWorkExperience();
+                    }
                 }
+            }
+        }
 
-                private void SetEditMode(bool editing)
+        private void SetEditMode(bool editing)
                 {
                     txtBoxProfilePageFirstName.ReadOnly = !editing;
                     txtBoxProfilePageLastName.ReadOnly = !editing;
@@ -890,12 +1085,18 @@
 
                 private void profilepage_Load(object sender, EventArgs e)
                 {
-                    LoadProfile();
-                    LoadEducation();
-                    LoadSkills();
-                    LoadWorkExperience();
-                    LoadApplicantPhoto();
-        }
+                    if (_hrViewMode && _applicationId > 0)
+                    {
+                        LoadProfileSnapshot(_applicationId);
+                    }
+                    else
+                    {
+                        LoadProfile();
+                        LoadApplicantPhoto();
+                        LoadSkills();
+                        LoadWorkExperience();
+                    }
+                }
 
                 private void btnProfilePageEdit_Click(object sender, EventArgs e)
                 {
@@ -1134,6 +1335,31 @@
 
             app.Show();
 
+            this.Hide();
+        }
+
+        private void btnProfilePageLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to logout?",
+                "Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                Login login = new Login();
+
+                login.Show();
+
+                this.Hide();
+            }
+        }
+
+        private void btnProfilePageStatusTracking_Click(object sender, EventArgs e)
+        {
+            StatusTracking st = new StatusTracking(applicantId);
+            st.Show();
             this.Hide();
         }
     }
