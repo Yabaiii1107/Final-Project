@@ -1,4 +1,4 @@
-﻿namespace HR_Project.HR_System
+namespace HR_Project.HR_System
 {
     partial class Screening
     {
