@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class ApplicantPage1
     {
@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lblWelcomeHeader = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.grpPositionInfo = new System.Windows.Forms.GroupBox();
             this.dtpDataFiled = new System.Windows.Forms.DateTimePicker();
             this.txtDept = new System.Windows.Forms.TextBox();
@@ -54,6 +53,7 @@
             this.btnMyApplicationsJobVacancies = new System.Windows.Forms.Button();
             this.btnMyApplicationMyProfile = new System.Windows.Forms.Button();
             this.btnMyDocumentsDashboard = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.grpPositionInfo.SuspendLayout();
             this.grpSteps.SuspendLayout();
             this.pnlStatusBanner.SuspendLayout();
@@ -72,12 +72,6 @@
             this.lblWelcomeHeader.Size = new System.Drawing.Size(155, 25);
             this.lblWelcomeHeader.TabIndex = 1;
             this.lblWelcomeHeader.Text = "My Applications";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // grpPositionInfo
             // 
@@ -170,19 +164,19 @@
             // 
             // clbApplicationSteps
             // 
-            this.clbApplicationSteps.BackColor = System.Drawing.Color.DarkOliveGreen;
-            this.clbApplicationSteps.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clbApplicationSteps.BackColor = System.Drawing.Color.GhostWhite;
+            this.clbApplicationSteps.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clbApplicationSteps.FormattingEnabled = true;
             this.clbApplicationSteps.Items.AddRange(new object[] {
             "Prolife Completed",
             "Mandatory Documents Uploaded",
             "HR Preliminary Review",
             "Technical Panel Interview"});
-            this.clbApplicationSteps.Location = new System.Drawing.Point(15, 26);
+            this.clbApplicationSteps.Location = new System.Drawing.Point(4, 17);
             this.clbApplicationSteps.Margin = new System.Windows.Forms.Padding(2);
             this.clbApplicationSteps.Name = "clbApplicationSteps";
             this.clbApplicationSteps.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.clbApplicationSteps.Size = new System.Drawing.Size(196, 56);
+            this.clbApplicationSteps.Size = new System.Drawing.Size(218, 56);
             this.clbApplicationSteps.TabIndex = 0;
             // 
             // lblCurrentStatus
@@ -201,10 +195,10 @@
             this.pnlStatusBanner.BackgroundImage = global::HR_Project.Properties.Resources.download__70_;
             this.pnlStatusBanner.Controls.Add(this.lblStatusDescription);
             this.pnlStatusBanner.Controls.Add(this.lblCurrentStatus);
-            this.pnlStatusBanner.Location = new System.Drawing.Point(24, 276);
+            this.pnlStatusBanner.Location = new System.Drawing.Point(24, 249);
             this.pnlStatusBanner.Margin = new System.Windows.Forms.Padding(2);
             this.pnlStatusBanner.Name = "pnlStatusBanner";
-            this.pnlStatusBanner.Size = new System.Drawing.Size(642, 65);
+            this.pnlStatusBanner.Size = new System.Drawing.Size(642, 105);
             this.pnlStatusBanner.TabIndex = 7;
             // 
             // lblStatusDescription
@@ -228,6 +222,7 @@
             this.panelMyDocumentsHeader.Name = "panelMyDocumentsHeader";
             this.panelMyDocumentsHeader.Size = new System.Drawing.Size(674, 60);
             this.panelMyDocumentsHeader.TabIndex = 13;
+            this.panelMyDocumentsHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMyDocumentsHeader_Paint);
             // 
             // btnProfilePageClose
             // 
@@ -252,6 +247,7 @@
             this.btnMyDocumentsLogout.TabIndex = 3;
             this.btnMyDocumentsLogout.Text = "Logout";
             this.btnMyDocumentsLogout.UseVisualStyleBackColor = true;
+            this.btnMyDocumentsLogout.Click += new System.EventHandler(this.btnMyDocumentsLogout_Click);
             // 
             // lblMyDocumentsTitle
             // 
@@ -291,6 +287,7 @@
             this.btnMyDocumentsStatusTracking.TabIndex = 3;
             this.btnMyDocumentsStatusTracking.Text = "Status Tracking";
             this.btnMyDocumentsStatusTracking.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsStatusTracking.Click += new System.EventHandler(this.btnMyDocumentsStatusTracking_Click);
             // 
             // btnMyDocumentsDocuments
             // 
@@ -371,6 +368,12 @@
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
             this.btnMyDocumentsDashboard.Click += new System.EventHandler(this.btnMyDocumentsDashboard_Click_1);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
             // ApplicantPage1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -404,7 +407,6 @@
 
         #endregion
         private System.Windows.Forms.Label lblWelcomeHeader;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.GroupBox grpPositionInfo;
         private System.Windows.Forms.Label lblDataFiled;
         private System.Windows.Forms.Label lblDept;
@@ -428,6 +430,7 @@
         private System.Windows.Forms.Button btnMyApplicationsJobVacancies;
         private System.Windows.Forms.Button btnMyApplicationMyProfile;
         private System.Windows.Forms.Button btnMyDocumentsDashboard;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 
