@@ -54,6 +54,7 @@ namespace HR_Project
             this.btnMyApplicationMyProfile = new System.Windows.Forms.Button();
             this.btnMyDocumentsDashboard = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.txtScreeningNotes = new System.Windows.Forms.TextBox();
             this.grpPositionInfo.SuspendLayout();
             this.grpSteps.SuspendLayout();
             this.pnlStatusBanner.SuspendLayout();
@@ -193,12 +194,13 @@ namespace HR_Project
             // 
             this.pnlStatusBanner.BackColor = System.Drawing.Color.Transparent;
             this.pnlStatusBanner.BackgroundImage = global::HR_Project.Properties.Resources.download__70_;
+            this.pnlStatusBanner.Controls.Add(this.txtScreeningNotes);
             this.pnlStatusBanner.Controls.Add(this.lblStatusDescription);
             this.pnlStatusBanner.Controls.Add(this.lblCurrentStatus);
-            this.pnlStatusBanner.Location = new System.Drawing.Point(24, 249);
+            this.pnlStatusBanner.Location = new System.Drawing.Point(24, 232);
             this.pnlStatusBanner.Margin = new System.Windows.Forms.Padding(2);
             this.pnlStatusBanner.Name = "pnlStatusBanner";
-            this.pnlStatusBanner.Size = new System.Drawing.Size(642, 105);
+            this.pnlStatusBanner.Size = new System.Drawing.Size(642, 195);
             this.pnlStatusBanner.TabIndex = 7;
             // 
             // lblStatusDescription
@@ -374,13 +376,23 @@ namespace HR_Project
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
+            // txtScreeningNotes
+            // 
+            this.txtScreeningNotes.Location = new System.Drawing.Point(36, 97);
+            this.txtScreeningNotes.Multiline = true;
+            this.txtScreeningNotes.Name = "txtScreeningNotes";
+            this.txtScreeningNotes.ReadOnly = true;
+            this.txtScreeningNotes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtScreeningNotes.Size = new System.Drawing.Size(270, 76);
+            this.txtScreeningNotes.TabIndex = 8;
+            // 
             // ApplicantPage1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Chartreuse;
             this.BackgroundImage = global::HR_Project.Properties.Resources.green;
-            this.ClientSize = new System.Drawing.Size(674, 389);
+            this.ClientSize = new System.Drawing.Size(674, 478);
             this.Controls.Add(this.panelMyApplicationNavigation);
             this.Controls.Add(this.panelMyDocumentsHeader);
             this.Controls.Add(this.pnlStatusBanner);
@@ -431,6 +443,7 @@ namespace HR_Project
         private System.Windows.Forms.Button btnMyApplicationMyProfile;
         private System.Windows.Forms.Button btnMyDocumentsDashboard;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.TextBox txtScreeningNotes;
     }
 }
 
