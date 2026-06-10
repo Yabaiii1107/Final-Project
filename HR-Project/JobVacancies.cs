@@ -70,7 +70,7 @@ namespace HR_Project
 
                 string status = result?.ToString() ?? "Draft";
 
-                if (status == "Draft")
+                if (status == "Draft" || status == "Withdrawn")
                 {
                     btnApply.Visible = true;
                     btnApply.Enabled = true;
@@ -259,7 +259,7 @@ namespace HR_Project
                 checkCmd.Parameters.AddWithValue("@id", applicantId);
                 string status = checkCmd.ExecuteScalar()?.ToString() ?? "Draft";
 
-                if (status != "Draft")
+                if (status != "Draft" && status != "Withdrawn")
                 {
                     MessageBox.Show(
                         "You have already submitted an application.",
@@ -276,7 +276,7 @@ namespace HR_Project
                     status           = 'Submitted',
                     application_date = NOW()
                 WHERE applicant_id = @id
-                  AND status       = 'Draft'";
+                  AND status IN ('Draft', 'Withdrawn')";
 
                 MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn);
                 updateCmd.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
@@ -405,7 +405,7 @@ namespace HR_Project
 
                     DialogResult confirm = MessageBox.Show(
                         "Are you sure you want to cancel your application?\n" +
-                        "Your status will return to Draft.",
+                        "Your application will be marked as Withdrawn.",
                         "Confirm Cancellation",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
@@ -414,9 +414,7 @@ namespace HR_Project
 
                     string revertQuery = @"
                     UPDATE applications
-                    SET
-                        status     = 'Draft',
-                        vacancy_id = NULL
+                    SET status = 'Withdrawn'
                     WHERE application_id = @appId
                       AND status         = 'Submitted'";
 
