@@ -1,4 +1,4 @@
-﻿namespace HR_Project
+namespace HR_Project
 {
     partial class JobVacancies
     {
@@ -57,6 +57,7 @@
             this.lblEmploymentType = new System.Windows.Forms.Label();
             this.lblDepartments = new System.Windows.Forms.Label();
             this.lblPosition = new System.Windows.Forms.Label();
+            this.btnCancelApplication = new System.Windows.Forms.Button();
             this.panelProfilePageHeader.SuspendLayout();
             this.panelNavigation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobVacancies)).BeginInit();
@@ -98,6 +99,7 @@
             this.btnProfilePageLogout.TabIndex = 3;
             this.btnProfilePageLogout.Text = "Logout";
             this.btnProfilePageLogout.UseVisualStyleBackColor = true;
+            this.btnProfilePageLogout.Click += new System.EventHandler(this.btnProfilePageLogout_Click);
             // 
             // JobVacancieslblTitle
             // 
@@ -137,6 +139,7 @@
             this.btnStatusTracking.TabIndex = 3;
             this.btnStatusTracking.Text = "Status Tracking";
             this.btnStatusTracking.UseVisualStyleBackColor = false;
+            this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
             // 
             // btnDocuments
             // 
@@ -387,12 +390,23 @@
             this.lblPosition.TabIndex = 0;
             this.lblPosition.Text = "IT Support Specialist";
             // 
+            // btnCancelApplication
+            // 
+            this.btnCancelApplication.Location = new System.Drawing.Point(744, 295);
+            this.btnCancelApplication.Name = "btnCancelApplication";
+            this.btnCancelApplication.Size = new System.Drawing.Size(108, 23);
+            this.btnCancelApplication.TabIndex = 20;
+            this.btnCancelApplication.Text = "Cancel Application";
+            this.btnCancelApplication.UseVisualStyleBackColor = true;
+            this.btnCancelApplication.Click += new System.EventHandler(this.btnCancelApplication_Click);
+            // 
             // JobVacancies
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::HR_Project.Properties.Resources.green;
             this.ClientSize = new System.Drawing.Size(868, 353);
+            this.Controls.Add(this.btnCancelApplication);
             this.Controls.Add(this.grpJobDetails);
             this.Controls.Add(this.dgvJobVacancies);
             this.Controls.Add(this.cmbDepartment);
@@ -450,5 +464,6 @@
         private System.Windows.Forms.Label lblEmploymentType;
         private System.Windows.Forms.Label lblDepartments;
         private System.Windows.Forms.Label lblPosition;
+        private System.Windows.Forms.Button btnCancelApplication;
     }
 }
