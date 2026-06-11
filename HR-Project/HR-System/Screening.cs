@@ -12,6 +12,9 @@ namespace HR_Project.HR_System
         private string connectionString =
             "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
+        public string UserRole { get; set; } = "";
+        public string UserName { get; set; } = "";
+
         private int _selectedApplicationId = -1;
         private int _selectedApplicantId = -1;
 
@@ -24,11 +27,11 @@ namespace HR_Project.HR_System
         {
             SetDecisionButtonsEnabled(false);
             WireNavButtons();
-            
+
             FixComboItems(cmbEduFit);
             FixComboItems(cmbTechFit);
             FixComboItems(cmbExpFit);
-            
+
             btnRejectEmailNotice.Text = "❌ Reject Application";
             LoadApplicantsForScreening();
         }
@@ -105,11 +108,8 @@ namespace HR_Project.HR_System
                 conn.Open();
 
                 bool profileComplete = CheckProfileComplete(conn);
-
                 bool hasGovId = CheckDocumentExists(conn, "Government ID");
-                
                 bool hasResume = CheckDocumentExists(conn, "Resume");
-
                 bool hasTranscript = CheckDocumentExists(conn, "Transcript");
 
                 checkedListBox1.SetItemChecked(0, profileComplete);
@@ -154,7 +154,7 @@ namespace HR_Project.HR_System
             cmd.Parameters.AddWithValue("@type", "%" + docType.ToLower() + "%");
             return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
         }
-        
+
         private void btnApprove_Click(object sender, EventArgs e)
         {
             if (_selectedApplicationId < 0)
@@ -293,7 +293,7 @@ namespace HR_Project.HR_System
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                
+
                 string getApplicant = @"
                     SELECT applicant_id FROM applications
                     WHERE application_id = @id";
@@ -333,27 +333,27 @@ namespace HR_Project.HR_System
             if (Convert.ToInt64(checkCmd.ExecuteScalar()) > 0) return;
 
             string insertQuery = @"
-            INSERT INTO application_profile_snapshots
-            (application_id, applicant_id,
-             first_name, last_name, middle_name, birth_date,
-             email, contact,
-             gender, alternate_phone, address, province, postal_code,
-             profile_picture,
-             highest_degree, institution_name, field_of_study, graduation_date)
-             SELECT
-                  @appId, a.id,
-                  a.first_name, a.last_name, a.middle_name, a.birth_date,
-                  a.email, a.contact,
-                  ap.gender, ap.alternate_phone, ap.address,
-                  ap.province, ap.postal_code, ap.profile_picture,
-                  ed.highest_degree, ed.institution_name,
-                  ed.field_of_study, ed.graduation_date
-             FROM applicants a
-             LEFT JOIN applicant_profiles ap ON a.id = ap.applicant_id
-             LEFT JOIN education ed          ON a.id = ed.applicant_id
-             WHERE a.id = (
-                 SELECT applicant_id FROM applications
-                 WHERE application_id = @appId)";
+                INSERT INTO application_profile_snapshots
+                (application_id, applicant_id,
+                 first_name, last_name, middle_name, birth_date,
+                 email, contact,
+                 gender, alternate_phone, address, province, postal_code,
+                 profile_picture,
+                 highest_degree, institution_name, field_of_study, graduation_date)
+                SELECT
+                     @appId, a.id,
+                     a.first_name, a.last_name, a.middle_name, a.birth_date,
+                     a.email, a.contact,
+                     ap.gender, ap.alternate_phone, ap.address,
+                     ap.province, ap.postal_code, ap.profile_picture,
+                     ed.highest_degree, ed.institution_name,
+                     ed.field_of_study, ed.graduation_date
+                FROM applicants a
+                LEFT JOIN applicant_profiles ap ON a.id = ap.applicant_id
+                LEFT JOIN education ed          ON a.id = ed.applicant_id
+                WHERE a.id = (
+                    SELECT applicant_id FROM applications
+                    WHERE application_id = @appId)";
 
             MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
             insertCmd.Parameters.AddWithValue("@appId", applicationId);
@@ -388,22 +388,22 @@ namespace HR_Project.HR_System
         private void WireNavButtons()
         {
             btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
-                () => new HRDashboard());
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
 
             btnApplicants.Click += (s, e) => NavigateTo(
-                () => new HRApplicants());
+                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
 
             btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
-                () => new JobVacancyManagement());
+                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
 
-           // btnInterviews.Click += (s, e) => NavigateTo(
-                //() => new HRInterviews());
+            btnInterviews.Click += (s, e) => NavigateTo(
+                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
 
-           // btnHiringDecision.Click += (s, e) => NavigateTo(
-                //() => new HRHiringDecision());
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
 
-            //btnReports.Click += (s, e) => NavigateTo(
-               // () => new HRReports());
+            btnReports.Click += (s, e) => NavigateTo(
+                () => new ReportsModule { UserRole = UserRole, UserName = UserName });
 
             btnMyDocumentsLogout.Click += (s, e) =>
             {
@@ -429,9 +429,28 @@ namespace HR_Project.HR_System
             next.Show();
         }
 
-        private void btnRejectEmailNotice_Click_1(object sender, EventArgs e)
+        private void btnHiringDecision_Click(object sender, EventArgs e)
         {
+        }
 
+        private void btnInterviews_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnApplicants_Click(object sender, EventArgs e)
+        {
         }
     }
 }
