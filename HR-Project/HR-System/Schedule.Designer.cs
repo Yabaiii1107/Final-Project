@@ -1,6 +1,6 @@
-﻿namespace ScheduleInterview
+namespace HR_Project.HR_System
 {
-    partial class Form1
+    partial class Schedule
     {
         /// <summary>
         /// Required designer variable.
@@ -237,11 +237,11 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             // 
-            // Form1
+            // Schedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::ScheduleInterview.Properties.Resources.green;
+            this.BackgroundImage = global::HR_Project.Properties.Resources.green;
             this.ClientSize = new System.Drawing.Size(1364, 625);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveSchedule);
@@ -262,8 +262,8 @@
             this.Controls.Add(this.txtApplicantName);
             this.Controls.Add(this.lblApplicantName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Schedule";
+            this.Text = "Ws";
             this.ResumeLayout(false);
             this.PerformLayout();
 
