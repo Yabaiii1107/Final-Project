@@ -15,6 +15,8 @@ namespace HR_Project.HR_System
     {
         string connectionString =
                 "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+        public string UserRole { get; set; } = "";
+        public string UserName { get; set; } = "";
 
         private DataTable dt = new DataTable();
 
@@ -185,8 +187,7 @@ namespace HR_Project.HR_System
                     if (reader.Read())
                     {
                         lblApplicantID1.Text = reader["id"].ToString();
-                        lblFullName1.Text = reader["first_name"] + " " +
-                                                  reader["last_name"];
+                        lblFullName1.Text = reader["first_name"] + " " + reader["last_name"];
                         lblEmail1.Text = reader["email"].ToString();
                         lblContactNumber1.Text = reader["contact"].ToString();
                         lblPositionApplied1.Text = reader["position"].ToString();
@@ -210,7 +211,6 @@ namespace HR_Project.HR_System
 
         private void dgvApplicants_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void HRApplicants_Load(object sender, EventArgs e)
@@ -218,7 +218,6 @@ namespace HR_Project.HR_System
             LoadApplicants();
 
             cmbBoxFilterStatus.Items.Clear();
-
             cmbBoxFilterStatus.Items.Add("All");
             cmbBoxFilterStatus.Items.Add("Draft");
             cmbBoxFilterStatus.Items.Add("Submitted");
@@ -229,31 +228,29 @@ namespace HR_Project.HR_System
             cmbBoxFilterStatus.Items.Add("Accepted");
             cmbBoxFilterStatus.Items.Add("Rejected");
             cmbBoxFilterStatus.Items.Add("Withdrawn");
-
             cmbBoxFilterStatus.SelectedIndex = 0;
 
             LoadApplicantsFiltered();
 
             cmbCurrentStatus.Items.Clear();
-
             cmbCurrentStatus.Items.Add("Draft");
             cmbCurrentStatus.Items.Add("Submitted");
             cmbCurrentStatus.Items.Add("Under Review");
             cmbCurrentStatus.Items.Add("Shortlisted");
-            cmbCurrentStatus.Items.Add("For Interview");
+            cmbCurrentStatus.Items.Add("Interview");
             cmbCurrentStatus.Items.Add("For Assessment");
             cmbCurrentStatus.Items.Add("Final Review");
-
             cmbCurrentStatus.Items.Add("Accepted");
             cmbCurrentStatus.Items.Add("Rejected");
             cmbCurrentStatus.Items.Add("Withdrawn");
-
             cmbCurrentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
         {
             HRDashboard dashboard = new HRDashboard();
+            dashboard.UserRole = this.UserRole;
+            dashboard.UserName = this.UserName;
             dashboard.FormClosed += (s, args) => this.Show();
             this.Hide();
             dashboard.Show();
@@ -266,14 +263,13 @@ namespace HR_Project.HR_System
 
         private void dgvApplicants_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvApplicants.CurrentRow == null)
-                return;
+            if (dgvApplicants.CurrentRow == null) return;
 
-            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null)
-                return;
+            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null) return;
 
-            if (!int.TryParse(dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(), out int applicantId))
-                return;
+            if (!int.TryParse(
+                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
+                out int applicantId)) return;
 
             LoadApplicantDetails(applicantId);
         }
@@ -312,6 +308,51 @@ namespace HR_Project.HR_System
             }
 
             string selectedStatus = cmbCurrentStatus.Text;
+            string currentStatus = "";
+
+            using (MySqlConnection connCheck = new MySqlConnection(connectionString))
+            {
+                connCheck.Open();
+                string checkQuery = @"
+                SELECT status FROM applications
+                WHERE application_id = @id";
+                MySqlCommand checkCmd = new MySqlCommand(checkQuery, connCheck);
+                checkCmd.Parameters.AddWithValue("@id", applicationId);
+                currentStatus = checkCmd.ExecuteScalar()?.ToString() ?? "";
+            }
+
+            if (currentStatus == "Withdrawn")
+            {
+                MessageBox.Show(
+                    "This applicant has withdrawn their application.\n" +
+                    "Their status cannot be changed.",
+                    "Action Not Allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (currentStatus == "Accepted" || currentStatus == "Rejected")
+            {
+                MessageBox.Show(
+                    $"This application is already {currentStatus}.\n" +
+                    "No further status changes are allowed.",
+                    "Action Not Allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (selectedStatus == "Draft" || selectedStatus == "Withdrawn")
+            {
+                MessageBox.Show(
+                    $"Cannot manually set status to '{selectedStatus}'.\n" +
+                    "Draft and Withdrawn are applicant-only statuses.",
+                    "Action Not Allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -346,17 +387,16 @@ namespace HR_Project.HR_System
         }
 
         private static readonly HashSet<string> LockedStatuses = new HashSet<string>
-{
-        "Under Review", "Shortlisted", "Interview",
-        "For Interview", "For Assessment", "Final Review",
-        "Accepted", "Rejected"
-};
+        {
+            "Under Review", "Shortlisted", "Interview",
+            "For Assessment", "Final Review",
+            "Accepted", "Rejected"
+        };
 
         private void TakeProfileSnapshotIfNeeded(
             int applicationId, int applicantId, string newStatus)
         {
-            if (!LockedStatuses.Contains(newStatus))
-                return;
+            if (!LockedStatuses.Contains(newStatus)) return;
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -440,13 +480,13 @@ namespace HR_Project.HR_System
                     {
                         rows.Add(new object[]
                         {
-                    workReader["company_name"],
-                    workReader["position_title"],
-                    workReader["employment_type"],
-                    workReader["start_date"],
-                    workReader["end_date"],
-                    workReader["currently_working"],
-                    workReader["job_description"]
+                            workReader["company_name"],
+                            workReader["position_title"],
+                            workReader["employment_type"],
+                            workReader["start_date"],
+                            workReader["end_date"],
+                            workReader["currently_working"],
+                            workReader["job_description"]
                         });
                     }
                     workReader.Close();
@@ -476,39 +516,7 @@ namespace HR_Project.HR_System
 
         private void btnSearchApplicant_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"
-                SELECT
-                    ap.id AS ApplicantID,
-                    CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                    j.position AS PositionApplied,
-                    a.status AS Status
-                FROM applicants ap
-                LEFT JOIN applications a ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
-                WHERE CONCAT(ap.first_name, ' ', ap.last_name) LIKE @search";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@search", "%" + txtBoxSearchApplicant.Text.Trim() + "%");
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dtSearch = new DataTable();
-                adapter.Fill(dtSearch);
-
-                dgvApplicants.DataSource = null;
-                dgvApplicants.AutoGenerateColumns = true;
-                dgvApplicants.DataSource = dtSearch;
-            }
-
             LoadApplicantsFiltered();
-        }
-
-        private void btnProfilePageClose_Click_1(object sender, EventArgs e)
-        {
-            Application.Exit();
         }
 
         private void cmbBoxFilterStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -524,6 +532,8 @@ namespace HR_Project.HR_System
         private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
         {
             JobVacancyManagement jobForm = new JobVacancyManagement();
+            jobForm.UserRole = this.UserRole;
+            jobForm.UserName = this.UserName;
             jobForm.FormClosed += (s, args) => this.Show();
             this.Hide();
             jobForm.Show();
@@ -542,11 +552,6 @@ namespace HR_Project.HR_System
                     cmbCurrentStatus.Text = currentStatus;
                 }
             }
-        }
-
-        private void btnRejectApplicant_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnViewFullProfile_Click(object sender, EventArgs e)
@@ -591,10 +596,7 @@ namespace HR_Project.HR_System
 
             if (result == DialogResult.Yes)
             {
-                Login login = new Login();
-
-                login.Show();
-
+                new Login().Show();
                 this.Hide();
             }
         }
@@ -617,6 +619,88 @@ namespace HR_Project.HR_System
         private void btnResumeView_Click_1(object sender, EventArgs e)
         {
             ViewDocument("Resume");
+        }
+
+        private void btnScreening_Click(object sender, EventArgs e)
+        {
+            Screening screening = new Screening();
+            screening.UserRole = this.UserRole;
+            screening.UserName = this.UserName;
+            screening.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            screening.Show();
+        }
+
+        private void btnInterviews_Click(object sender, EventArgs e)
+        {
+            InterviewEvaluation intervieweval = new InterviewEvaluation();
+            intervieweval.UserRole = this.UserRole;
+            intervieweval.UserName = this.UserName;
+            intervieweval.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            intervieweval.Show();
+        }
+
+        private void btnHiringDecision_Click(object sender, EventArgs e)
+        {
+            Form1 hiring = new Form1();
+            hiring.UserRole = this.UserRole;
+            hiring.UserName = this.UserName;
+            hiring.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            hiring.Show();
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+            ReportsModule reports = new ReportsModule();
+            reports.UserRole = this.UserRole;
+            reports.UserName = this.UserName;
+            reports.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            reports.Show();
+        }
+
+        private void btnScheduleInterview_Click(object sender, EventArgs e)
+        {
+            if (dgvApplicants.CurrentRow == null)
+            {
+                MessageBox.Show("Please select an applicant first.");
+                return;
+            }
+
+            if (dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == null ||
+                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == DBNull.Value ||
+                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null ||
+                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == DBNull.Value)
+            {
+                MessageBox.Show("No application found for this applicant.");
+                return;
+            }
+
+            string currentStatus =
+                dgvApplicants.CurrentRow.Cells["Status"]?.Value?.ToString() ?? "";
+
+            if (currentStatus != "Shortlisted")
+            {
+                MessageBox.Show(
+                    "Only Shortlisted applicants can be scheduled for an interview.",
+                    "Action Not Allowed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            Schedule schedule = new Schedule
+            {
+                ApplicationId = Convert.ToInt32(dgvApplicants.CurrentRow.Cells["ApplicationID"].Value),
+                ApplicantId = Convert.ToInt32(dgvApplicants.CurrentRow.Cells["ApplicantID"].Value),
+                ApplicantName = dgvApplicants.CurrentRow.Cells["ApplicantName"].Value?.ToString() ?? "",
+                Position = dgvApplicants.CurrentRow.Cells["PositionApplied"].Value?.ToString() ?? ""
+            };
+
+            schedule.FormClosed += (s, args) => LoadApplicantsFiltered();
+            schedule.ShowDialog();
         }
     }
 }
