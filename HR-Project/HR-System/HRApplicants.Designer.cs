@@ -107,7 +107,6 @@ namespace HR_Project.HR_System
             this.btnProfilePageClose.TabIndex = 4;
             this.btnProfilePageClose.Text = "X";
             this.btnProfilePageClose.UseVisualStyleBackColor = false;
-            this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click_1);
             // 
             // btnMyDocumentsLogout
             // 
@@ -158,6 +157,7 @@ namespace HR_Project.HR_System
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnHiringDecision
             // 
@@ -172,6 +172,7 @@ namespace HR_Project.HR_System
             this.btnHiringDecision.TabIndex = 3;
             this.btnHiringDecision.Text = "Hiring Decision";
             this.btnHiringDecision.UseVisualStyleBackColor = false;
+            this.btnHiringDecision.Click += new System.EventHandler(this.btnHiringDecision_Click);
             // 
             // btnInterviews
             // 
@@ -619,6 +620,7 @@ namespace HR_Project.HR_System
             this.btnScheduleInterview.TabIndex = 30;
             this.btnScheduleInterview.Text = "Schedule Interview";
             this.btnScheduleInterview.UseVisualStyleBackColor = true;
+            this.btnScheduleInterview.Click += new System.EventHandler(this.btnScheduleInterview_Click);
             // 
             // btnUpdateStatus
             // 
