@@ -12,7 +12,6 @@ namespace HR_Project.HR_System
             "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
         public string UserRole { get; set; } = "HR Staff";
-
         public string UserName { get; set; } = "";
 
         private int _selectedApplicationId = -1;
@@ -41,8 +40,7 @@ namespace HR_Project.HR_System
             if (string.IsNullOrEmpty(UserRole))
             {
                 MessageBox.Show(
-                    "User role was not passed to this form.\n" +
-                    "Please log in again.",
+                    "User role was not passed to this form.\nPlease log in again.",
                     "Role Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
@@ -118,7 +116,6 @@ namespace HR_Project.HR_System
             {
                 conn.Open();
 
-                // Pull all update messages for this applicant, newest first
                 const string query = @"
                     SELECT update_message
                     FROM   updates
@@ -136,16 +133,12 @@ namespace HR_Project.HR_System
 
                         if (msg.StartsWith("[Screening]") && txtScreenStatus.Text == "—")
                         {
-                            txtScreenStatus.Text = msg
-                                .Replace("[Screening]", "")
-                                .Trim();
+                            txtScreenStatus.Text = msg.Replace("[Screening]", "").Trim();
                         }
 
-                        if (msg.StartsWith("[Interview Evaluation]") &&
-                            txtInterviewScore.Text == "—")
+                        if (msg.StartsWith("[Interview Evaluation]") && txtInterviewScore.Text == "—")
                         {
                             string body = msg.Replace("[Interview Evaluation]", "").Trim();
-
                             string result = body.Contains("PASSED") ? "PASSED" : "FAILED";
                             txtInterviewScore.Text = result + " — " + body;
 
@@ -183,8 +176,7 @@ namespace HR_Project.HR_System
             if (rbAccept.Checked && UserRole == "HR Staff")
             {
                 MessageBox.Show(
-                    "Only an HR Manager or Admin can mark an applicant as Accepted.\n" +
-                    "Please escalate to a manager.",
+                    "Only an HR Manager or Admin can mark an applicant as Accepted.\nPlease escalate to a manager.",
                     "Insufficient Permissions",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Stop);
@@ -204,7 +196,7 @@ namespace HR_Project.HR_System
                 newStatus = "Rejected";
                 decisionLabel = "REJECTED";
             }
-            else 
+            else
             {
                 newStatus = "Final Review";
                 decisionLabel = "ON HOLD";
@@ -226,8 +218,7 @@ namespace HR_Project.HR_System
                 CommitDecision(newStatus, decisionLabel);
 
                 MessageBox.Show(
-                    $"Decision committed for {txtApplicantName.Text}.\n" +
-                    $"Status: {newStatus}",
+                    $"Decision committed for {txtApplicantName.Text}.\nStatus: {newStatus}",
                     "Decision Saved",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
@@ -367,27 +358,25 @@ namespace HR_Project.HR_System
 
         private void WireNavButtons()
         {
-            btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
-                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
-
             btnApplicants.Click += (s, e) => NavigateTo(
-                () => new HRApplicants());
+                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
 
             btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
-                () => new JobVacancyManagement());
-
-            btnScreening.Click += (s, e) => NavigateTo(
-                () => new Screening());
+                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
 
             btnInterviews.Click += (s, e) => NavigateTo(
-                () => new InterviewEvaluation());
+                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
+
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
+
+            btnReports.Click += (s, e) => NavigateTo(
+                () => new ReportsModule { UserRole = UserRole, UserName = UserName });
 
             btnMyDocumentsLogout.Click += (s, e) =>
             {
-                if (MessageBox.Show(
-                        "Are you sure you want to logout?",
-                        "Logout",
-                        MessageBoxButtons.YesNo,
+                if (MessageBox.Show("Are you sure you want to logout?",
+                        "Logout", MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     new Login().Show();
@@ -396,6 +385,8 @@ namespace HR_Project.HR_System
             };
 
             btnProfilePageClose.Click += (s, e) => Application.Exit();
+
+            btnScreening.Enabled = false;
         }
 
         private void NavigateTo(Func<Form> createForm)
@@ -404,6 +395,22 @@ namespace HR_Project.HR_System
             next.FormClosed += (s, args) => this.Show();
             this.Hide();
             next.Show();
+        }
+
+        private void btnInterviews_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnScreening_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
+        {
         }
     }
 }
