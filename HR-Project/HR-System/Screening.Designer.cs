@@ -359,6 +359,7 @@ namespace HR_Project.HR_System
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnHiringDecision
             // 
@@ -373,6 +374,7 @@ namespace HR_Project.HR_System
             this.btnHiringDecision.TabIndex = 3;
             this.btnHiringDecision.Text = "Hiring Decision";
             this.btnHiringDecision.UseVisualStyleBackColor = false;
+            this.btnHiringDecision.Click += new System.EventHandler(this.btnHiringDecision_Click);
             // 
             // btnInterviews
             // 
@@ -388,6 +390,7 @@ namespace HR_Project.HR_System
             this.btnInterviews.TabIndex = 2;
             this.btnInterviews.Text = "Interviews";
             this.btnInterviews.UseVisualStyleBackColor = false;
+            this.btnInterviews.Click += new System.EventHandler(this.btnInterviews_Click);
             // 
             // btnScreening
             // 
@@ -419,6 +422,7 @@ namespace HR_Project.HR_System
             this.btnApplicants.TabIndex = 2;
             this.btnApplicants.Text = "Applicants";
             this.btnApplicants.UseVisualStyleBackColor = false;
+            this.btnApplicants.Click += new System.EventHandler(this.btnApplicants_Click);
             // 
             // btnJobVacanciesManagement
             // 
@@ -434,6 +438,7 @@ namespace HR_Project.HR_System
             this.btnJobVacanciesManagement.TabIndex = 1;
             this.btnJobVacanciesManagement.Text = "Job Vacancies";
             this.btnJobVacanciesManagement.UseVisualStyleBackColor = false;
+            this.btnJobVacanciesManagement.Click += new System.EventHandler(this.btnJobVacanciesManagement_Click);
             // 
             // btnMyDocumentsDashboard
             // 
@@ -449,6 +454,7 @@ namespace HR_Project.HR_System
             this.btnMyDocumentsDashboard.TabIndex = 0;
             this.btnMyDocumentsDashboard.Text = "Dashboard";
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsDashboard.Click += new System.EventHandler(this.btnMyDocumentsDashboard_Click);
             // 
             // panelHeader
             // 
