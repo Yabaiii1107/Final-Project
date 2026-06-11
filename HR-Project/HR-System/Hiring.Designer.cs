@@ -389,6 +389,7 @@ namespace HR_Project.HR_System
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnHiringDecision
             // 
@@ -418,6 +419,7 @@ namespace HR_Project.HR_System
             this.btnInterviews.TabIndex = 2;
             this.btnInterviews.Text = "Interviews";
             this.btnInterviews.UseVisualStyleBackColor = false;
+            this.btnInterviews.Click += new System.EventHandler(this.btnInterviews_Click);
             // 
             // btnScreening
             // 
@@ -432,6 +434,7 @@ namespace HR_Project.HR_System
             this.btnScreening.TabIndex = 2;
             this.btnScreening.Text = "Screening";
             this.btnScreening.UseVisualStyleBackColor = false;
+            this.btnScreening.Click += new System.EventHandler(this.btnScreening_Click);
             // 
             // btnApplicants
             // 
@@ -476,6 +479,7 @@ namespace HR_Project.HR_System
             this.btnMyDocumentsDashboard.TabIndex = 0;
             this.btnMyDocumentsDashboard.Text = "Dashboard";
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsDashboard.Click += new System.EventHandler(this.btnMyDocumentsDashboard_Click);
             // 
             // Form1
             // 
