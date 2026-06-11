@@ -15,17 +15,69 @@ namespace HR_Project.HR_System
     {
         string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
+        public string UserRole { get; set; } = "";
+        public string UserName { get; set; } = "";
+
         public JobVacancyManagement()
         {
             InitializeComponent();
+            this.Load += JobVacancyManagement_Load;
+        }
+
+        private void JobVacancyManagement_Load(object sender, EventArgs e)
+        {
+            LoadOpenJobs();
+            WireNavButtons();
+            btnJobVacanciesManagement.Enabled = false;
+        }
+
+        private void WireNavButtons()
+        {
+            btnDashboard.Click += (s, e) => NavigateTo(
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
+
+            btnApplicants.Click += (s, e) => NavigateTo(
+                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
+
+            btnScreening.Click += (s, e) => NavigateTo(
+                () => new Screening { UserRole = UserRole, UserName = UserName });
+
+            btnInterviews.Click += (s, e) => NavigateTo(
+                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
+
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
+
+            btnReports.Click += (s, e) => NavigateTo(
+                () => new ReportsModule { UserRole = UserRole, UserName = UserName });
+
+            btnMyDocumentsLogout.Click += (s, e) =>
+            {
+                if (MessageBox.Show("Are you sure you want to logout?",
+                        "Logout", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    new Login().Show();
+                    this.Hide();
+                }
+            };
+
+            btnProfilePageClose.Click += (s, e) => Application.Exit();
+        }
+
+        private void NavigateTo(Func<Form> createForm)
+        {
+            Form next = createForm();
+            next.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            next.Show();
         }
 
         private void LoadOpenJobs()
         {
             dgvVacancies.Rows.Clear();
 
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
@@ -34,11 +86,8 @@ namespace HR_Project.HR_System
                 FROM job_vacancies
                 WHERE status='Open'";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 while (reader.Read())
                 {
@@ -49,40 +98,9 @@ namespace HR_Project.HR_System
             }
         }
 
-        private void txtQualInfo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtJobTitle_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            
-            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
-            {
-                e.Handled = true; 
-                System.Media.SystemSounds.Beep.Play(); 
-            }
-        }
-
-        private void lblWelcomeHR_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSaveJobOpening_Click(object sender, EventArgs e)
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
@@ -106,8 +124,7 @@ namespace HR_Project.HR_System
                     @requirements
                 )";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("@position", txtJobTitle.Text);
                 cmd.Parameters.AddWithValue("@department", cmbDepartment.Text);
@@ -118,21 +135,12 @@ namespace HR_Project.HR_System
 
                 List<string> docs = new List<string>();
 
-                if (chkResume.Checked)
-                    docs.Add("Resume");
+                if (chkResume.Checked) docs.Add("Resume");
+                if (chkGovernmentID.Checked) docs.Add("Government ID");
+                if (chkTranscript.Checked) docs.Add("Transcript");
+                if (chkCertificates.Checked) docs.Add("Certificates");
 
-                if (chkGovernmentID.Checked)
-                    docs.Add("Government ID");
-
-                if (chkTranscript.Checked)
-                    docs.Add("Transcript");
-
-                if (chkCertificates.Checked)
-                    docs.Add("Certificates");
-
-                string requirements =
-                    string.Join(", ", docs);
-
+                string requirements = string.Join(", ", docs);
                 string employmentType = cmbEmploymentType.Text;
 
                 cmd.Parameters.AddWithValue("@employmentType", employmentType);
@@ -143,26 +151,16 @@ namespace HR_Project.HR_System
             }
 
             MessageBox.Show("Job vacancy created successfully.");
-
-            LoadOpenJobs();
-        }
-
-        private void JobVacancyManagement_Load(object sender, EventArgs e)
-        {
             LoadOpenJobs();
         }
 
         private void btnCloseJOb_Click(object sender, EventArgs e)
         {
-            if (dgvVacancies.SelectedRows.Count == 0)
-                return;
+            if (dgvVacancies.SelectedRows.Count == 0) return;
 
-            int vacancyId =
-                Convert.ToInt32(
-                    dgvVacancies.SelectedRows[0].Cells[0].Value);
+            int vacancyId = Convert.ToInt32(dgvVacancies.SelectedRows[0].Cells[0].Value);
 
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
@@ -171,11 +169,8 @@ namespace HR_Project.HR_System
                 SET status='Closed'
                 WHERE vacancy_id=@id";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", vacancyId);
-
                 cmd.ExecuteNonQuery();
             }
 
@@ -184,15 +179,11 @@ namespace HR_Project.HR_System
 
         private void btnActiveJob_Click(object sender, EventArgs e)
         {
-            if (dgvVacancies.SelectedRows.Count == 0)
-                return;
+            if (dgvVacancies.SelectedRows.Count == 0) return;
 
-            int vacancyId =
-                Convert.ToInt32(
-                    dgvVacancies.SelectedRows[0].Cells[0].Value);
+            int vacancyId = Convert.ToInt32(dgvVacancies.SelectedRows[0].Cells[0].Value);
 
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
@@ -201,11 +192,8 @@ namespace HR_Project.HR_System
                 SET status='Open'
                 WHERE vacancy_id=@id";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", vacancyId);
-
                 cmd.ExecuteNonQuery();
             }
 
@@ -214,48 +202,64 @@ namespace HR_Project.HR_System
 
         private void btnAddQual_Click(object sender, EventArgs e)
         {
-            if (txtQualInfo.Text.Trim() == "")
-                return;
+            if (txtQualInfo.Text.Trim() == "") return;
 
             lstQualifications.Items.Add(txtQualInfo.Text.Trim());
-
             txtQualInfo.Clear();
-
             txtQualInfo.Focus();
+        }
+
+        private void txtJobTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsLetter(e.KeyChar) && !char.IsControl(e.KeyChar) && !char.IsWhiteSpace(e.KeyChar))
+            {
+                e.Handled = true;
+                System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+        private void txtQualInfo_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void lblWelcomeHR_Click(object sender, EventArgs e)
+        {
         }
 
         private void btnMyDocumentsLogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                Login login = new Login();
-
-                login.Show();
-
-                this.Hide();
-            }
         }
 
-        private void btnDashboard_Click(object sender, EventArgs e)
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
         {
-            HRDashboard dashboard = new HRDashboard();
-            dashboard.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            dashboard.Show();
         }
 
         private void btnApplicants_Click(object sender, EventArgs e)
         {
-            HRApplicants applicants = new HRApplicants();
-            applicants.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            applicants.Show();
+        }
+
+        private void btnHiringDecision_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnInterviews_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnScreening_Click(object sender, EventArgs e)
+        {
         }
     }
 }
