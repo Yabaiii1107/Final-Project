@@ -154,6 +154,7 @@ namespace HR_Project.HR_System
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnHiringDecision
             // 
@@ -168,6 +169,7 @@ namespace HR_Project.HR_System
             this.btnHiringDecision.TabIndex = 3;
             this.btnHiringDecision.Text = "Hiring Decision";
             this.btnHiringDecision.UseVisualStyleBackColor = false;
+            this.btnHiringDecision.Click += new System.EventHandler(this.btnHiringDecision_Click);
             // 
             // btnInterviews
             // 
@@ -183,6 +185,7 @@ namespace HR_Project.HR_System
             this.btnInterviews.TabIndex = 2;
             this.btnInterviews.Text = "Interviews";
             this.btnInterviews.UseVisualStyleBackColor = false;
+            this.btnInterviews.Click += new System.EventHandler(this.btnInterviews_Click);
             // 
             // btnScreening
             // 
@@ -197,6 +200,7 @@ namespace HR_Project.HR_System
             this.btnScreening.TabIndex = 2;
             this.btnScreening.Text = "Screening";
             this.btnScreening.UseVisualStyleBackColor = false;
+            this.btnScreening.Click += new System.EventHandler(this.btnScreening_Click);
             // 
             // btnApplicants
             // 
@@ -244,6 +248,7 @@ namespace HR_Project.HR_System
             this.btnMyDocumentsDashboard.TabIndex = 0;
             this.btnMyDocumentsDashboard.Text = "Dashboard";
             this.btnMyDocumentsDashboard.UseVisualStyleBackColor = false;
+            this.btnMyDocumentsDashboard.Click += new System.EventHandler(this.btnMyDocumentsDashboard_Click);
             // 
             // panelApplicants
             // 
@@ -505,6 +510,7 @@ namespace HR_Project.HR_System
             this.Name = "HRDashboard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.HRDashboard_Load);
             this.panelMyDocumentsHeader.ResumeLayout(false);
             this.panelMyDocumentsHeader.PerformLayout();
             this.panelMyDocumentsNavigation.ResumeLayout(false);
