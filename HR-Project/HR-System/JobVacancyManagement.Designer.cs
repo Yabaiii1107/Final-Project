@@ -30,6 +30,8 @@ namespace HR_Project.HR_System
         {
             this.tabGeneraIInfo = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lblEmploymentType = new System.Windows.Forms.Label();
+            this.cmbEmploymentType = new System.Windows.Forms.ComboBox();
             this.btnCloseJOb = new System.Windows.Forms.Button();
             this.btnActiveJob = new System.Windows.Forms.Button();
             this.lblStatusLifecycleControl = new System.Windows.Forms.Label();
@@ -69,8 +71,6 @@ namespace HR_Project.HR_System
             this.btnJobVacanciesManagement = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
             this.lblWelcomeHR = new System.Windows.Forms.Label();
-            this.cmbEmploymentType = new System.Windows.Forms.ComboBox();
-            this.lblEmploymentType = new System.Windows.Forms.Label();
             this.tabGeneraIInfo.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -113,6 +113,32 @@ namespace HR_Project.HR_System
             this.tabPage1.Size = new System.Drawing.Size(347, 209);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Information";
+            // 
+            // lblEmploymentType
+            // 
+            this.lblEmploymentType.AutoSize = true;
+            this.lblEmploymentType.BackColor = System.Drawing.Color.Transparent;
+            this.lblEmploymentType.ForeColor = System.Drawing.Color.Black;
+            this.lblEmploymentType.Location = new System.Drawing.Point(19, 98);
+            this.lblEmploymentType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmploymentType.Name = "lblEmploymentType";
+            this.lblEmploymentType.Size = new System.Drawing.Size(94, 13);
+            this.lblEmploymentType.TabIndex = 8;
+            this.lblEmploymentType.Text = "Employment Type:";
+            // 
+            // cmbEmploymentType
+            // 
+            this.cmbEmploymentType.FormattingEnabled = true;
+            this.cmbEmploymentType.Items.AddRange(new object[] {
+            "Full-Time",
+            "Part-Time",
+            "Contract",
+            "Internship",
+            "Temporary"});
+            this.cmbEmploymentType.Location = new System.Drawing.Point(121, 98);
+            this.cmbEmploymentType.Name = "cmbEmploymentType";
+            this.cmbEmploymentType.Size = new System.Drawing.Size(121, 21);
+            this.cmbEmploymentType.TabIndex = 7;
             // 
             // btnCloseJOb
             // 
@@ -522,6 +548,7 @@ namespace HR_Project.HR_System
             this.btnReports.TabIndex = 4;
             this.btnReports.Text = "Reports";
             this.btnReports.UseVisualStyleBackColor = false;
+            this.btnReports.Click += new System.EventHandler(this.btnReports_Click);
             // 
             // btnHiringDecision
             // 
@@ -536,6 +563,7 @@ namespace HR_Project.HR_System
             this.btnHiringDecision.TabIndex = 3;
             this.btnHiringDecision.Text = "Hiring Decision";
             this.btnHiringDecision.UseVisualStyleBackColor = false;
+            this.btnHiringDecision.Click += new System.EventHandler(this.btnHiringDecision_Click);
             // 
             // btnInterviews
             // 
@@ -551,6 +579,7 @@ namespace HR_Project.HR_System
             this.btnInterviews.TabIndex = 2;
             this.btnInterviews.Text = "Interviews";
             this.btnInterviews.UseVisualStyleBackColor = false;
+            this.btnInterviews.Click += new System.EventHandler(this.btnInterviews_Click);
             // 
             // btnScreening
             // 
@@ -565,6 +594,7 @@ namespace HR_Project.HR_System
             this.btnScreening.TabIndex = 2;
             this.btnScreening.Text = "Screening";
             this.btnScreening.UseVisualStyleBackColor = false;
+            this.btnScreening.Click += new System.EventHandler(this.btnScreening_Click);
             // 
             // btnApplicants
             // 
@@ -611,7 +641,7 @@ namespace HR_Project.HR_System
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.UseVisualStyleBackColor = false;
-            this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
+  
             // 
             // lblWelcomeHR
             // 
@@ -625,32 +655,6 @@ namespace HR_Project.HR_System
             this.lblWelcomeHR.TabIndex = 18;
             this.lblWelcomeHR.Text = "Job Vacancy Management";
             this.lblWelcomeHR.Click += new System.EventHandler(this.lblWelcomeHR_Click);
-            // 
-            // cmbEmploymentType
-            // 
-            this.cmbEmploymentType.FormattingEnabled = true;
-            this.cmbEmploymentType.Items.AddRange(new object[] {
-            "Full-Time",
-            "Part-Time",
-            "Contract",
-            "Internship",
-            "Temporary"});
-            this.cmbEmploymentType.Location = new System.Drawing.Point(121, 98);
-            this.cmbEmploymentType.Name = "cmbEmploymentType";
-            this.cmbEmploymentType.Size = new System.Drawing.Size(121, 21);
-            this.cmbEmploymentType.TabIndex = 7;
-            // 
-            // lblEmploymentType
-            // 
-            this.lblEmploymentType.AutoSize = true;
-            this.lblEmploymentType.BackColor = System.Drawing.Color.Transparent;
-            this.lblEmploymentType.ForeColor = System.Drawing.Color.Black;
-            this.lblEmploymentType.Location = new System.Drawing.Point(19, 98);
-            this.lblEmploymentType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblEmploymentType.Name = "lblEmploymentType";
-            this.lblEmploymentType.Size = new System.Drawing.Size(94, 13);
-            this.lblEmploymentType.TabIndex = 8;
-            this.lblEmploymentType.Text = "Employment Type:";
             // 
             // JobVacancyManagement
             // 
