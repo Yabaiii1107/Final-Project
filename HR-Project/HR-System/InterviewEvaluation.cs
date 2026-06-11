@@ -11,7 +11,9 @@ namespace HR_Project.HR_System
         private string connectionString =
             "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
-        // Tracks the currently selected applicant from the list
+        public string UserRole { get; set; } = "";
+        public string UserName { get; set; } = "";
+
         private int _selectedApplicationId = -1;
         private int _selectedApplicantId = -1;
 
@@ -27,7 +29,7 @@ namespace HR_Project.HR_System
             WireNavButtons();
             WireScoreEvents();
 
-            btnInterviews.Enabled = false; // current page
+            btnInterviews.Enabled = false;
         }
 
         private void LoadInterviewApplicants()
@@ -252,7 +254,6 @@ namespace HR_Project.HR_System
                 noteCmd.Parameters.AddWithValue("@msg", noteMessage);
                 noteCmd.ExecuteNonQuery();
 
-                // 4. Take profile snapshot if moving to Final Review
                 if (newStatus == "Final Review" || newStatus == "Rejected")
                     TakeSnapshotIfNeeded(conn, _selectedApplicationId);
             }
@@ -326,16 +327,22 @@ namespace HR_Project.HR_System
         private void WireNavButtons()
         {
             btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
-                () => new HRDashboard());
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
 
             btnApplicants.Click += (s, e) => NavigateTo(
-                () => new HRApplicants());
+                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
 
             btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
-                () => new JobVacancyManagement());
+                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
 
             btnScreening.Click += (s, e) => NavigateTo(
-                () => new Screening());
+                () => new Screening { UserRole = UserRole, UserName = UserName });
+
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
+
+            btnReports.Click += (s, e) => NavigateTo(
+                () => new ReportsModule { UserRole = UserRole, UserName = UserName });
 
             btnMyDocumentsLogout.Click += (s, e) =>
             {
@@ -359,6 +366,26 @@ namespace HR_Project.HR_System
             next.FormClosed += (s, args) => this.Show();
             this.Hide();
             next.Show();
+        }
+
+        private void btnHiringDecision_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnReports_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnScreening_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
+        {
         }
     }
 }
