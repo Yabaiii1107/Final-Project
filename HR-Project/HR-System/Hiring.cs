@@ -27,6 +27,23 @@ namespace HR_Project.HR_System
             SetResolutionControlsEnabled(false);
             ApplyRoleRestrictions();
             LoadFinalReviewApplicants();
+
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelMyDocumentsHeader, lblMyDocumentsTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelMyDocumentsNavigation);
+            foreach (Control c in panelMyDocumentsNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnHiringDecision);
+            UITheme.StyleGrid(dgvApplicantList);
+            UITheme.StylePrimaryButton(btnCommitResolution, UITheme.AccentGreen);
+            UITheme.StyleTextBox(txtApplicantName);
+            UITheme.StyleTextBox(txtPosition);
+            UITheme.StyleTextBox(txtScreenStatus);
+            UITheme.StyleTextBox(txtInterviewScore);
+            UITheme.StyleTextBox(txtPanelRec);
+            UITheme.StyleTextBox(txtRemarks);
+
             WireNavButtons();
 
             btnHiringDecision.Enabled = false;
@@ -358,6 +375,9 @@ namespace HR_Project.HR_System
 
         private void WireNavButtons()
         {
+            btnDashboard.Click += (s, e) => NavigateTo(
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
+
             btnApplicants.Click += (s, e) => NavigateTo(
                 () => new HRApplicants { UserRole = UserRole, UserName = UserName });
 
