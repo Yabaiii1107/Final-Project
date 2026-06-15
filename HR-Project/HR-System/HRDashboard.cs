@@ -25,6 +25,24 @@ namespace HR_Project.HR_System
         private void HRDashboard_Load(object sender, EventArgs e)
         {
             lblWelcomeHR.Text = $"Welcome {UserName}!";
+
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelMyDocumentsHeader, lblMyDocumentsTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelMyDocumentsNavigation);
+            foreach (Control c in panelMyDocumentsNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnMyDocumentsDashboard);
+            UITheme.StyleStatCard(panelApplicants, lblApplicantCount, lblApplicants, UITheme.AccentBlue);
+            UITheme.StyleStatCard(panelJobs, lblOpenJobsCount, lblJobs, UITheme.AccentGreen);
+            UITheme.StyleStatCard(panelInterviews, lblInterviewsCount, lblInterviews, Color.FromArgb(255, 159, 10));
+            UITheme.StyleStatCard(panelAccepted, lblAcceptedCount, lblAccepted, Color.FromArgb(52, 199, 89));
+            UITheme.StyleGrid(dgvPendingReviews);
+            UITheme.StyleGrid(dgvUpcomingInterviews);
+            UITheme.StyleGrid(dgvRecentUpdates);
+            lblWelcomeHR.Font = UITheme.FontWelcome;
+            lblWelcomeHR.ForeColor = UITheme.TextPrimary;
+
             WireNavButtons();
             LoadDashboard();
         }
