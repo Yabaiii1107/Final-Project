@@ -204,6 +204,50 @@ namespace HR_Project.HR_System
             }
         }
 
+        private void WireNavButtons()
+        {
+            btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
+
+            btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
+                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
+
+            btnScreening.Click += (s, e) => NavigateTo(
+                () => new Screening { UserRole = UserRole, UserName = UserName });
+
+            btnInterviews.Click += (s, e) => NavigateTo(
+                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
+
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
+
+            btnReports.Click += (s, e) => NavigateTo(
+                () => new ReportsModule { UserRole = UserRole, UserName = UserName });
+
+            btnMyDocumentsLogout.Click += (s, e) =>
+            {
+                if (MessageBox.Show("Are you sure you want to logout?",
+                        "Logout", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    new Login().Show();
+                    this.Hide();
+                }
+            };
+
+            btnProfilePageClose.Click += (s, e) => Application.Exit();
+
+            btnApplicants.Enabled = false;
+        }
+
+        private void NavigateTo(Func<Form> createForm)
+        {
+            Form next = createForm();
+            next.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            next.Show();
+        }
+
         private void btnResumeView_Click(object sender, EventArgs e)
         {
             ViewDocument("Resume");
@@ -215,45 +259,49 @@ namespace HR_Project.HR_System
 
         private void HRApplicants_Load(object sender, EventArgs e)
         {
+
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelHeader, lblTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelNavigation);
+            foreach (Control c in panelNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnApplicants);
+
+            UITheme.StyleGrid(dgvApplicants);
+            UITheme.StyleTextBox(txtBoxSearchApplicant);
+            UITheme.StyleComboBox(cmbBoxFilterStatus);
+            UITheme.StyleComboBox(cmbCurrentStatus);
+            UITheme.StylePrimaryButton(btnUpdateStatus, UITheme.AccentBlue);
+            UITheme.StylePrimaryButton(btnScheduleInterview, UITheme.AccentGreen);
+            UITheme.StyleSecondaryButton(btnViewFullProfile);
+            UITheme.StyleSecondaryButton(btnSearchApplicant);
+
+            WireNavButtons();
             LoadApplicants();
 
             cmbBoxFilterStatus.Items.Clear();
-            cmbBoxFilterStatus.Items.Add("All");
-            cmbBoxFilterStatus.Items.Add("Draft");
-            cmbBoxFilterStatus.Items.Add("Submitted");
-            cmbBoxFilterStatus.Items.Add("Under Review");
-            cmbBoxFilterStatus.Items.Add("Shortlisted");
-            cmbBoxFilterStatus.Items.Add("Interview");
-            cmbBoxFilterStatus.Items.Add("Final Review");
-            cmbBoxFilterStatus.Items.Add("Accepted");
-            cmbBoxFilterStatus.Items.Add("Rejected");
-            cmbBoxFilterStatus.Items.Add("Withdrawn");
+            cmbBoxFilterStatus.Items.AddRange(new string[]
+            {
+                "All", "Draft", "Submitted", "Under Review", "Shortlisted",
+                "Interview", "Final Review", "Accepted", "Rejected", "Withdrawn"
+            });
             cmbBoxFilterStatus.SelectedIndex = 0;
 
             LoadApplicantsFiltered();
 
             cmbCurrentStatus.Items.Clear();
-            cmbCurrentStatus.Items.Add("Draft");
-            cmbCurrentStatus.Items.Add("Submitted");
-            cmbCurrentStatus.Items.Add("Under Review");
-            cmbCurrentStatus.Items.Add("Shortlisted");
-            cmbCurrentStatus.Items.Add("Interview");
-            cmbCurrentStatus.Items.Add("For Assessment");
-            cmbCurrentStatus.Items.Add("Final Review");
-            cmbCurrentStatus.Items.Add("Accepted");
-            cmbCurrentStatus.Items.Add("Rejected");
-            cmbCurrentStatus.Items.Add("Withdrawn");
+            cmbCurrentStatus.Items.AddRange(new string[]
+            {
+                "Draft", "Submitted", "Under Review", "Shortlisted",
+                "Interview", "For Assessment", "Final Review",
+                "Accepted", "Rejected", "Withdrawn"
+            });
             cmbCurrentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
         {
-            HRDashboard dashboard = new HRDashboard();
-            dashboard.UserRole = this.UserRole;
-            dashboard.UserName = this.UserName;
-            dashboard.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            dashboard.Show();
         }
 
         private void btnProfilePageClose_Click(object sender, EventArgs e)
@@ -531,12 +579,6 @@ namespace HR_Project.HR_System
 
         private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
         {
-            JobVacancyManagement jobForm = new JobVacancyManagement();
-            jobForm.UserRole = this.UserRole;
-            jobForm.UserName = this.UserName;
-            jobForm.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            jobForm.Show();
         }
 
         private void cmbCurrentStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -623,42 +665,18 @@ namespace HR_Project.HR_System
 
         private void btnScreening_Click(object sender, EventArgs e)
         {
-            Screening screening = new Screening();
-            screening.UserRole = this.UserRole;
-            screening.UserName = this.UserName;
-            screening.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            screening.Show();
         }
 
         private void btnInterviews_Click(object sender, EventArgs e)
         {
-            InterviewEvaluation intervieweval = new InterviewEvaluation();
-            intervieweval.UserRole = this.UserRole;
-            intervieweval.UserName = this.UserName;
-            intervieweval.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            intervieweval.Show();
         }
 
         private void btnHiringDecision_Click(object sender, EventArgs e)
         {
-            Form1 hiring = new Form1();
-            hiring.UserRole = this.UserRole;
-            hiring.UserName = this.UserName;
-            hiring.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            hiring.Show();
         }
 
         private void btnReports_Click(object sender, EventArgs e)
         {
-            ReportsModule reports = new ReportsModule();
-            reports.UserRole = this.UserRole;
-            reports.UserName = this.UserName;
-            reports.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            reports.Show();
         }
 
         private void btnScheduleInterview_Click(object sender, EventArgs e)
