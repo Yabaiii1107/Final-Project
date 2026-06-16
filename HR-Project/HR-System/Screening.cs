@@ -25,6 +25,23 @@ namespace HR_Project.HR_System
 
         private void Screening_Load(object sender, EventArgs e)
         {
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelHeader, lblTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelNavigation);
+            foreach (Control c in panelNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnScreening);
+            UITheme.StyleGrid(dgvScreeningList);
+            UITheme.StylePrimaryButton(btnApprove, UITheme.AccentGreen);
+            UITheme.StyleSecondaryButton(btnRejectEmailNotice);
+            UITheme.StyleComboBox(cmbEduFit);
+            UITheme.StyleComboBox(cmbTechFit);
+            UITheme.StyleComboBox(cmbExpFit);
+            UITheme.StyleTextBox(txtScreeningNotes);
+            UITheme.StyleTextBox(txtApplicantName);
+            UITheme.StyleTextBox(txtPosition);
+
             SetDecisionButtonsEnabled(false);
             WireNavButtons();
 
