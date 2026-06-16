@@ -28,6 +28,17 @@ namespace HR_Project.HR_System
             dtpTime.Format = DateTimePickerFormat.Time;
             dtpTime.ShowUpDown = true;
 
+            UITheme.StyleForm(this);
+            this.BackColor = UITheme.BgPage;
+            UITheme.StyleTextBox(txtApplicantName);
+            UITheme.StyleTextBox(txtPositionApplied);
+            UITheme.StyleTextBox(txtLocationLink);
+            UITheme.StyleTextBox(txtInterviewer);
+            UITheme.StyleTextBox(textBox1);
+            UITheme.StyleComboBox(cmbType);
+            UITheme.StylePrimaryButton(btnSaveSchedule, UITheme.AccentGreen);
+            UITheme.StyleSecondaryButton(btnCancel);
+
             cmbType.SelectedIndex = 0;
 
             btnSaveSchedule.Click += btnSaveSchedule_Click;
