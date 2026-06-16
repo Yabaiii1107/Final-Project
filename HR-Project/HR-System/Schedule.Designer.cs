@@ -219,7 +219,7 @@ namespace HR_Project.HR_System
             // 
             // btnSaveSchedule
             // 
-            this.btnSaveSchedule.BackColor = System.Drawing.Color.DarkOliveGreen;
+            this.btnSaveSchedule.BackColor = System.Drawing.Color.FromArgb(52, 199, 89);
             this.btnSaveSchedule.Location = new System.Drawing.Point(889, 530);
             this.btnSaveSchedule.Name = "btnSaveSchedule";
             this.btnSaveSchedule.Size = new System.Drawing.Size(136, 38);
@@ -229,7 +229,7 @@ namespace HR_Project.HR_System
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.IndianRed;
+            this.btnCancel.BackColor = System.Drawing.Color.White;
             this.btnCancel.Location = new System.Drawing.Point(1091, 530);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(136, 38);
@@ -241,7 +241,6 @@ namespace HR_Project.HR_System
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HR_Project.Properties.Resources.green;
             this.ClientSize = new System.Drawing.Size(1364, 625);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveSchedule);
@@ -292,4 +291,3 @@ namespace HR_Project.HR_System
         private System.Windows.Forms.Button btnCancel;
     }
 }
-
