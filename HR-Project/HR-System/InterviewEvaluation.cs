@@ -26,6 +26,22 @@ namespace HR_Project.HR_System
         {
             SetEvaluationControlsEnabled(false);
             LoadInterviewApplicants();
+
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelMyDocumentsHeader, lblMyDocumentsTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelMyDocumentsNavigation);
+            foreach (Control c in panelMyDocumentsNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnInterviews);
+            UITheme.StyleGrid(dgvInterviewList);
+            UITheme.StylePrimaryButton(btnSubmitEvaluation, UITheme.AccentBlue);
+            UITheme.StyleComboBox(cmbRecommendation);
+            UITheme.StyleTextBox(txtApplicantName);
+            UITheme.StyleTextBox(txtPosition);
+            UITheme.StyleTextBox(txtInterviewer);
+            UITheme.StyleTextBox(txtRemarks);
+
             WireNavButtons();
             WireScoreEvents();
 
