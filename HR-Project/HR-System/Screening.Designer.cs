@@ -82,7 +82,7 @@ namespace HR_Project.HR_System
             // 
             // grpVerification
             // 
-            this.grpVerification.BackColor = System.Drawing.Color.Transparent;
+            this.grpVerification.BackColor = System.Drawing.Color.White;
             this.grpVerification.Controls.Add(this.checkedListBox1);
             this.grpVerification.Controls.Add(this.lblVerificationStatus);
             this.grpVerification.Controls.Add(this.txtPosition);
@@ -101,7 +101,7 @@ namespace HR_Project.HR_System
             // 
             // checkedListBox1
             // 
-            this.checkedListBox1.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.checkedListBox1.BackColor = System.Drawing.Color.White;
             this.checkedListBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkedListBox1.FormattingEnabled = true;
             this.checkedListBox1.Items.AddRange(new object[] {
@@ -166,7 +166,7 @@ namespace HR_Project.HR_System
             // 
             // grpEvaluation
             // 
-            this.grpEvaluation.BackColor = System.Drawing.Color.Transparent;
+            this.grpEvaluation.BackColor = System.Drawing.Color.White;
             this.grpEvaluation.Controls.Add(this.txtScreeningNotes);
             this.grpEvaluation.Controls.Add(this.label4);
             this.grpEvaluation.Controls.Add(this.cmbExpFit);
@@ -187,7 +187,7 @@ namespace HR_Project.HR_System
             // 
             // txtScreeningNotes
             // 
-            this.txtScreeningNotes.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.txtScreeningNotes.BackColor = System.Drawing.Color.White;
             this.txtScreeningNotes.Location = new System.Drawing.Point(21, 183);
             this.txtScreeningNotes.Margin = new System.Windows.Forms.Padding(2);
             this.txtScreeningNotes.Multiline = true;
@@ -292,7 +292,7 @@ namespace HR_Project.HR_System
             // 
             // grpDecision
             // 
-            this.grpDecision.BackColor = System.Drawing.Color.Transparent;
+            this.grpDecision.BackColor = System.Drawing.Color.White;
             this.grpDecision.Controls.Add(this.btnRejectEmailNotice);
             this.grpDecision.Controls.Add(this.btnApprove);
             this.grpDecision.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -307,8 +307,8 @@ namespace HR_Project.HR_System
             // 
             // btnRejectEmailNotice
             // 
-            this.btnRejectEmailNotice.BackColor = System.Drawing.Color.Firebrick;
-            this.btnRejectEmailNotice.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnRejectEmailNotice.BackColor = System.Drawing.Color.FromArgb(220, 50, 50);
+            this.btnRejectEmailNotice.ForeColor = System.Drawing.Color.White;
             this.btnRejectEmailNotice.Location = new System.Drawing.Point(418, 49);
             this.btnRejectEmailNotice.Margin = new System.Windows.Forms.Padding(2);
             this.btnRejectEmailNotice.Name = "btnRejectEmailNotice";
@@ -320,8 +320,8 @@ namespace HR_Project.HR_System
             // 
             // btnApprove
             // 
-            this.btnApprove.BackColor = System.Drawing.Color.DarkGreen;
-            this.btnApprove.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btnApprove.BackColor = System.Drawing.Color.FromArgb(52, 199, 89);
+            this.btnApprove.ForeColor = System.Drawing.Color.White;
             this.btnApprove.Location = new System.Drawing.Point(53, 49);
             this.btnApprove.Margin = new System.Windows.Forms.Padding(2);
             this.btnApprove.Name = "btnApprove";
@@ -333,7 +333,7 @@ namespace HR_Project.HR_System
             // 
             // panelNavigation
             // 
-            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(30, 30, 46);
             this.panelNavigation.Controls.Add(this.btnReports);
             this.panelNavigation.Controls.Add(this.btnHiringDecision);
             this.panelNavigation.Controls.Add(this.btnInterviews);
@@ -348,10 +348,11 @@ namespace HR_Project.HR_System
             // 
             // btnReports
             // 
-            this.btnReports.BackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnReports.BackColor = System.Drawing.Color.Transparent;
+            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReports.FlatAppearance.BorderSize = 0;
             this.btnReports.ForeColor = System.Drawing.Color.White;
             this.btnReports.Location = new System.Drawing.Point(674, 9);
             this.btnReports.Name = "btnReports";
@@ -363,10 +364,11 @@ namespace HR_Project.HR_System
             // 
             // btnHiringDecision
             // 
-            this.btnHiringDecision.BackColor = System.Drawing.Color.Blue;
-            this.btnHiringDecision.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnHiringDecision.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnHiringDecision.BackColor = System.Drawing.Color.Transparent;
+            this.btnHiringDecision.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnHiringDecision.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHiringDecision.FlatAppearance.BorderSize = 0;
             this.btnHiringDecision.ForeColor = System.Drawing.Color.White;
             this.btnHiringDecision.Location = new System.Drawing.Point(559, 9);
             this.btnHiringDecision.Name = "btnHiringDecision";
@@ -378,12 +380,13 @@ namespace HR_Project.HR_System
             // 
             // btnInterviews
             // 
-            this.btnInterviews.BackColor = System.Drawing.Color.Blue;
-            this.btnInterviews.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnInterviews.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnInterviews.BackColor = System.Drawing.Color.Transparent;
+            this.btnInterviews.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnInterviews.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInterviews.FlatAppearance.BorderSize = 0;
             this.btnInterviews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInterviews.ForeColor = System.Drawing.Color.Transparent;
+            this.btnInterviews.ForeColor = System.Drawing.Color.White;
             this.btnInterviews.Location = new System.Drawing.Point(464, 9);
             this.btnInterviews.Name = "btnInterviews";
             this.btnInterviews.Size = new System.Drawing.Size(75, 23);
@@ -394,13 +397,14 @@ namespace HR_Project.HR_System
             // 
             // btnScreening
             // 
-            this.btnScreening.BackColor = System.Drawing.Color.Blue;
+            this.btnScreening.BackColor = System.Drawing.Color.Transparent;
             this.btnScreening.Enabled = false;
-            this.btnScreening.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnScreening.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnScreening.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnScreening.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnScreening.FlatAppearance.BorderSize = 0;
             this.btnScreening.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnScreening.ForeColor = System.Drawing.Color.Transparent;
+            this.btnScreening.ForeColor = System.Drawing.Color.White;
             this.btnScreening.Location = new System.Drawing.Point(355, 9);
             this.btnScreening.Name = "btnScreening";
             this.btnScreening.Size = new System.Drawing.Size(89, 23);
@@ -410,12 +414,13 @@ namespace HR_Project.HR_System
             // 
             // btnApplicants
             // 
-            this.btnApplicants.BackColor = System.Drawing.Color.Blue;
-            this.btnApplicants.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnApplicants.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnApplicants.BackColor = System.Drawing.Color.Transparent;
+            this.btnApplicants.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnApplicants.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnApplicants.FlatAppearance.BorderSize = 0;
             this.btnApplicants.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnApplicants.ForeColor = System.Drawing.Color.Transparent;
+            this.btnApplicants.ForeColor = System.Drawing.Color.White;
             this.btnApplicants.Location = new System.Drawing.Point(244, 9);
             this.btnApplicants.Name = "btnApplicants";
             this.btnApplicants.Size = new System.Drawing.Size(89, 23);
@@ -426,12 +431,13 @@ namespace HR_Project.HR_System
             // 
             // btnJobVacanciesManagement
             // 
-            this.btnJobVacanciesManagement.BackColor = System.Drawing.Color.Blue;
-            this.btnJobVacanciesManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnJobVacanciesManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnJobVacanciesManagement.BackColor = System.Drawing.Color.Transparent;
+            this.btnJobVacanciesManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnJobVacanciesManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJobVacanciesManagement.FlatAppearance.BorderSize = 0;
             this.btnJobVacanciesManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJobVacanciesManagement.ForeColor = System.Drawing.Color.Transparent;
+            this.btnJobVacanciesManagement.ForeColor = System.Drawing.Color.White;
             this.btnJobVacanciesManagement.Location = new System.Drawing.Point(138, 9);
             this.btnJobVacanciesManagement.Name = "btnJobVacanciesManagement";
             this.btnJobVacanciesManagement.Size = new System.Drawing.Size(86, 23);
@@ -442,12 +448,13 @@ namespace HR_Project.HR_System
             // 
             // btnMyDocumentsDashboard
             // 
-            this.btnMyDocumentsDashboard.BackColor = System.Drawing.Color.Blue;
-            this.btnMyDocumentsDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnMyDocumentsDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnMyDocumentsDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnMyDocumentsDashboard.BackColor = System.Drawing.Color.Transparent;
+            this.btnMyDocumentsDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnMyDocumentsDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
+            this.btnMyDocumentsDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMyDocumentsDashboard.FlatAppearance.BorderSize = 0;
             this.btnMyDocumentsDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMyDocumentsDashboard.ForeColor = System.Drawing.Color.Transparent;
+            this.btnMyDocumentsDashboard.ForeColor = System.Drawing.Color.White;
             this.btnMyDocumentsDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnMyDocumentsDashboard.Name = "btnMyDocumentsDashboard";
             this.btnMyDocumentsDashboard.Size = new System.Drawing.Size(85, 23);
@@ -458,7 +465,7 @@ namespace HR_Project.HR_System
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(22, 22, 34);
             this.panelHeader.Controls.Add(this.btnProfilePageClose);
             this.panelHeader.Controls.Add(this.btnMyDocumentsLogout);
             this.panelHeader.Controls.Add(this.lblTitle);
@@ -489,13 +496,13 @@ namespace HR_Project.HR_System
             this.btnMyDocumentsLogout.Size = new System.Drawing.Size(75, 23);
             this.btnMyDocumentsLogout.TabIndex = 3;
             this.btnMyDocumentsLogout.Text = "Logout";
-            this.btnMyDocumentsLogout.UseVisualStyleBackColor = true;
+            this.btnMyDocumentsLogout.UseVisualStyleBackColor = false;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
             this.lblTitle.Location = new System.Drawing.Point(3, 23);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(97, 20);
@@ -506,7 +513,6 @@ namespace HR_Project.HR_System
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HR_Project.Properties.Resources.green;
             this.ClientSize = new System.Drawing.Size(806, 642);
             this.Controls.Add(this.dgvScreeningList);
             this.Controls.Add(this.panelNavigation);
@@ -569,4 +575,3 @@ namespace HR_Project.HR_System
         private System.Windows.Forms.DataGridView dgvScreeningList;
     }
 }
-
