@@ -27,6 +27,23 @@ namespace HR_Project.HR_System
         private void JobVacancyManagement_Load(object sender, EventArgs e)
         {
             LoadOpenJobs();
+
+            UITheme.StyleForm(this);
+            UITheme.StyleHeader(panelHeader, lblTitle);
+            UITheme.StyleHeaderButton(btnProfilePageClose);
+            UITheme.StyleLogoutButton(btnMyDocumentsLogout);
+            UITheme.StyleNav(panelNavigation);
+            foreach (Control c in panelNavigation.Controls)
+                if (c is Button b) UITheme.StyleNavButton(b, b == btnJobVacanciesManagement);
+            UITheme.StyleGrid(dgvVacancies);
+            UITheme.StylePrimaryButton(btnSaveJobOpening, UITheme.AccentBlue);
+            UITheme.StyleSecondaryButton(btnCloseJOb);
+            UITheme.StyleSecondaryButton(btnActiveJob);
+            UITheme.StyleTextBox(txtJobTitle);
+            UITheme.StyleTextBox(txtQualInfo);
+            UITheme.StyleComboBox(cmbDepartment);
+            UITheme.StyleComboBox(cmbEmploymentType);
+
             WireNavButtons();
             btnJobVacanciesManagement.Enabled = false;
         }
