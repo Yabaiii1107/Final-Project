@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using MySqlConnector;
 
@@ -13,9 +14,12 @@ namespace HR_Project.HR_System
         public string UserRole { get; set; } = "";
         public string UserName { get; set; } = "";
 
+        private bool _navWired = false;
+
         public ReportsModule()
         {
             InitializeComponent();
+            this.Load += ReportsModule_Load;
         }
 
         private void ReportsModule_Load(object sender, EventArgs e)
@@ -23,36 +27,142 @@ namespace HR_Project.HR_System
             dtpDataFrom.Value = DateTime.Today.AddDays(-90);
             dtpDataTo.Value = DateTime.Today;
 
-            btnGenerate.Click += btnGenerate_Click;
-
+            ApplyTheme();
             WireNavButtons();
 
-            btnReports.Enabled = false;
+            btnGenerate.Click += btnGenerate_Click;
+        }
+
+        private void ApplyTheme()
+        {
+            this.BackgroundImage = null;
+            this.BackgroundImageLayout = ImageLayout.None;
+            this.BackColor = UITheme.BgPage;
+
+            panelMyDocumentsHeader.BackColor = UITheme.BgHeader;
+            panelMyDocumentsHeader.BackgroundImage = null;
+            lblMyDocumentsTitle.ForeColor = UITheme.TextLight;
+            lblMyDocumentsTitle.Font = UITheme.FontTitle;
+
+            btnProfilePageClose.FlatStyle = FlatStyle.Flat;
+            btnProfilePageClose.FlatAppearance.BorderSize = 0;
+            btnProfilePageClose.BackColor = Color.Transparent;
+            btnProfilePageClose.ForeColor = Color.FromArgb(255, 80, 80);
+            btnProfilePageClose.Font = new Font("Segoe UI", 10f, FontStyle.Bold);
+            btnProfilePageClose.UseVisualStyleBackColor = false;
+
+            btnMyDocumentsLogout.FlatStyle = FlatStyle.Flat;
+            btnMyDocumentsLogout.FlatAppearance.BorderSize = 1;
+            btnMyDocumentsLogout.FlatAppearance.BorderColor = Color.FromArgb(255, 80, 80);
+            btnMyDocumentsLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(255, 80, 80);
+            btnMyDocumentsLogout.BackColor = Color.Transparent;
+            btnMyDocumentsLogout.ForeColor = Color.FromArgb(255, 80, 80);
+            btnMyDocumentsLogout.UseVisualStyleBackColor = false;
+
+            panelMyDocumentsNavigation.BackColor = UITheme.BgNav;
+            panelMyDocumentsNavigation.BackgroundImage = null;
+
+            foreach (Control c in panelMyDocumentsNavigation.Controls)
+            {
+                if (c is Button b)
+                {
+                    bool isActive = b == btnReports;
+                    b.FlatStyle = FlatStyle.Flat;
+                    b.FlatAppearance.BorderSize = 0;
+                    b.FlatAppearance.MouseOverBackColor = UITheme.NavHover;
+                    b.FlatAppearance.MouseDownBackColor = UITheme.NavHover;
+                    b.BackColor = isActive ? UITheme.NavActive : Color.Transparent;
+                    b.ForeColor = UITheme.TextLight;
+                    b.Font = isActive ? UITheme.FontNavActive : UITheme.FontNav;
+                    b.Cursor = isActive ? Cursors.Default : Cursors.Hand;
+                    b.UseVisualStyleBackColor = false;
+                }
+            }
+
+            grpReportTypes.BackColor = Color.White;
+            grpReportTypes.ForeColor = UITheme.TextPrimary;
+            grpReportTypes.Font = UITheme.FontBtn;
+            grpReportTypes.BackgroundImage = null;
+
+            grpFilters.BackColor = Color.White;
+            grpFilters.ForeColor = UITheme.TextPrimary;
+            grpFilters.Font = UITheme.FontBtn;
+            grpFilters.BackgroundImage = null;
+
+            grpOutput.BackColor = Color.White;
+            grpOutput.ForeColor = UITheme.TextPrimary;
+            grpOutput.Font = UITheme.FontBtn;
+            grpOutput.BackgroundImage = null;
+
+            btnGenerate.FlatStyle = FlatStyle.Flat;
+            btnGenerate.FlatAppearance.BorderSize = 0;
+            btnGenerate.BackColor = UITheme.AccentBlue;
+            btnGenerate.ForeColor = UITheme.TextLight;
+            btnGenerate.Font = UITheme.FontBtn;
+            btnGenerate.UseVisualStyleBackColor = false;
+
+            UITheme.StyleGrid(dgvReportView);
+        }
+
+        private void WireNavButtons()
+        {
+            if (_navWired) return;
+            _navWired = true;
+
+            btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
+                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
+
+            btnApplicants.Click += (s, e) => NavigateTo(
+                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
+
+            btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
+                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
+
+            btnScreening.Click += (s, e) => NavigateTo(
+                () => new Screening { UserRole = UserRole, UserName = UserName });
+
+            btnInterviews.Click += (s, e) => NavigateTo(
+                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
+
+            btnHiringDecision.Click += (s, e) => NavigateTo(
+                () => new Form1 { UserRole = UserRole, UserName = UserName });
+
+            btnMyDocumentsLogout.Click += (s, e) =>
+            {
+                if (MessageBox.Show("Are you sure you want to logout?",
+                        "Logout", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    new Login().Show();
+                    this.Hide();
+                }
+            };
+
+            btnProfilePageClose.Click += (s, e) => Application.Exit();
+        }
+
+        private void NavigateTo(Func<Form> createForm)
+        {
+            Form next = createForm();
+            next.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            next.Show();
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
         {
-            if (!rbAllApplicants.Checked &&
-                !rbPending.Checked &&
-                !rbInterviews.Checked &&
-                !rbOutcome.Checked &&
-                !rbMissingDocs.Checked)
+            if (!rbAllApplicants.Checked && !rbPending.Checked &&
+                !rbInterviews.Checked && !rbOutcome.Checked && !rbMissingDocs.Checked)
             {
-                MessageBox.Show(
-                    "Please select a report type first.",
-                    "No Report Selected",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show("Please select a report type first.",
+                    "No Report Selected", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (dtpDataFrom.Value.Date > dtpDataTo.Value.Date)
             {
-                MessageBox.Show(
-                    "\"Date From\" cannot be later than \"Date To\".",
-                    "Invalid Date Range",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                MessageBox.Show("\"Date From\" cannot be later than \"Date To\".",
+                    "Invalid Date Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -66,46 +176,40 @@ namespace HR_Project.HR_System
             }
             catch (Exception ex)
             {
-                MessageBox.Show(
-                    "Error generating report:\n" + ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("Error generating report:\n" + ex.Message,
+                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void GenerateAllApplicants()
         {
             UpdateColumnHeaders("Application Date", "Current Status");
-
             const string query = @"
                 SELECT
-                    ap.id                                    AS ID,
-                    CONCAT(ap.first_name,' ',ap.last_name)   AS CandidateName,
-                    COALESCE(j.position, 'No Application')   AS PositionApplied,
+                    ap.id                                       AS ID,
+                    CONCAT(ap.first_name,' ',ap.last_name)      AS CandidateName,
+                    COALESCE(j.position, 'No Application')      AS PositionApplied,
                     DATE_FORMAT(a.application_date,'%b %d, %Y') AS DataTarget,
-                    COALESCE(a.status, 'Draft')              AS ReportStatus
+                    COALESCE(a.status, 'Draft')                 AS ReportStatus
                 FROM applicants ap
                 LEFT JOIN applications a  ON ap.id = a.applicant_id
                 LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
                 WHERE a.application_date BETWEEN @from AND @to
                    OR a.application_date IS NULL
                 ORDER BY ap.last_name, ap.first_name";
-
             LoadReport(query);
         }
 
         private void GeneratePending()
         {
             UpdateColumnHeaders("Days Pending", "Pipeline Stage");
-
             const string query = @"
                 SELECT
-                    ap.id                                       AS ID,
-                    CONCAT(ap.first_name,' ',ap.last_name)      AS CandidateName,
-                    COALESCE(j.position, 'N/A')                 AS PositionApplied,
+                    ap.id                                                AS ID,
+                    CONCAT(ap.first_name,' ',ap.last_name)               AS CandidateName,
+                    COALESCE(j.position, 'N/A')                          AS PositionApplied,
                     CONCAT(DATEDIFF(NOW(), a.application_date), ' days') AS DataTarget,
-                    a.status                                    AS ReportStatus
+                    a.status                                             AS ReportStatus
                 FROM applicants ap
                 INNER JOIN applications a  ON ap.id = a.applicant_id
                 LEFT  JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
@@ -113,14 +217,12 @@ namespace HR_Project.HR_System
                     ('Submitted','Under Review','Shortlisted','Interview','Final Review')
                   AND a.application_date BETWEEN @from AND @to
                 ORDER BY a.application_date ASC";
-
             LoadReport(query);
         }
 
         private void GenerateInterviews()
         {
             UpdateColumnHeaders("Interview Date & Time", "Interview Status");
-
             const string query = @"
                 SELECT
                     ap.id                                       AS ID,
@@ -142,14 +244,12 @@ namespace HR_Project.HR_System
                 WHERE a.status = 'Interview'
                   AND a.application_date BETWEEN @from AND @to
                 ORDER BY i.interview_date ASC, i.interview_time ASC";
-
             LoadReport(query);
         }
 
         private void GenerateOutcome()
         {
             UpdateColumnHeaders("Decision Date", "Final Outcome");
-
             const string query = @"
                 SELECT
                     ap.id                                       AS ID,
@@ -168,24 +268,22 @@ namespace HR_Project.HR_System
                 WHERE a.status IN ('Accepted','Rejected')
                   AND a.application_date BETWEEN @from AND @to
                 ORDER BY a.status, ap.last_name";
-
             LoadReport(query);
         }
 
         private void GenerateMissingDocs()
         {
             UpdateColumnHeaders("Missing Documents", "Missing Count");
-
             const string query = @"
                 SELECT
                     ap.id                                           AS ID,
                     CONCAT(ap.first_name,' ',ap.last_name)          AS CandidateName,
                     COALESCE(j.position, 'N/A')                     AS PositionApplied,
                     TRIM(BOTH ', ' FROM CONCAT_WS(', ',
-                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%resume%'        THEN 1 ELSE 0 END) = 0, 'Resume/CV',       NULL),
-                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%government%'    THEN 1 ELSE 0 END) = 0, 'Government ID',   NULL),
-                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%transcript%'    THEN 1 ELSE 0 END) = 0, 'Transcript',      NULL),
-                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%certificate%'   THEN 1 ELSE 0 END) = 0, 'Certificates',    NULL)
+                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%resume%'      THEN 1 ELSE 0 END) = 0, 'Resume/CV',     NULL),
+                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%government%'  THEN 1 ELSE 0 END) = 0, 'Government ID', NULL),
+                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%transcript%'  THEN 1 ELSE 0 END) = 0, 'Transcript',    NULL),
+                        IF(SUM(CASE WHEN LOWER(d.document_type) LIKE '%certificate%' THEN 1 ELSE 0 END) = 0, 'Certificates',  NULL)
                     ))                                              AS DataTarget,
                     CONCAT(
                         (4 -
@@ -203,7 +301,6 @@ namespace HR_Project.HR_System
                 GROUP BY ap.id, ap.first_name, ap.last_name, j.position, a.application_id
                 HAVING DataTarget <> ''
                 ORDER BY ap.last_name";
-
             LoadReport(query);
         }
 
@@ -214,10 +311,10 @@ namespace HR_Project.HR_System
             using (MySqlConnection conn = new MySqlConnection(_connectionString))
             {
                 conn.Open();
-
                 var cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@from", dtpDataFrom.Value.Date);
-                cmd.Parameters.AddWithValue("@to", dtpDataTo.Value.Date.AddDays(1).AddSeconds(-1));
+                cmd.Parameters.AddWithValue("@to",
+                    dtpDataTo.Value.Date.AddDays(1).AddSeconds(-1));
 
                 var adapter = new MySqlDataAdapter(cmd);
                 var dt = new DataTable();
@@ -244,72 +341,14 @@ namespace HR_Project.HR_System
             colReportStatus.HeaderText = statusHeader;
         }
 
-        private void WireNavButtons()
-        {
-            btnMyDocumentsDashboard.Click += (s, e) => NavigateTo(
-                () => new HRDashboard { UserRole = UserRole, UserName = UserName });
-
-            btnApplicants.Click += (s, e) => NavigateTo(
-                () => new HRApplicants { UserRole = UserRole, UserName = UserName });
-
-            btnJobVacanciesManagement.Click += (s, e) => NavigateTo(
-                () => new JobVacancyManagement { UserRole = UserRole, UserName = UserName });
-
-            btnScreening.Click += (s, e) => NavigateTo(
-                () => new Screening { UserRole = UserRole, UserName = UserName });
-
-            btnInterviews.Click += (s, e) => NavigateTo(
-                () => new InterviewEvaluation { UserRole = UserRole, UserName = UserName });
-
-            btnHiringDecision.Click += (s, e) => NavigateTo(
-                () => new Form1 { UserRole = UserRole, UserName = UserName });
-
-            btnMyDocumentsLogout.Click += (s, e) =>
-            {
-                if (MessageBox.Show(
-                        "Are you sure you want to logout?",
-                        "Logout",
-                        MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    new Login().Show();
-                    this.Hide();
-                }
-            };
-
-            btnProfilePageClose.Click += (s, e) => Application.Exit();
-        }
-
-        private void NavigateTo(Func<Form> createForm)
-        {
-            Form next = createForm();
-            next.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            next.Show();
-        }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void btnInterviews_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnHiringDecision_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnScreening_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
-        {
-        }
+        // These stubs must exist because the designer references them
+        private void radioButton3_CheckedChanged(object sender, EventArgs e) { }
+        private void btnHiringDecision_Click(object sender, EventArgs e) { }
+        private void btnInterviews_Click(object sender, EventArgs e) { }
+        private void btnScreening_Click(object sender, EventArgs e) { }
+        private void btnJobVacanciesManagement_Click(object sender, EventArgs e) { }
+        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e) { }
+        private void btnApplicants_Click(object sender, EventArgs e) { }
+        private void btnMyDocumentsLogout_Click(object sender, EventArgs e) { }
     }
 }
