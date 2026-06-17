@@ -18,6 +18,8 @@ namespace HR_Project.HR_System
         public string UserRole { get; set; } = "";
         public string UserName { get; set; } = "";
 
+        private bool _loadingDetails = false;
+
         private DataTable dt = new DataTable();
 
         public HRApplicants()
@@ -96,6 +98,7 @@ namespace HR_Project.HR_System
 
                 string query = @"
                 SELECT
+                    a.application_id                         AS ApplicationID,
                     ap.id                                    AS ApplicantID,
                     CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
                     COALESCE(j.position, 'No position yet')  AS PositionApplied,
@@ -156,31 +159,35 @@ namespace HR_Project.HR_System
             }
         }
 
-        private void LoadApplicantDetails(int applicantId)
+        private void LoadApplicantDetails(int applicantId, int applicationId)
         {
+            _loadingDetails = true;
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 string query = @"
-                SELECT
-                    ap.id,
-                    ap.first_name,
-                    ap.last_name,
-                    ap.email,
-                    ap.contact,
-                    COALESCE(j.position, 'No position yet') AS position,
-                    a.application_date,
-                    COALESCE(a.status, 'Draft')             AS status
-                FROM applicants ap
-                LEFT JOIN applications a
-                    ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j
-                    ON a.vacancy_id = j.vacancy_id
-                WHERE ap.id = @id";
+        SELECT
+            ap.id,
+            ap.first_name,
+            ap.last_name,
+            ap.email,
+            ap.contact,
+            COALESCE(j.position, 'No position yet') AS position,
+            a.application_date,
+            COALESCE(a.status, 'Draft')             AS status
+        FROM applicants ap
+        LEFT JOIN applications a
+            ON ap.id = a.applicant_id
+           AND a.application_id = @appId
+        LEFT JOIN job_vacancies j
+            ON a.vacancy_id = j.vacancy_id
+        WHERE ap.id = @id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", applicantId);
+                cmd.Parameters.AddWithValue("@appId", applicationId);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -202,6 +209,8 @@ namespace HR_Project.HR_System
                     }
                 }
             }
+
+            _loadingDetails = false;
         }
 
         private void WireNavButtons()
@@ -313,13 +322,22 @@ namespace HR_Project.HR_System
         {
             if (dgvApplicants.CurrentRow == null) return;
 
-            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null) return;
+            if (!dgvApplicants.Columns.Contains("ApplicationID") ||
+                !dgvApplicants.Columns.Contains("ApplicantID")) return;
+
+            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null ||
+                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == null ||
+                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == DBNull.Value) return;
 
             if (!int.TryParse(
                 dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
                 out int applicantId)) return;
 
-            LoadApplicantDetails(applicantId);
+            if (!int.TryParse(
+                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value.ToString(),
+                out int applicationId)) return;
+
+            LoadApplicantDetails(applicantId, applicationId);
         }
 
         private void btnUpdateStatus_Click(object sender, EventArgs e)
@@ -583,6 +601,8 @@ namespace HR_Project.HR_System
 
         private void cmbCurrentStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (_loadingDetails) return;
+
             if (cmbCurrentStatus.Text == "Accepted" || cmbCurrentStatus.Text == "Rejected")
             {
                 string currentStatus =
@@ -630,17 +650,6 @@ namespace HR_Project.HR_System
 
         private void btnMyDocumentsLogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                new Login().Show();
-                this.Hide();
-            }
         }
 
         private void btnGovernmentIDView_Click(object sender, EventArgs e)
@@ -655,7 +664,68 @@ namespace HR_Project.HR_System
 
         private void btnCertificatesView_Click(object sender, EventArgs e)
         {
-            ViewDocument("Certificate");
+            if (dgvApplicants.CurrentRow == null ||
+        dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null)
+            {
+                MessageBox.Show("Please select an applicant first.");
+                return;
+            }
+
+            if (!int.TryParse(
+                    dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
+                    out int applicantId))
+            {
+                MessageBox.Show("Invalid Applicant ID.");
+                return;
+            }
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT file_name, file_data
+                FROM applicant_documents
+                WHERE applicant_id  = @id
+                  AND document_type LIKE '%Certificate%'
+                ORDER BY upload_date DESC";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", applicantId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        count++;
+                        string fileName = reader["file_name"].ToString();
+                        byte[] fileData = (byte[])reader["file_data"];
+
+                        string tempPath = System.IO.Path.Combine(
+                            System.IO.Path.GetTempPath(),
+                            $"cert_{count}_{fileName}");
+
+                        System.IO.File.WriteAllBytes(tempPath, fileData);
+
+                        System.Diagnostics.Process.Start(
+                            new System.Diagnostics.ProcessStartInfo
+                            {
+                                FileName = tempPath,
+                                UseShellExecute = true
+                            });
+                    }
+
+                    if (count == 0)
+                    {
+                        MessageBox.Show(
+                            "No certificates found for this applicant.",
+                            "No Document",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
 
         private void btnResumeView_Click_1(object sender, EventArgs e)
