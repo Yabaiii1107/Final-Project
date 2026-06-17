@@ -220,6 +220,11 @@ namespace HR_Project.HR_System
                 }
             };
 
+            btnMaintenance.Click += (s, e) => NavigateTo(
+                () => new Maintenance { UserRole = UserRole, UserName = UserName });
+
+            btnMaintenance.Visible = (UserRole == "Admin" || UserRole == "Manager");
+
             btnProfilePageClose.Click += (s, e) => Application.Exit();
 
             btnMyDocumentsDashboard.Enabled = false;
@@ -246,5 +251,7 @@ namespace HR_Project.HR_System
         private void btnInterviews_Click(object sender, EventArgs e) { }
         private void btnHiringDecision_Click(object sender, EventArgs e) { }
         private void btnReports_Click(object sender, EventArgs e) { }
+        private void btnMaintenance_Click(object sender, EventArgs e) { }
+       
     }
 }
