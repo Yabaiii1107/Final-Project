@@ -295,7 +295,7 @@ namespace HR_Project.HR_System
             // 
             // btnCommitResolution
             // 
-            this.btnCommitResolution.BackColor = System.Drawing.Color.FromArgb(10, 132, 255);
+            this.btnCommitResolution.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(132)))), ((int)(((byte)(255)))));
             this.btnCommitResolution.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCommitResolution.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCommitResolution.ForeColor = System.Drawing.Color.White;
@@ -317,7 +317,7 @@ namespace HR_Project.HR_System
             // 
             // panelMyDocumentsHeader
             // 
-            this.panelMyDocumentsHeader.BackColor = System.Drawing.Color.FromArgb(22, 22, 34);
+            this.panelMyDocumentsHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
             this.panelMyDocumentsHeader.Controls.Add(this.btnProfilePageClose);
             this.panelMyDocumentsHeader.Controls.Add(this.btnMyDocumentsLogout);
             this.panelMyDocumentsHeader.Controls.Add(this.lblMyDocumentsTitle);
@@ -363,7 +363,7 @@ namespace HR_Project.HR_System
             // 
             // panelMyDocumentsNavigation
             // 
-            this.panelMyDocumentsNavigation.BackColor = System.Drawing.Color.FromArgb(30, 30, 46);
+            this.panelMyDocumentsNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(46)))));
             this.panelMyDocumentsNavigation.Controls.Add(this.btnReports);
             this.panelMyDocumentsNavigation.Controls.Add(this.btnHiringDecision);
             this.panelMyDocumentsNavigation.Controls.Add(this.btnInterviews);
@@ -379,10 +379,10 @@ namespace HR_Project.HR_System
             // btnReports
             // 
             this.btnReports.BackColor = System.Drawing.Color.Transparent;
-            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.FlatAppearance.BorderSize = 0;
+            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.ForeColor = System.Drawing.Color.White;
             this.btnReports.Location = new System.Drawing.Point(731, 9);
             this.btnReports.Name = "btnReports";
@@ -395,10 +395,10 @@ namespace HR_Project.HR_System
             // btnHiringDecision
             // 
             this.btnHiringDecision.BackColor = System.Drawing.Color.Transparent;
-            this.btnHiringDecision.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnHiringDecision.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHiringDecision.FlatAppearance.BorderSize = 0;
+            this.btnHiringDecision.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnHiringDecision.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHiringDecision.ForeColor = System.Drawing.Color.White;
             this.btnHiringDecision.Location = new System.Drawing.Point(609, 9);
             this.btnHiringDecision.Name = "btnHiringDecision";
@@ -410,10 +410,10 @@ namespace HR_Project.HR_System
             // btnInterviews
             // 
             this.btnInterviews.BackColor = System.Drawing.Color.Transparent;
-            this.btnInterviews.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnInterviews.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInterviews.FlatAppearance.BorderSize = 0;
+            this.btnInterviews.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnInterviews.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInterviews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInterviews.ForeColor = System.Drawing.Color.White;
             this.btnInterviews.Location = new System.Drawing.Point(505, 9);
@@ -427,10 +427,10 @@ namespace HR_Project.HR_System
             // btnScreening
             // 
             this.btnScreening.BackColor = System.Drawing.Color.Transparent;
-            this.btnScreening.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnScreening.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreening.FlatAppearance.BorderSize = 0;
+            this.btnScreening.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnScreening.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreening.ForeColor = System.Drawing.Color.White;
             this.btnScreening.Location = new System.Drawing.Point(387, 9);
             this.btnScreening.Name = "btnScreening";
@@ -443,10 +443,10 @@ namespace HR_Project.HR_System
             // btnApplicants
             // 
             this.btnApplicants.BackColor = System.Drawing.Color.Transparent;
-            this.btnApplicants.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnApplicants.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplicants.FlatAppearance.BorderSize = 0;
+            this.btnApplicants.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnApplicants.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplicants.ForeColor = System.Drawing.Color.White;
             this.btnApplicants.Location = new System.Drawing.Point(271, 9);
             this.btnApplicants.Name = "btnApplicants";
@@ -458,10 +458,10 @@ namespace HR_Project.HR_System
             // btnJobVacanciesManagement
             // 
             this.btnJobVacanciesManagement.BackColor = System.Drawing.Color.Transparent;
-            this.btnJobVacanciesManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnJobVacanciesManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobVacanciesManagement.FlatAppearance.BorderSize = 0;
+            this.btnJobVacanciesManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnJobVacanciesManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobVacanciesManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJobVacanciesManagement.ForeColor = System.Drawing.Color.White;
             this.btnJobVacanciesManagement.Location = new System.Drawing.Point(157, 9);
@@ -474,10 +474,10 @@ namespace HR_Project.HR_System
             // btnDashboard
             // 
             this.btnDashboard.BackColor = System.Drawing.Color.Transparent;
-            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDashboard.FlatAppearance.BorderSize = 0;
+            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboard.ForeColor = System.Drawing.Color.White;
             this.btnDashboard.Location = new System.Drawing.Point(31, 9);
