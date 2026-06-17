@@ -2,30 +2,16 @@ namespace HR_Project.HR_System
 {
     partial class InterviewEvaluation
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -83,11 +69,12 @@ namespace HR_Project.HR_System
             // 
             this.dgvInterviewList.AllowUserToAddRows = false;
             this.dgvInterviewList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvInterviewList.Location = new System.Drawing.Point(16, 547);
+            this.dgvInterviewList.Location = new System.Drawing.Point(16, 110);
             this.dgvInterviewList.Name = "dgvInterviewList";
             this.dgvInterviewList.ReadOnly = true;
+            this.dgvInterviewList.RowHeadersVisible = false;
             this.dgvInterviewList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvInterviewList.Size = new System.Drawing.Size(767, 120);
+            this.dgvInterviewList.Size = new System.Drawing.Size(838, 160);
             this.dgvInterviewList.TabIndex = 19;
             this.dgvInterviewList.SelectionChanged += new System.EventHandler(this.dgvInterviewList_SelectionChanged);
             // 
@@ -101,10 +88,8 @@ namespace HR_Project.HR_System
             this.grpCandidateContext.Controls.Add(this.lblPosition);
             this.grpCandidateContext.Controls.Add(this.lblCandidate);
             this.grpCandidateContext.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpCandidateContext.Location = new System.Drawing.Point(16, 134);
-            this.grpCandidateContext.Margin = new System.Windows.Forms.Padding(2);
+            this.grpCandidateContext.Location = new System.Drawing.Point(16, 285);
             this.grpCandidateContext.Name = "grpCandidateContext";
-            this.grpCandidateContext.Padding = new System.Windows.Forms.Padding(2);
             this.grpCandidateContext.Size = new System.Drawing.Size(316, 153);
             this.grpCandidateContext.TabIndex = 0;
             this.grpCandidateContext.TabStop = false;
@@ -113,35 +98,31 @@ namespace HR_Project.HR_System
             // txtInterviewer
             // 
             this.txtInterviewer.Location = new System.Drawing.Point(97, 113);
-            this.txtInterviewer.Margin = new System.Windows.Forms.Padding(2);
             this.txtInterviewer.Name = "txtInterviewer";
             this.txtInterviewer.ReadOnly = true;
-            this.txtInterviewer.Size = new System.Drawing.Size(211, 23);
+            this.txtInterviewer.Size = new System.Drawing.Size(205, 23);
             this.txtInterviewer.TabIndex = 6;
             // 
             // txtPosition
             // 
             this.txtPosition.Location = new System.Drawing.Point(77, 75);
-            this.txtPosition.Margin = new System.Windows.Forms.Padding(2);
             this.txtPosition.Name = "txtPosition";
             this.txtPosition.ReadOnly = true;
-            this.txtPosition.Size = new System.Drawing.Size(211, 23);
+            this.txtPosition.Size = new System.Drawing.Size(225, 23);
             this.txtPosition.TabIndex = 5;
             // 
             // txtApplicantName
             // 
             this.txtApplicantName.Location = new System.Drawing.Point(89, 38);
-            this.txtApplicantName.Margin = new System.Windows.Forms.Padding(2);
             this.txtApplicantName.Name = "txtApplicantName";
             this.txtApplicantName.ReadOnly = true;
-            this.txtApplicantName.Size = new System.Drawing.Size(211, 23);
+            this.txtApplicantName.Size = new System.Drawing.Size(213, 23);
             this.txtApplicantName.TabIndex = 4;
             // 
             // lblInterviewer
             // 
             this.lblInterviewer.AutoSize = true;
             this.lblInterviewer.Location = new System.Drawing.Point(16, 113);
-            this.lblInterviewer.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInterviewer.Name = "lblInterviewer";
             this.lblInterviewer.Size = new System.Drawing.Size(77, 15);
             this.lblInterviewer.TabIndex = 3;
@@ -151,7 +132,6 @@ namespace HR_Project.HR_System
             // 
             this.lblPosition.AutoSize = true;
             this.lblPosition.Location = new System.Drawing.Point(16, 75);
-            this.lblPosition.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPosition.Name = "lblPosition";
             this.lblPosition.Size = new System.Drawing.Size(54, 15);
             this.lblPosition.TabIndex = 2;
@@ -161,7 +141,6 @@ namespace HR_Project.HR_System
             // 
             this.lblCandidate.AutoSize = true;
             this.lblCandidate.Location = new System.Drawing.Point(16, 38);
-            this.lblCandidate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCandidate.Name = "lblCandidate";
             this.lblCandidate.Size = new System.Drawing.Size(65, 15);
             this.lblCandidate.TabIndex = 1;
@@ -169,7 +148,6 @@ namespace HR_Project.HR_System
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
@@ -179,10 +157,8 @@ namespace HR_Project.HR_System
             this.grpVerdict.Controls.Add(this.lblPanelAssessment);
             this.grpVerdict.Controls.Add(this.cmbRecommendation);
             this.grpVerdict.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpVerdict.Location = new System.Drawing.Point(16, 314);
-            this.grpVerdict.Margin = new System.Windows.Forms.Padding(2);
+            this.grpVerdict.Location = new System.Drawing.Point(16, 455);
             this.grpVerdict.Name = "grpVerdict";
-            this.grpVerdict.Padding = new System.Windows.Forms.Padding(2);
             this.grpVerdict.Size = new System.Drawing.Size(316, 90);
             this.grpVerdict.TabIndex = 2;
             this.grpVerdict.TabStop = false;
@@ -192,7 +168,6 @@ namespace HR_Project.HR_System
             // 
             this.lblPanelAssessment.AutoSize = true;
             this.lblPanelAssessment.Location = new System.Drawing.Point(16, 33);
-            this.lblPanelAssessment.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPanelAssessment.Name = "lblPanelAssessment";
             this.lblPanelAssessment.Size = new System.Drawing.Size(108, 15);
             this.lblPanelAssessment.TabIndex = 7;
@@ -203,13 +178,12 @@ namespace HR_Project.HR_System
             this.cmbRecommendation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRecommendation.FormattingEnabled = true;
             this.cmbRecommendation.Items.AddRange(new object[] {
-            "HIre",
+            "Hire",
             "Consider for other role",
             "Hold for future vacancy"});
             this.cmbRecommendation.Location = new System.Drawing.Point(19, 51);
-            this.cmbRecommendation.Margin = new System.Windows.Forms.Padding(2);
             this.cmbRecommendation.Name = "cmbRecommendation";
-            this.cmbRecommendation.Size = new System.Drawing.Size(199, 23);
+            this.cmbRecommendation.Size = new System.Drawing.Size(280, 23);
             this.cmbRecommendation.TabIndex = 0;
             // 
             // grpScoring
@@ -226,11 +200,9 @@ namespace HR_Project.HR_System
             this.grpScoring.Controls.Add(this.lblProblemSolving);
             this.grpScoring.Controls.Add(this.lblTechSkill);
             this.grpScoring.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpScoring.Location = new System.Drawing.Point(405, 104);
-            this.grpScoring.Margin = new System.Windows.Forms.Padding(2);
+            this.grpScoring.Location = new System.Drawing.Point(348, 285);
             this.grpScoring.Name = "grpScoring";
-            this.grpScoring.Padding = new System.Windows.Forms.Padding(2);
-            this.grpScoring.Size = new System.Drawing.Size(378, 402);
+            this.grpScoring.Size = new System.Drawing.Size(506, 390);
             this.grpScoring.TabIndex = 3;
             this.grpScoring.TabStop = false;
             this.grpScoring.Text = "📊 Evaluation Scores Tracker";
@@ -240,66 +212,55 @@ namespace HR_Project.HR_System
             this.pnlPassFailGroup.Controls.Add(this.rbFail);
             this.pnlPassFailGroup.Controls.Add(this.rbPass);
             this.pnlPassFailGroup.Location = new System.Drawing.Point(7, 318);
-            this.pnlPassFailGroup.Margin = new System.Windows.Forms.Padding(2);
             this.pnlPassFailGroup.Name = "pnlPassFailGroup";
-            this.pnlPassFailGroup.Size = new System.Drawing.Size(357, 65);
+            this.pnlPassFailGroup.Size = new System.Drawing.Size(490, 55);
             this.pnlPassFailGroup.TabIndex = 4;
             // 
             // rbFail
             // 
             this.rbFail.AutoSize = true;
-            this.rbFail.ForeColor = System.Drawing.Color.FromArgb(220, 50, 50);
-            this.rbFail.Location = new System.Drawing.Point(214, 23);
-            this.rbFail.Margin = new System.Windows.Forms.Padding(2);
+            this.rbFail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.rbFail.Location = new System.Drawing.Point(280, 18);
             this.rbFail.Name = "rbFail";
             this.rbFail.Size = new System.Drawing.Size(121, 17);
             this.rbFail.TabIndex = 1;
-            this.rbFail.TabStop = true;
             this.rbFail.Text = "FAIL APPLICATION";
-            this.rbFail.UseVisualStyleBackColor = true;
             // 
             // rbPass
             // 
             this.rbPass.AutoSize = true;
-            this.rbPass.ForeColor = System.Drawing.Color.FromArgb(52, 199, 89);
-            this.rbPass.Location = new System.Drawing.Point(33, 23);
-            this.rbPass.Margin = new System.Windows.Forms.Padding(2);
+            this.rbPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(199)))), ((int)(((byte)(89)))));
+            this.rbPass.Location = new System.Drawing.Point(50, 18);
             this.rbPass.Name = "rbPass";
             this.rbPass.Size = new System.Drawing.Size(125, 17);
             this.rbPass.TabIndex = 0;
-            this.rbPass.TabStop = true;
             this.rbPass.Text = "PASS APPLICATION";
-            this.rbPass.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(4, 285);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(4, 295);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(156, 15);
             this.label1.TabIndex = 15;
             this.label1.Text = "⚡ Pass / Fail Status Trigger";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // txtRemarks
             // 
-            this.txtRemarks.Location = new System.Drawing.Point(7, 187);
-            this.txtRemarks.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRemarks.Location = new System.Drawing.Point(7, 200);
             this.txtRemarks.Multiline = true;
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.ReadOnly = true;
             this.txtRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtRemarks.Size = new System.Drawing.Size(359, 72);
+            this.txtRemarks.Size = new System.Drawing.Size(490, 80);
             this.txtRemarks.TabIndex = 14;
             // 
             // lblEvalRemarks
             // 
             this.lblEvalRemarks.AutoSize = true;
             this.lblEvalRemarks.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEvalRemarks.Location = new System.Drawing.Point(4, 168);
-            this.lblEvalRemarks.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEvalRemarks.Location = new System.Drawing.Point(4, 180);
             this.lblEvalRemarks.Name = "lblEvalRemarks";
             this.lblEvalRemarks.Size = new System.Drawing.Size(186, 15);
             this.lblEvalRemarks.TabIndex = 13;
@@ -307,8 +268,7 @@ namespace HR_Project.HR_System
             // 
             // numProblemScore
             // 
-            this.numProblemScore.Location = new System.Drawing.Point(109, 114);
-            this.numProblemScore.Margin = new System.Windows.Forms.Padding(2);
+            this.numProblemScore.Location = new System.Drawing.Point(140, 120);
             this.numProblemScore.Maximum = new decimal(new int[] {
             5,
             0,
@@ -330,8 +290,7 @@ namespace HR_Project.HR_System
             // 
             // numCommScore
             // 
-            this.numCommScore.Location = new System.Drawing.Point(109, 75);
-            this.numCommScore.Margin = new System.Windows.Forms.Padding(2);
+            this.numCommScore.Location = new System.Drawing.Point(140, 80);
             this.numCommScore.Maximum = new decimal(new int[] {
             5,
             0,
@@ -353,8 +312,7 @@ namespace HR_Project.HR_System
             // 
             // numTechScore
             // 
-            this.numTechScore.Location = new System.Drawing.Point(99, 38);
-            this.numTechScore.Margin = new System.Windows.Forms.Padding(2);
+            this.numTechScore.Location = new System.Drawing.Point(140, 40);
             this.numTechScore.Maximum = new decimal(new int[] {
             5,
             0,
@@ -378,8 +336,7 @@ namespace HR_Project.HR_System
             // 
             this.lblCommunication.AutoSize = true;
             this.lblCommunication.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCommunication.Location = new System.Drawing.Point(4, 75);
-            this.lblCommunication.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCommunication.Location = new System.Drawing.Point(4, 80);
             this.lblCommunication.Name = "lblCommunication";
             this.lblCommunication.Size = new System.Drawing.Size(97, 15);
             this.lblCommunication.TabIndex = 9;
@@ -389,8 +346,7 @@ namespace HR_Project.HR_System
             // 
             this.lblProblemSolving.AutoSize = true;
             this.lblProblemSolving.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProblemSolving.Location = new System.Drawing.Point(4, 113);
-            this.lblProblemSolving.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblProblemSolving.Location = new System.Drawing.Point(4, 120);
             this.lblProblemSolving.Name = "lblProblemSolving";
             this.lblProblemSolving.Size = new System.Drawing.Size(101, 15);
             this.lblProblemSolving.TabIndex = 8;
@@ -400,8 +356,7 @@ namespace HR_Project.HR_System
             // 
             this.lblTechSkill.AutoSize = true;
             this.lblTechSkill.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTechSkill.Location = new System.Drawing.Point(4, 38);
-            this.lblTechSkill.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTechSkill.Location = new System.Drawing.Point(4, 40);
             this.lblTechSkill.Name = "lblTechSkill";
             this.lblTechSkill.Size = new System.Drawing.Size(87, 15);
             this.lblTechSkill.TabIndex = 7;
@@ -409,12 +364,11 @@ namespace HR_Project.HR_System
             // 
             // btnSubmitEvaluation
             // 
-            this.btnSubmitEvaluation.BackColor = System.Drawing.Color.FromArgb(10, 132, 255);
+            this.btnSubmitEvaluation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(132)))), ((int)(((byte)(255)))));
             this.btnSubmitEvaluation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubmitEvaluation.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubmitEvaluation.ForeColor = System.Drawing.Color.White;
-            this.btnSubmitEvaluation.Location = new System.Drawing.Point(618, 510);
-            this.btnSubmitEvaluation.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSubmitEvaluation.Location = new System.Drawing.Point(689, 685);
             this.btnSubmitEvaluation.Name = "btnSubmitEvaluation";
             this.btnSubmitEvaluation.Size = new System.Drawing.Size(165, 32);
             this.btnSubmitEvaluation.TabIndex = 5;
@@ -424,7 +378,7 @@ namespace HR_Project.HR_System
             // 
             // panelMyDocumentsNavigation
             // 
-            this.panelMyDocumentsNavigation.BackColor = System.Drawing.Color.FromArgb(30, 30, 46);
+            this.panelMyDocumentsNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(46)))));
             this.panelMyDocumentsNavigation.Controls.Add(this.btnReports);
             this.panelMyDocumentsNavigation.Controls.Add(this.btnHiringDecision);
             this.panelMyDocumentsNavigation.Controls.Add(this.btnInterviews);
@@ -434,16 +388,14 @@ namespace HR_Project.HR_System
             this.panelMyDocumentsNavigation.Controls.Add(this.btnMyDocumentsDashboard);
             this.panelMyDocumentsNavigation.Location = new System.Drawing.Point(0, 57);
             this.panelMyDocumentsNavigation.Name = "panelMyDocumentsNavigation";
-            this.panelMyDocumentsNavigation.Size = new System.Drawing.Size(869, 42);
+            this.panelMyDocumentsNavigation.Size = new System.Drawing.Size(870, 42);
             this.panelMyDocumentsNavigation.TabIndex = 16;
             // 
             // btnReports
             // 
             this.btnReports.BackColor = System.Drawing.Color.Transparent;
-            this.btnReports.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnReports.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.FlatAppearance.BorderSize = 0;
+            this.btnReports.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReports.ForeColor = System.Drawing.Color.White;
             this.btnReports.Location = new System.Drawing.Point(731, 9);
             this.btnReports.Name = "btnReports";
@@ -455,10 +407,8 @@ namespace HR_Project.HR_System
             // btnHiringDecision
             // 
             this.btnHiringDecision.BackColor = System.Drawing.Color.Transparent;
-            this.btnHiringDecision.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnHiringDecision.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHiringDecision.FlatAppearance.BorderSize = 0;
+            this.btnHiringDecision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHiringDecision.ForeColor = System.Drawing.Color.White;
             this.btnHiringDecision.Location = new System.Drawing.Point(609, 9);
             this.btnHiringDecision.Name = "btnHiringDecision";
@@ -472,10 +422,8 @@ namespace HR_Project.HR_System
             // 
             this.btnInterviews.BackColor = System.Drawing.Color.Transparent;
             this.btnInterviews.Enabled = false;
-            this.btnInterviews.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnInterviews.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInterviews.FlatAppearance.BorderSize = 0;
+            this.btnInterviews.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInterviews.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInterviews.ForeColor = System.Drawing.Color.White;
             this.btnInterviews.Location = new System.Drawing.Point(505, 9);
@@ -488,10 +436,8 @@ namespace HR_Project.HR_System
             // btnScreening
             // 
             this.btnScreening.BackColor = System.Drawing.Color.Transparent;
-            this.btnScreening.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnScreening.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreening.FlatAppearance.BorderSize = 0;
+            this.btnScreening.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnScreening.ForeColor = System.Drawing.Color.White;
             this.btnScreening.Location = new System.Drawing.Point(387, 9);
             this.btnScreening.Name = "btnScreening";
@@ -504,10 +450,8 @@ namespace HR_Project.HR_System
             // btnApplicants
             // 
             this.btnApplicants.BackColor = System.Drawing.Color.Transparent;
-            this.btnApplicants.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnApplicants.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplicants.FlatAppearance.BorderSize = 0;
+            this.btnApplicants.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplicants.ForeColor = System.Drawing.Color.White;
             this.btnApplicants.Location = new System.Drawing.Point(271, 9);
             this.btnApplicants.Name = "btnApplicants";
@@ -519,11 +463,8 @@ namespace HR_Project.HR_System
             // btnJobVacanciesManagement
             // 
             this.btnJobVacanciesManagement.BackColor = System.Drawing.Color.Transparent;
-            this.btnJobVacanciesManagement.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnJobVacanciesManagement.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobVacanciesManagement.FlatAppearance.BorderSize = 0;
-            this.btnJobVacanciesManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobVacanciesManagement.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnJobVacanciesManagement.ForeColor = System.Drawing.Color.White;
             this.btnJobVacanciesManagement.Location = new System.Drawing.Point(157, 9);
             this.btnJobVacanciesManagement.Name = "btnJobVacanciesManagement";
@@ -536,11 +477,8 @@ namespace HR_Project.HR_System
             // btnMyDocumentsDashboard
             // 
             this.btnMyDocumentsDashboard.BackColor = System.Drawing.Color.Transparent;
-            this.btnMyDocumentsDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnMyDocumentsDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(50, 50, 70);
-            this.btnMyDocumentsDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMyDocumentsDashboard.FlatAppearance.BorderSize = 0;
-            this.btnMyDocumentsDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMyDocumentsDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMyDocumentsDashboard.ForeColor = System.Drawing.Color.White;
             this.btnMyDocumentsDashboard.Location = new System.Drawing.Point(31, 9);
             this.btnMyDocumentsDashboard.Name = "btnMyDocumentsDashboard";
@@ -552,14 +490,14 @@ namespace HR_Project.HR_System
             // 
             // panelMyDocumentsHeader
             // 
-            this.panelMyDocumentsHeader.BackColor = System.Drawing.Color.FromArgb(22, 22, 34);
+            this.panelMyDocumentsHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
             this.panelMyDocumentsHeader.Controls.Add(this.btnProfilePageClose);
             this.panelMyDocumentsHeader.Controls.Add(this.btnMyDocumentsLogout);
             this.panelMyDocumentsHeader.Controls.Add(this.lblMyDocumentsTitle);
             this.panelMyDocumentsHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelMyDocumentsHeader.Location = new System.Drawing.Point(0, 0);
             this.panelMyDocumentsHeader.Name = "panelMyDocumentsHeader";
-            this.panelMyDocumentsHeader.Size = new System.Drawing.Size(870, 60);
+            this.panelMyDocumentsHeader.Size = new System.Drawing.Size(870, 57);
             this.panelMyDocumentsHeader.TabIndex = 15;
             // 
             // btnProfilePageClose
@@ -567,7 +505,6 @@ namespace HR_Project.HR_System
             this.btnProfilePageClose.BackColor = System.Drawing.Color.Transparent;
             this.btnProfilePageClose.FlatAppearance.BorderSize = 0;
             this.btnProfilePageClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProfilePageClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfilePageClose.ForeColor = System.Drawing.Color.Red;
             this.btnProfilePageClose.Location = new System.Drawing.Point(833, 0);
             this.btnProfilePageClose.Name = "btnProfilePageClose";
@@ -590,7 +527,7 @@ namespace HR_Project.HR_System
             this.lblMyDocumentsTitle.AutoSize = true;
             this.lblMyDocumentsTitle.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMyDocumentsTitle.ForeColor = System.Drawing.Color.White;
-            this.lblMyDocumentsTitle.Location = new System.Drawing.Point(3, 23);
+            this.lblMyDocumentsTitle.Location = new System.Drawing.Point(3, 18);
             this.lblMyDocumentsTitle.Name = "lblMyDocumentsTitle";
             this.lblMyDocumentsTitle.Size = new System.Drawing.Size(198, 20);
             this.lblMyDocumentsTitle.TabIndex = 0;
@@ -600,7 +537,7 @@ namespace HR_Project.HR_System
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(870, 712);
+            this.ClientSize = new System.Drawing.Size(870, 730);
             this.Controls.Add(this.panelMyDocumentsNavigation);
             this.Controls.Add(this.panelMyDocumentsHeader);
             this.Controls.Add(this.btnSubmitEvaluation);
@@ -609,10 +546,9 @@ namespace HR_Project.HR_System
             this.Controls.Add(this.grpCandidateContext);
             this.Controls.Add(this.dgvInterviewList);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "InterviewEvaluation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Interview Evaluation";
             this.Load += new System.EventHandler(this.InterviewEvalutaion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInterviewList)).EndInit();
             this.grpCandidateContext.ResumeLayout(false);
