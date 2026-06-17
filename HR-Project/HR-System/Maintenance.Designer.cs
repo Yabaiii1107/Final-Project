@@ -1,188 +1,239 @@
-﻿namespace MaintenanceModuleForms
+namespace HR_Project.HR_System
 {
     partial class Maintenance
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.grpMenu = new System.Windows.Forms.GroupBox();
+            this.panelHeader = new System.Windows.Forms.Panel();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.panelContent = new System.Windows.Forms.Panel();
+            this.panelCategories = new System.Windows.Forms.Panel();
+            this.lblCategoriesTitle = new System.Windows.Forms.Label();
             this.lstCategories = new System.Windows.Forms.ListBox();
-            this.grpInputEngine = new System.Windows.Forms.GroupBox();
+            this.panelInput = new System.Windows.Forms.Panel();
+            this.lblInputTitle = new System.Windows.Forms.Label();
             this.lblCurrentCategory = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.txtCurrentCategory = new System.Windows.Forms.TextBox();
+            this.lblValueName = new System.Windows.Forms.Label();
             this.txtValueInput = new System.Windows.Forms.TextBox();
             this.btnSaveEntry = new System.Windows.Forms.Button();
             this.btnDeleteEntry = new System.Windows.Forms.Button();
-            this.grpTableViewer = new System.Windows.Forms.GroupBox();
+            this.panelGrid = new System.Windows.Forms.Panel();
+            this.lblGridTitle = new System.Windows.Forms.Label();
             this.dgvMaintenanceGrid = new System.Windows.Forms.DataGridView();
             this.colID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colConValueName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.grpMenu.SuspendLayout();
-            this.grpInputEngine.SuspendLayout();
-            this.grpTableViewer.SuspendLayout();
+            this.btnBack = new System.Windows.Forms.Button();
+            this.panelHeader.SuspendLayout();
+            this.panelContent.SuspendLayout();
+            this.panelCategories.SuspendLayout();
+            this.panelInput.SuspendLayout();
+            this.panelGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaintenanceGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // grpMenu
+            // panelHeader
             // 
-            this.grpMenu.BackColor = System.Drawing.Color.Transparent;
-            this.grpMenu.Controls.Add(this.lstCategories);
-            this.grpMenu.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpMenu.Location = new System.Drawing.Point(47, 157);
-            this.grpMenu.Name = "grpMenu";
-            this.grpMenu.Size = new System.Drawing.Size(402, 344);
-            this.grpMenu.TabIndex = 0;
-            this.grpMenu.TabStop = false;
-            this.grpMenu.Text = "📂 Select Dictionary Type";
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.panelHeader.Controls.Add(this.lblTitle);
+            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeader.Location = new System.Drawing.Point(0, 0);
+            this.panelHeader.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(803, 39);
+            this.panelHeader.TabIndex = 0;
+            // 
+            // lblTitle
+            // 
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Location = new System.Drawing.Point(11, 12);
+            this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(87, 13);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "⚙  Maintenance";
+            // 
+            // panelContent
+            // 
+            this.panelContent.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
+            this.panelContent.Controls.Add(this.btnBack);
+            this.panelContent.Controls.Add(this.panelCategories);
+            this.panelContent.Controls.Add(this.panelInput);
+            this.panelContent.Controls.Add(this.panelGrid);
+            this.panelContent.Location = new System.Drawing.Point(0, 43);
+            this.panelContent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelContent.Name = "panelContent";
+            this.panelContent.Size = new System.Drawing.Size(803, 476);
+            this.panelContent.TabIndex = 2;
+            // 
+            // panelCategories
+            // 
+            this.panelCategories.BackColor = System.Drawing.Color.White;
+            this.panelCategories.Controls.Add(this.lblCategoriesTitle);
+            this.panelCategories.Controls.Add(this.lstCategories);
+            this.panelCategories.Location = new System.Drawing.Point(16, 16);
+            this.panelCategories.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelCategories.Name = "panelCategories";
+            this.panelCategories.Size = new System.Drawing.Size(187, 299);
+            this.panelCategories.TabIndex = 0;
+            // 
+            // lblCategoriesTitle
+            // 
+            this.lblCategoriesTitle.AutoSize = true;
+            this.lblCategoriesTitle.Location = new System.Drawing.Point(11, 9);
+            this.lblCategoriesTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCategoriesTitle.Name = "lblCategoriesTitle";
+            this.lblCategoriesTitle.Size = new System.Drawing.Size(82, 13);
+            this.lblCategoriesTitle.TabIndex = 0;
+            this.lblCategoriesTitle.Text = "Select Category";
             // 
             // lstCategories
             // 
-            this.lstCategories.AccessibleDescription = "lstCategories";
-            this.lstCategories.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.lstCategories.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstCategories.FormattingEnabled = true;
-            this.lstCategories.ItemHeight = 21;
             this.lstCategories.Items.AddRange(new object[] {
             "Departments",
-            "",
             "Positions",
-            "",
             "Employment Types",
-            "",
             "Requirement Types",
-            "",
             "Interview Types",
-            "",
             "Assessment Types"});
-            this.lstCategories.Location = new System.Drawing.Point(6, 46);
+            this.lstCategories.Location = new System.Drawing.Point(11, 29);
+            this.lstCategories.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.lstCategories.Name = "lstCategories";
-            this.lstCategories.Size = new System.Drawing.Size(359, 256);
-            this.lstCategories.TabIndex = 0;
+            this.lstCategories.Size = new System.Drawing.Size(165, 247);
+            this.lstCategories.TabIndex = 1;
             // 
-            // grpInputEngine
+            // panelInput
             // 
-            this.grpInputEngine.BackColor = System.Drawing.Color.Transparent;
-            this.grpInputEngine.Controls.Add(this.btnDeleteEntry);
-            this.grpInputEngine.Controls.Add(this.btnSaveEntry);
-            this.grpInputEngine.Controls.Add(this.txtValueInput);
-            this.grpInputEngine.Controls.Add(this.txtCurrentCategory);
-            this.grpInputEngine.Controls.Add(this.label1);
-            this.grpInputEngine.Controls.Add(this.lblCurrentCategory);
-            this.grpInputEngine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpInputEngine.Location = new System.Drawing.Point(494, 157);
-            this.grpInputEngine.Name = "grpInputEngine";
-            this.grpInputEngine.Size = new System.Drawing.Size(682, 344);
-            this.grpInputEngine.TabIndex = 1;
-            this.grpInputEngine.TabStop = false;
-            this.grpInputEngine.Text = "📝 Contextual Configuration & Input Box";
+            this.panelInput.BackColor = System.Drawing.Color.White;
+            this.panelInput.Controls.Add(this.lblInputTitle);
+            this.panelInput.Controls.Add(this.lblCurrentCategory);
+            this.panelInput.Controls.Add(this.txtCurrentCategory);
+            this.panelInput.Controls.Add(this.lblValueName);
+            this.panelInput.Controls.Add(this.txtValueInput);
+            this.panelInput.Controls.Add(this.btnSaveEntry);
+            this.panelInput.Controls.Add(this.btnDeleteEntry);
+            this.panelInput.Location = new System.Drawing.Point(219, 25);
+            this.panelInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelInput.Name = "panelInput";
+            this.panelInput.Size = new System.Drawing.Size(387, 143);
+            this.panelInput.TabIndex = 1;
+            // 
+            // lblInputTitle
+            // 
+            this.lblInputTitle.AutoSize = true;
+            this.lblInputTitle.Location = new System.Drawing.Point(11, 9);
+            this.lblInputTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblInputTitle.Name = "lblInputTitle";
+            this.lblInputTitle.Size = new System.Drawing.Size(96, 13);
+            this.lblInputTitle.TabIndex = 0;
+            this.lblInputTitle.Text = "Configuration Input";
             // 
             // lblCurrentCategory
             // 
             this.lblCurrentCategory.AutoSize = true;
-            this.lblCurrentCategory.Location = new System.Drawing.Point(26, 46);
+            this.lblCurrentCategory.Location = new System.Drawing.Point(11, 35);
+            this.lblCurrentCategory.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCurrentCategory.Name = "lblCurrentCategory";
-            this.lblCurrentCategory.Size = new System.Drawing.Size(151, 25);
-            this.lblCurrentCategory.TabIndex = 0;
-            this.lblCurrentCategory.Text = "Select Category:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 123);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 25);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Value / Name:";
+            this.lblCurrentCategory.Size = new System.Drawing.Size(52, 13);
+            this.lblCurrentCategory.TabIndex = 1;
+            this.lblCurrentCategory.Text = "Category:";
             // 
             // txtCurrentCategory
             // 
-            this.txtCurrentCategory.Location = new System.Drawing.Point(183, 46);
+            this.txtCurrentCategory.Location = new System.Drawing.Point(80, 32);
+            this.txtCurrentCategory.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtCurrentCategory.Name = "txtCurrentCategory";
-            this.txtCurrentCategory.Size = new System.Drawing.Size(352, 31);
+            this.txtCurrentCategory.ReadOnly = true;
+            this.txtCurrentCategory.Size = new System.Drawing.Size(201, 20);
             this.txtCurrentCategory.TabIndex = 2;
+            // 
+            // lblValueName
+            // 
+            this.lblValueName.AutoSize = true;
+            this.lblValueName.Location = new System.Drawing.Point(11, 68);
+            this.lblValueName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblValueName.Name = "lblValueName";
+            this.lblValueName.Size = new System.Drawing.Size(76, 13);
+            this.lblValueName.TabIndex = 3;
+            this.lblValueName.Text = "Value / Name:";
             // 
             // txtValueInput
             // 
-            this.txtValueInput.Location = new System.Drawing.Point(165, 120);
+            this.txtValueInput.Location = new System.Drawing.Point(101, 65);
+            this.txtValueInput.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtValueInput.Name = "txtValueInput";
-            this.txtValueInput.Size = new System.Drawing.Size(352, 31);
-            this.txtValueInput.TabIndex = 3;
+            this.txtValueInput.Size = new System.Drawing.Size(201, 20);
+            this.txtValueInput.TabIndex = 4;
             // 
             // btnSaveEntry
             // 
-            this.btnSaveEntry.BackColor = System.Drawing.Color.DarkGreen;
-            this.btnSaveEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveEntry.Location = new System.Drawing.Point(65, 220);
+            this.btnSaveEntry.Location = new System.Drawing.Point(80, 100);
+            this.btnSaveEntry.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnSaveEntry.Name = "btnSaveEntry";
-            this.btnSaveEntry.Size = new System.Drawing.Size(164, 33);
-            this.btnSaveEntry.TabIndex = 4;
-            this.btnSaveEntry.Text = "💾 Save Entry";
+            this.btnSaveEntry.Size = new System.Drawing.Size(93, 23);
+            this.btnSaveEntry.TabIndex = 5;
+            this.btnSaveEntry.Text = "💾  Save Entry";
             this.btnSaveEntry.UseVisualStyleBackColor = false;
             // 
             // btnDeleteEntry
             // 
-            this.btnDeleteEntry.BackColor = System.Drawing.Color.Firebrick;
-            this.btnDeleteEntry.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDeleteEntry.Location = new System.Drawing.Point(340, 220);
+            this.btnDeleteEntry.Location = new System.Drawing.Point(185, 100);
+            this.btnDeleteEntry.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDeleteEntry.Name = "btnDeleteEntry";
-            this.btnDeleteEntry.Size = new System.Drawing.Size(195, 33);
-            this.btnDeleteEntry.TabIndex = 5;
-            this.btnDeleteEntry.Text = "❌ Delete Selected";
+            this.btnDeleteEntry.Size = new System.Drawing.Size(107, 23);
+            this.btnDeleteEntry.TabIndex = 6;
+            this.btnDeleteEntry.Text = "🗑  Delete Selected";
             this.btnDeleteEntry.UseVisualStyleBackColor = false;
             // 
-            // grpTableViewer
+            // panelGrid
             // 
-            this.grpTableViewer.BackColor = System.Drawing.Color.Transparent;
-            this.grpTableViewer.Controls.Add(this.dgvMaintenanceGrid);
-            this.grpTableViewer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpTableViewer.Location = new System.Drawing.Point(494, 528);
-            this.grpTableViewer.Name = "grpTableViewer";
-            this.grpTableViewer.Size = new System.Drawing.Size(682, 233);
-            this.grpTableViewer.TabIndex = 2;
-            this.grpTableViewer.TabStop = false;
-            this.grpTableViewer.Text = "📋 Active Lookup Table Logs";
+            this.panelGrid.BackColor = System.Drawing.Color.White;
+            this.panelGrid.Controls.Add(this.lblGridTitle);
+            this.panelGrid.Controls.Add(this.dgvMaintenanceGrid);
+            this.panelGrid.Location = new System.Drawing.Point(219, 172);
+            this.panelGrid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelGrid.Name = "panelGrid";
+            this.panelGrid.Size = new System.Drawing.Size(387, 187);
+            this.panelGrid.TabIndex = 2;
+            // 
+            // lblGridTitle
+            // 
+            this.lblGridTitle.AutoSize = true;
+            this.lblGridTitle.Location = new System.Drawing.Point(11, 9);
+            this.lblGridTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblGridTitle.Name = "lblGridTitle";
+            this.lblGridTitle.Size = new System.Drawing.Size(73, 13);
+            this.lblGridTitle.TabIndex = 0;
+            this.lblGridTitle.Text = "Lookup Table";
             // 
             // dgvMaintenanceGrid
             // 
             this.dgvMaintenanceGrid.AllowUserToAddRows = false;
-            this.dgvMaintenanceGrid.BackgroundColor = System.Drawing.Color.DarkSeaGreen;
-            this.dgvMaintenanceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMaintenanceGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvMaintenanceGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colID,
             this.colConValueName});
-            this.dgvMaintenanceGrid.Location = new System.Drawing.Point(31, 50);
+            this.dgvMaintenanceGrid.Location = new System.Drawing.Point(11, 29);
+            this.dgvMaintenanceGrid.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvMaintenanceGrid.Name = "dgvMaintenanceGrid";
             this.dgvMaintenanceGrid.ReadOnly = true;
-            this.dgvMaintenanceGrid.RowHeadersWidth = 62;
-            this.dgvMaintenanceGrid.RowTemplate.Height = 28;
+            this.dgvMaintenanceGrid.RowHeadersVisible = false;
             this.dgvMaintenanceGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvMaintenanceGrid.Size = new System.Drawing.Size(357, 163);
-            this.dgvMaintenanceGrid.TabIndex = 0;
+            this.dgvMaintenanceGrid.Size = new System.Drawing.Size(365, 144);
+            this.dgvMaintenanceGrid.TabIndex = 1;
             // 
             // colID
             // 
@@ -190,32 +241,47 @@
             this.colID.MinimumWidth = 8;
             this.colID.Name = "colID";
             this.colID.ReadOnly = true;
-            this.colID.Width = 150;
+            this.colID.Width = 80;
             // 
             // colConValueName
             // 
-            this.colConValueName.HeaderText = "Configuration Value Name";
+            this.colConValueName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colConValueName.HeaderText = "Value Name";
             this.colConValueName.MinimumWidth = 8;
             this.colConValueName.Name = "colConValueName";
             this.colConValueName.ReadOnly = true;
-            this.colConValueName.Width = 150;
             // 
-            // Form1
+            // btnBack
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.btnBack.Location = new System.Drawing.Point(679, 413);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Size = new System.Drawing.Size(99, 44);
+            this.btnBack.TabIndex = 3;
+            this.btnBack.Text = "Back";
+            this.btnBack.UseVisualStyleBackColor = true;
+            // 
+            // Maintenance
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::MaintenanceModuleForms.Properties.Resources.green;
-            this.ClientSize = new System.Drawing.Size(1205, 799);
-            this.Controls.Add(this.grpTableViewer);
-            this.Controls.Add(this.grpInputEngine);
-            this.Controls.Add(this.grpMenu);
+            this.ClientSize = new System.Drawing.Size(803, 512);
+            this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.panelContent);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.grpMenu.ResumeLayout(false);
-            this.grpInputEngine.ResumeLayout(false);
-            this.grpInputEngine.PerformLayout();
-            this.grpTableViewer.ResumeLayout(false);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Name = "Maintenance";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Maintenance";
+            this.Load += new System.EventHandler(this.Maintenance_Load);
+            this.panelHeader.ResumeLayout(false);
+            this.panelHeader.PerformLayout();
+            this.panelContent.ResumeLayout(false);
+            this.panelCategories.ResumeLayout(false);
+            this.panelCategories.PerformLayout();
+            this.panelInput.ResumeLayout(false);
+            this.panelInput.PerformLayout();
+            this.panelGrid.ResumeLayout(false);
+            this.panelGrid.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaintenanceGrid)).EndInit();
             this.ResumeLayout(false);
 
@@ -223,21 +289,29 @@
 
         #endregion
 
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
-        private System.Windows.Forms.GroupBox grpMenu;
+        private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.Label lblTitle;
+
+        private System.Windows.Forms.Panel panelContent;
+
+        private System.Windows.Forms.Panel panelCategories;
+        private System.Windows.Forms.Label lblCategoriesTitle;
         private System.Windows.Forms.ListBox lstCategories;
-        private System.Windows.Forms.GroupBox grpInputEngine;
-        private System.Windows.Forms.TextBox txtValueInput;
-        private System.Windows.Forms.TextBox txtCurrentCategory;
-        private System.Windows.Forms.Label label1;
+
+        private System.Windows.Forms.Panel panelInput;
+        private System.Windows.Forms.Label lblInputTitle;
         private System.Windows.Forms.Label lblCurrentCategory;
-        private System.Windows.Forms.Button btnDeleteEntry;
+        private System.Windows.Forms.TextBox txtCurrentCategory;
+        private System.Windows.Forms.Label lblValueName;
+        private System.Windows.Forms.TextBox txtValueInput;
         private System.Windows.Forms.Button btnSaveEntry;
-        private System.Windows.Forms.GroupBox grpTableViewer;
+        private System.Windows.Forms.Button btnDeleteEntry;
+
+        private System.Windows.Forms.Panel panelGrid;
+        private System.Windows.Forms.Label lblGridTitle;
         private System.Windows.Forms.DataGridView dgvMaintenanceGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn colID;
         private System.Windows.Forms.DataGridViewTextBoxColumn colConValueName;
+        private System.Windows.Forms.Button btnBack;
     }
 }
-
