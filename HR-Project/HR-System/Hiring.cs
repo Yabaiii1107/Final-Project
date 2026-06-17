@@ -257,40 +257,55 @@ namespace HR_Project.HR_System
         {
             using (MySqlConnection conn = new MySqlConnection(_connectionString))
             {
-                conn.Open();
+                    conn.Open();
 
-                if (newStatus != "Final Review")
-                {
-                    const string updateSql = @"
+                    if (newStatus != "Final Review")
+                    {
+                        const string updateSql = @"
                         UPDATE applications
                         SET    status = @status
                         WHERE  application_id = @id";
 
-                    var updateCmd = new MySqlCommand(updateSql, conn);
-                    updateCmd.Parameters.AddWithValue("@status", newStatus);
-                    updateCmd.Parameters.AddWithValue("@id", _selectedApplicationId);
-                    updateCmd.ExecuteNonQuery();
+                        var updateCmd = new MySqlCommand(updateSql, conn);
+                        updateCmd.Parameters.AddWithValue("@status", newStatus);
+                        updateCmd.Parameters.AddWithValue("@id", _selectedApplicationId);
+                        updateCmd.ExecuteNonQuery();
 
-                    const string historySql = @"
+                        if (newStatus == "Accepted")
+                        {
+                            const string closeVacancySql = @"
+                            UPDATE job_vacancies
+                            SET    status = 'Closed'
+                            WHERE  vacancy_id = (
+                                SELECT vacancy_id FROM applications
+                                WHERE  application_id = @appId
+                            )";
+
+                            var closeCmd = new MySqlCommand(closeVacancySql, conn);
+                            closeCmd.Parameters.AddWithValue("@appId", _selectedApplicationId);
+                            closeCmd.ExecuteNonQuery();
+                        }
+
+                        const string historySql = @"
                         INSERT INTO application_status_history
                             (application_id, status, changed_at)
                         VALUES
                             (@id, @status, NOW())";
 
-                    var histCmd = new MySqlCommand(historySql, conn);
-                    histCmd.Parameters.AddWithValue("@id", _selectedApplicationId);
-                    histCmd.Parameters.AddWithValue("@status", newStatus);
-                    histCmd.ExecuteNonQuery();
-                }
+                        var histCmd = new MySqlCommand(historySql, conn);
+                        histCmd.Parameters.AddWithValue("@id", _selectedApplicationId);
+                        histCmd.Parameters.AddWithValue("@status", newStatus);
+                        histCmd.ExecuteNonQuery();
+                    }
 
-                string note =
+                    string note =
                     $"[Hiring Decision] {decisionLabel}" +
                     (string.IsNullOrWhiteSpace(txtRemarks.Text)
                         ? ""
                         : $" — Remarks: {txtRemarks.Text.Trim()}") +
                     $" | Decided by: {UserName} ({UserRole})";
 
-                const string notesSql = @"
+                    const string notesSql = @"
                     INSERT INTO updates
                         (applicant_id, update_message, created_at)
                     VALUES
@@ -393,6 +408,9 @@ namespace HR_Project.HR_System
             btnReports.Click += (s, e) => NavigateTo(
                 () => new ReportsModule { UserRole = UserRole, UserName = UserName });
 
+            btnScreening.Click += (s, e) => NavigateTo(
+                () => new Screening { UserRole = UserRole, UserName = UserName });
+
             btnMyDocumentsLogout.Click += (s, e) =>
             {
                 if (MessageBox.Show("Are you sure you want to logout?",
@@ -405,8 +423,6 @@ namespace HR_Project.HR_System
             };
 
             btnProfilePageClose.Click += (s, e) => Application.Exit();
-
-            btnScreening.Enabled = false;
         }
 
         private void NavigateTo(Func<Form> createForm)
