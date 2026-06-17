@@ -26,7 +26,8 @@ namespace HR_Project.HR_System
 
         private void JobVacancyManagement_Load(object sender, EventArgs e)
         {
-            LoadOpenJobs();
+            LoadVacancies();
+            LoadComboBoxes();
 
             UITheme.StyleForm(this);
             UITheme.StyleHeader(panelHeader, lblTitle);
@@ -90,33 +91,80 @@ namespace HR_Project.HR_System
             next.Show();
         }
 
-        private void LoadOpenJobs()
+        private void LoadVacancies()
         {
             dgvVacancies.Rows.Clear();
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = "SELECT vacancy_id, position, status FROM job_vacancies ORDER BY vacancy_id DESC";
+                var cmd = new MySqlCommand(query, conn);
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    dgvVacancies.Rows.Add(reader["vacancy_id"], reader["position"], reader["status"]);
+            }
+        }
 
+        private void LoadComboBoxes()
+        {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
-                string query = @"
-                SELECT vacancy_id, position
-                FROM job_vacancies
-                WHERE status='Open'";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-
+                cmbDepartment.Items.Clear();
+                var cmd = new MySqlCommand("SELECT department_name FROM departments ORDER BY department_name", conn);
+                var reader = cmd.ExecuteReader();
                 while (reader.Read())
-                {
-                    dgvVacancies.Rows.Add(
-                        reader["vacancy_id"],
-                        reader["position"]);
-                }
+                    cmbDepartment.Items.Add(reader.GetString(0));
+                reader.Close();
+
+                cmbEmploymentType.Items.Clear();
+                cmd = new MySqlCommand("SELECT employment_type FROM employment_types ORDER BY employment_id", conn);
+                reader = cmd.ExecuteReader();
+                while (reader.Read())
+                    cmbEmploymentType.Items.Add(reader.GetString(0));
+                reader.Close();
             }
         }
 
         private void btnSaveJobOpening_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtJobTitle.Text))
+            {
+                MessageBox.Show("Please enter a job title.",
+                    "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbDepartment.Text))
+            {
+                MessageBox.Show("Please select a department.",
+                    "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbEmploymentType.Text))
+            {
+                MessageBox.Show("Please select an employment type.",
+                    "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (lstQualifications.Items.Count == 0)
+            {
+                MessageBox.Show("Please add at least one qualification.",
+                    "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!chkResume.Checked && !chkGovernmentID.Checked &&
+                !chkTranscript.Checked && !chkCertificates.Checked)
+            {
+                MessageBox.Show("Please select at least one required document.",
+                    "Incomplete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
@@ -143,7 +191,7 @@ namespace HR_Project.HR_System
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@position", txtJobTitle.Text);
+                cmd.Parameters.AddWithValue("@position", txtJobTitle.Text.Trim());
                 cmd.Parameters.AddWithValue("@department", cmbDepartment.Text);
 
                 string qualifications =
@@ -151,11 +199,10 @@ namespace HR_Project.HR_System
                     lstQualifications.Items.Cast<string>());
 
                 List<string> docs = new List<string>();
-
                 if (chkResume.Checked) docs.Add("Resume");
                 if (chkGovernmentID.Checked) docs.Add("Government ID");
-                if (chkTranscript.Checked) docs.Add("Transcript");
-                if (chkCertificates.Checked) docs.Add("Certificates");
+                if (chkTranscript.Checked) docs.Add("Transcript of Records");
+                if (chkCertificates.Checked) docs.Add("Certificate of Employment");
 
                 string requirements = string.Join(", ", docs);
                 string employmentType = cmbEmploymentType.Text;
@@ -167,10 +214,21 @@ namespace HR_Project.HR_System
                 cmd.ExecuteNonQuery();
             }
 
-            MessageBox.Show("Job vacancy created successfully.");
-            LoadOpenJobs();
-        }
+            MessageBox.Show("Job vacancy created successfully.",
+                "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LoadVacancies();
 
+            txtJobTitle.Clear();
+            cmbDepartment.SelectedIndex = -1;
+            cmbEmploymentType.SelectedIndex = -1;
+            lstQualifications.Items.Clear();
+            txtQualInfo.Clear();
+            chkResume.Checked = false;
+            chkGovernmentID.Checked = false;
+            chkTranscript.Checked = false;
+            chkCertificates.Checked = false;
+        }
+    
         private void btnCloseJOb_Click(object sender, EventArgs e)
         {
             if (dgvVacancies.SelectedRows.Count == 0) return;
@@ -191,7 +249,7 @@ namespace HR_Project.HR_System
                 cmd.ExecuteNonQuery();
             }
 
-            LoadOpenJobs();
+            LoadVacancies();
         }
 
         private void btnActiveJob_Click(object sender, EventArgs e)
@@ -214,7 +272,7 @@ namespace HR_Project.HR_System
                 cmd.ExecuteNonQuery();
             }
 
-            LoadOpenJobs();
+            LoadVacancies();
         }
 
         private void btnAddQual_Click(object sender, EventArgs e)
