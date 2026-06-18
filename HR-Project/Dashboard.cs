@@ -1,11 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
 using System.IO;
@@ -16,367 +10,444 @@ namespace HR_Project
     {
         public int ApplicantId { get; set; }
 
-        string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+        public int SelectedApplicationId { get; set; }
+
+        string connectionString =
+            "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
         private string _applicantName;
-
         public string ApplicantName
         {
             get { return _applicantName; }
-            set
-            {
-                _applicantName = value;
-            }
+            set { _applicantName = value; }
         }
 
         public Dashboard()
         {
             InitializeComponent();
-            this.Text = "Dashboard";
-            this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximizeBox = false;
         }
 
-        private void LoadAppliedPosition()
+        private void Dashboard_Load(object sender, EventArgs e)
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            ApplicantTheme.Apply(this, "btnDashboard");
+            ApplyStatCardAccents();
+
+            LoadApplicationSelector();
+            LoadApplicantInfo();
+            LoadApplicationStatus();
+            LoadAppliedPosition();
+            LoadDocumentStatusGrid();
+            LoadApplicationProgressGrid();
+            LoadInterviewSchedule();
+        }
+
+        private void Dashboard_Shown(object sender, EventArgs e)
+        {
+            LoadApplicantInfo();
+            LoadDocumentStatusGrid();
+            LoadApplicationProgressGrid();
+            LoadApplicationStatus();
+            LoadInterviewSchedule();
+        }
+
+        private void ApplyStatCardAccents()
+        {
+            PaintAccent(panelCardStatus, HR_Project.HR_System.UITheme.AccentBlue);
+            PaintAccent(panelAppliedPosition0, HR_Project.HR_System.UITheme.AccentGreen);
+            PaintAccent(panelMissingDocuments, Color.FromArgb(255, 159, 10));
+        }
+
+        private void PaintAccent(Panel panel, Color color)
+        {
+            panel.Paint += (s, e) =>
             {
-                conn.Open();
-
-                string query = @"
-                SELECT j.position
-                FROM applications a
-                INNER JOIN job_vacancies j
-                    ON a.vacancy_id = j.vacancy_id
-                WHERE a.applicant_id = @id
-                ORDER BY application_id DESC
-                LIMIT 1";
-
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("@id", ApplicantId);
-
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
-                {
-                    lblPosition.Text =
-                        result.ToString();
-                }
-                else
-                {
-                    lblPosition.Text =
-                        "No Application Yet";
-                }
-            }
+                using (var brush = new SolidBrush(color))
+                    e.Graphics.FillRectangle(brush,
+                        new Rectangle(0, 0, 4, panel.Height));
+            };
         }
 
         private void LoadApplicantInfo()
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-
-                string query = 
-                @"SELECT
-                    a.first_name,
-                    a.last_name,
-                    ap.profile_picture
+                string query = @"
+                SELECT a.first_name, a.last_name, ap.profile_picture
                 FROM applicants a
-                LEFT JOIN applicant_profiles ap
-                    ON a.id = ap.applicant_id
+                LEFT JOIN applicant_profiles ap ON a.id = ap.applicant_id
                 WHERE a.id = @id";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", ApplicantId);
 
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
-
-                if (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    lblApplicantFirstName.Text =
-                        reader["first_name"].ToString();
-
-                    lblApplicantLastName.Text =
-                        reader["last_name"].ToString();
-
-                    if (reader["profile_picture"] != DBNull.Value)
+                    if (reader.Read())
                     {
-                        byte[] imageBytes =
-                            (byte[])reader["profile_picture"];
+                        string firstName = reader["first_name"].ToString();
+                        string lastName = reader["last_name"].ToString();
 
-                        using (MemoryStream ms =
-                            new MemoryStream(imageBytes))
+                        lblApplicantFirstName.Text = firstName;
+                        lblApplicantLastName.Text = lastName;
+                        lblApplicantName1.Text = firstName + " " + lastName;
+
+                        if (reader["profile_picture"] != System.DBNull.Value)
                         {
-                            picBoxDashboardpfp.Image =
-                                Image.FromStream(ms);
+                            byte[] imageBytes = (byte[])reader["profile_picture"];
+                            using (MemoryStream ms = new MemoryStream(imageBytes))
+                                picBoxDashboardpfp.Image = Image.FromStream(ms);
                         }
                     }
                 }
-
-                reader.Close();
             }
         }
 
         private void LoadApplicationStatus()
         {
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+                SELECT status FROM applications
+                WHERE application_id = @appId";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
+                object result = cmd.ExecuteScalar();
+
+                string status = result?.ToString() ?? "—";
+
+                if (HasAcceptedApplication() && status != "Accepted")
+                {
+                    status = "Closed";
+                }
+
+                lblCurrentStatus.Text = status;
+                lblCurrentStatus.ForeColor = GetStatusColor(status);
+            }
+        }
+
+        private void LoadAppliedPosition()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+                SELECT j.position
+                FROM applications a
+                INNER JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
+                WHERE a.application_id = @appId";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
+                object result = cmd.ExecuteScalar();
+                lblPosition.Text = result?.ToString() ?? "No Application Yet";
+            }
+        }
+
+        private bool HasAcceptedApplication()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT COUNT(*)
+                FROM applications
+                WHERE applicant_id = @id
+                AND status = 'Accepted'";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
+
+        private void LoadInterviewSchedule()
+        {
+            try
+            {
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string query = @"
+                    SELECT interview_date, interview_time,
+                           interview_type, location_link
+                    FROM interviews
+                    WHERE application_id = @appId
+                    LIMIT 1";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
+
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DateTime date = Convert.ToDateTime(reader["interview_date"]);
+                            TimeSpan time = (TimeSpan)reader["interview_time"];
+                            string mode = reader["interview_type"].ToString();
+                            string location = reader["location_link"].ToString();
+
+                            lblInterviewSchedule.Text =
+                                $"{date:MMM dd, yyyy}\n{DateTime.Today.Add(time):hh:mm tt}  [{mode}]";
+                            lblInterviewSchedule.ForeColor =
+                                HR_Project.HR_System.UITheme.AccentBlue;
+                        }
+                        else
+                        {
+                            lblInterviewSchedule.Text = "No interview scheduled.";
+                            lblInterviewSchedule.ForeColor =
+                                HR_Project.HR_System.UITheme.TextMuted;
+                        }
+                    }
+                }
+            }
+            catch (MySqlConnector.MySqlException)
+            {
+                lblInterviewSchedule.Text = "No interview scheduled.";
+                lblInterviewSchedule.ForeColor = HR_Project.HR_System.UITheme.TextMuted;
+            }
+        }
+
+        private void LoadDocumentStatusGrid()
+        {
+            dgvDocumentStatus.Rows.Clear();
+            HR_Project.HR_System.UITheme.StyleGrid(dgvDocumentStatus);
+
+            string[] docTypes = new[]
+            {
+                "Resume/CV", "Government ID", "Transcript", "Certificates"
+            };
+
+            bool hasResume = false, hasGovID = false,
+                 hasTranscript = false, hasCerts = false;
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                string query = @"
+                    SELECT document_type FROM applicant_documents
+                    WHERE applicant_id = @id";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", ApplicantId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string dt = reader["document_type"].ToString().Trim();
+                        if (dt == "Resume/CV") hasResume = true;
+                        if (dt == "Government ID") hasGovID = true;
+                        if (dt == "Transcript") hasTranscript = true;
+                        if (dt == "Certificates") hasCerts = true;
+                    }
+                }
+            }
+
+            bool[] found = { hasResume, hasGovID, hasTranscript, hasCerts };
+            int missing = 0;
+
+            for (int i = 0; i < docTypes.Length; i++)
+            {
+                string statusText = found[i] ? "✔ Submitted" : "✘ Missing";
+                int rowIdx = dgvDocumentStatus.Rows.Add(docTypes[i], statusText);
+                dgvDocumentStatus.Rows[rowIdx].Cells["colDocStatus"].Style.ForeColor =
+                    found[i] ? Color.Green : Color.Red;
+                if (!found[i]) missing++;
+            }
+
+            lblMissDocu.Text = missing.ToString();
+        }
+
+        private void LoadApplicationProgressGrid()
+        {
+            dgvApplicationProgress.Rows.Clear();
+            HR_Project.HR_System.UITheme.StyleGrid(dgvApplicationProgress);
+
+            string currentStatus = "";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 string query = @"
                 SELECT status
                 FROM applications
-                WHERE applicant_id=@id
-                ORDER BY application_id DESC
-                LIMIT 1";
+                WHERE application_id = @appId";
 
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
 
-                cmd.Parameters.AddWithValue("@id", ApplicantId);
+                currentStatus = cmd.ExecuteScalar()?.ToString() ?? "";
 
-                object result = cmd.ExecuteScalar();
-
-                if (result != null)
+                if (HasAcceptedApplication() &&
+                    currentStatus != "Accepted" &&
+                    currentStatus != "Rejected" &&
+                    currentStatus != "Withdrawn")
                 {
-                    lblCurrentStatus.Text =
-                        result.ToString();
+                    currentStatus = "Closed";
                 }
+            }
+
+            string[] steps = new[]
+            {
+                "Submitted",
+                "Under Review",
+                "Shortlisted",
+                "For Interview",
+                "For Assessment",
+                "For Final Review",
+                "Accepted"
+            };
+
+            if (currentStatus == "Interview") currentStatus = "For Interview";
+            if (currentStatus == "Final Review") currentStatus = "For Final Review";
+
+            int reachedIndex = Array.IndexOf(steps, currentStatus);
+            bool isRejected = currentStatus == "Rejected";
+            bool isWithdrawn = currentStatus == "Withdrawn";
+
+            for (int i = 0; i < steps.Length; i++)
+            {
+                bool done = !isRejected && !isWithdrawn && i <= reachedIndex;
+                string stepStatus = done ? "✓ Done" : "⏳ Pending";
+                int rowIdx = dgvApplicationProgress.Rows.Add(steps[i], stepStatus);
+                dgvApplicationProgress.Rows[rowIdx].Cells["colStepStatus"].Style.ForeColor =
+                    done ? Color.Green : Color.Gray;
+            }
+
+            if (isRejected)
+            {
+                int rowIdx = dgvApplicationProgress.Rows.Add("Rejected", "✘ Not Selected");
+                dgvApplicationProgress.Rows[rowIdx].Cells["colStepStatus"].Style.ForeColor
+                    = Color.Red;
+            }
+            else if (isWithdrawn)
+            {
+                int rowIdx = dgvApplicationProgress.Rows.Add("Withdrawn", "↩ Withdrawn");
+                dgvApplicationProgress.Rows[rowIdx].Cells["colStepStatus"].Style.ForeColor
+                    = Color.DimGray;
+            }
+            else if (currentStatus == "Closed")
+            {
+                int rowIdx = dgvApplicationProgress.Rows.Add(
+                    "Closed",
+                    "✓ Closed (Another Application Accepted)");
+
+                dgvApplicationProgress.Rows[rowIdx]
+                    .Cells["colStepStatus"]
+                    .Style.ForeColor = Color.DarkGray;
             }
         }
 
-        private void LoadDocumentStatus()
+        private void LoadApplicationSelector()
         {
-            int submitted = 0;
-
-            bool hasResume = false;
-            bool hasGovID = false;
-            bool hasTranscript = false;
-            bool hasCertificates = false;
-
-            string connectionString =
-                "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
-
-            using (MySqlConnection conn =
-                new MySqlConnection(connectionString))
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
+                string query = @"
+                SELECT a.application_id, 
+                       COALESCE(j.position, 'No Position') AS position,
+                       a.application_date,
+                       a.status
+                FROM applications a
+                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
+                WHERE a.applicant_id = @id
+                ORDER BY a.application_date DESC";
 
-                string query =
-                @"SELECT document_type
-                  FROM applicant_documents
-                  WHERE applicant_id=@id";
-
-                MySqlCommand cmd =
-                    new MySqlCommand(query, conn);
-
+                MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", ApplicantId);
 
-                MySqlDataReader reader =
-                    cmd.ExecuteReader();
+                cmbApplicationSelector.Items.Clear();
 
-                while (reader.Read())
+                using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
-                    string docType =
-                        reader["document_type"].ToString();
+                    while (reader.Read())
+                    {
+                        int appId = Convert.ToInt32(reader["application_id"]);
+                        string status = reader["status"].ToString();
 
-                    if (docType.Trim() == "Resume/CV")
-                        hasResume = true;
+                        bool applicantHasAccepted = HasAcceptedApplication();
 
-                    if (docType.Trim() == "Government ID")
-                        hasGovID = true;
+                        if (applicantHasAccepted && status != "Accepted")
+                        {
+                            status = "Closed";
+                        }
 
-                    if (docType.Trim() == "Transcript")
-                        hasTranscript = true;
+                        string label = $"{reader["position"]} — {status} " +
+                                       $"({Convert.ToDateTime(reader["application_date"]):MMM dd, yyyy})";
 
-                    if (docType.Trim() == "Certificates")
-                        hasCertificates = true;
+                        cmbApplicationSelector.Items.Add(new ApplicationEntry(appId, label));
+                    }
+                }
+
+                if (cmbApplicationSelector.Items.Count > 0)
+                {
+                    cmbApplicationSelector.SelectedIndex = 0;
+                    SelectedApplicationId =
+                        ((ApplicationEntry)cmbApplicationSelector.SelectedItem).ApplicationId;
                 }
             }
+        }
 
-            if (hasResume) submitted++;
-            if (hasGovID) submitted++;
-            if (hasTranscript) submitted++;
-            if (hasCertificates) submitted++;
+        public class ApplicationEntry
+        {
+            public int ApplicationId { get; }
+            private string _label;
+            public ApplicationEntry(int id, string label) { ApplicationId = id; _label = label; }
+            public override string ToString() => _label;
+        }
 
-            int missing = 4 - submitted;
+        private void cmbApplicationSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
-            lblMissDocu.Text =
-                missing + " Documents";
+            if (cmbApplicationSelector.SelectedItem is ApplicationEntry entry)
+            {
+                SelectedApplicationId = entry.ApplicationId;
 
-            if (hasResume)
-            {
-                lblResumeStatus.Text = "✔ Submitted";
-                lblResumeStatus.ForeColor = Color.Green;
-            }
-            else
-            {
-                lblResumeStatus.Text = "✘ Missing";
-                lblResumeStatus.ForeColor = Color.Red;
-            }
-
-            // Government ID
-            if (hasGovID)
-            {
-                lblGovernmentIDStatus.Text = "✔ Submitted";
-                lblGovernmentIDStatus.ForeColor = Color.Green;
-            }
-            else
-            {
-                lblGovernmentIDStatus.Text = "✘ Missing";
-                lblGovernmentIDStatus.ForeColor = Color.Red;
-            }
-
-            // Transcript
-            if (hasTranscript)
-            {
-                lblTranscriptStatus.Text = "✔ Submitted";
-                lblTranscriptStatus.ForeColor = Color.Green;
-            }
-            else
-            {
-                lblTranscriptStatus.Text = "✘ Missing";
-                lblTranscriptStatus.ForeColor = Color.Red;
-            }
-
-            // Certificates
-            if (hasCertificates)
-            {
-                lblCertificatesStatus.Text = "✔ Submitted";
-                lblCertificatesStatus.ForeColor = Color.Green;
-            }
-            else
-            {
-                lblCertificatesStatus.Text = "✘ Missing";
-                lblCertificatesStatus.ForeColor = Color.Red;
+                LoadApplicationStatus();
+                LoadAppliedPosition();
+                LoadDocumentStatusGrid();
+                LoadApplicationProgressGrid();
+                LoadInterviewSchedule();
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private Color GetStatusColor(string status)
         {
-
+            switch (status)
+            {
+                case "Submitted": return Color.SteelBlue;
+                case "Under Review": return Color.Orange;
+                case "Shortlisted": return Color.DodgerBlue;
+                case "Interview":
+                case "For Interview": return Color.MediumPurple;
+                case "For Assessment": return Color.Teal;
+                case "Final Review":
+                case "For Final Review": return Color.DarkOrange;
+                case "Accepted": return Color.Green;
+                case "Rejected": return Color.Red;
+                case "Withdrawn": return Color.DimGray;
+                case "Closed": return Color.DarkGray;
+                default: return Color.FromArgb(10, 132, 255);
+            }
         }
 
-        private void btnStatusTracking_Click(object sender, EventArgs e)
-        {
-            StatusTracking st = new StatusTracking(ApplicantId);
-            st.Show();
-            this.Hide();
 
-            panelNavigation.BringToFront();
-        }
-
-        private void panel1_Paint_1(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblMissingDocuments_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDraft_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void ApplicationProgress_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBoxInterviewSchedule_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDate1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTime_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTime1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panelMain_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblDocumentsUpdate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTranscript_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblDocuStatus2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblTitle_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnDashboardClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-            lblApplicantName1.Text = ApplicantName;
-
-            LoadApplicantInfo();
-            LoadDocumentStatus();
-            LoadAppliedPosition();
-            LoadApplicationStatus();
-        }
-
-        private void btnDashboard_Click(object sender, EventArgs e)
-        {
-            panelNavigation.BringToFront();
-        }
+        private void btnDashboard_Click(object sender, EventArgs e) { }
 
         private void btnMyProfile_Click(object sender, EventArgs e)
         {
-            this.Hide();
-
-            profilepage profile =
-                Application.OpenForms["profilepage"]
-                as profilepage;
-
-            if (profile == null)
-            {
-                profile = new profilepage(ApplicantId);
-            }
-
+            profilepage profile = new profilepage(ApplicantId);
+            profile.SelectedApplicationId = SelectedApplicationId;
+            profile.FormClosed += (s, args) => this.Show();
+            this.Hide();                              
             profile.Show();
         }
 
@@ -386,64 +457,58 @@ namespace HR_Project
 
             jobs.applicantId = ApplicantId;
 
-            jobs.Show();
-            this.Hide();
+            jobs.SelectedApplicationId = SelectedApplicationId;
 
-            panelNavigation.BringToFront();
+            jobs.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            jobs.Show();
         }
 
         private void btnMyApplication_Click(object sender, EventArgs e)
         {
-            ApplicantPage1 app =
-                new ApplicantPage1();
-
+            ApplicantPage1 app = new ApplicantPage1();
             app.ApplicantId = ApplicantId;
-
-            app.Show();
-
+            app.SelectedApplicationId = SelectedApplicationId;
+            app.FormClosed += (s, args) => this.Show();
             this.Hide();
-
-            panelNavigation.BringToFront();
+            app.Show();
         }
 
         private void btnDocuments_Click(object sender, EventArgs e)
         {
             DocumentPage doc = new DocumentPage();
-
             doc.ApplicantId = ApplicantId;
-
-            doc.Show();
+            doc.SelectedApplicationId = SelectedApplicationId;
+            doc.FormClosed += (s, args) => this.Show();
             this.Hide();
+            doc.Show();
+        }
 
-            panelNavigation.BringToFront();
+        private void btnStatusTracking_Click(object sender, EventArgs e)
+        {
+            StatusTracking st = new StatusTracking(ApplicantId, SelectedApplicationId);
+            st.FormClosed += (s, args) => this.Show();
+            this.Hide();
+            st.Show();
+        }
+
+        private void btnDashboardClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            if (MessageBox.Show(
+                    "Are you sure you want to logout?", "Logout",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
             {
-                Login login = new Login();
-
-                login.Show();
-
+                new Login().Show();
                 this.Hide();
             }
         }
 
-        private void lblApplicantName1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Dashboard_Activated(object sender, EventArgs e)
-        {
-            LoadDocumentStatus();
-        }
+        private void lblApplicantName1_Click(object sender, EventArgs e) { }
     }
 }
