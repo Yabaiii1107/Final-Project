@@ -8,672 +8,368 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySqlConnector;
+using System.Text.RegularExpressions;
 
-namespace HR_Project.HR_System
+namespace HR_Project
 {
-    public partial class HRApplicants : Form
+    public partial class ApplicantRegistrationForm : Form
     {
-        string connectionString =
-                "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
+        private bool passwordVisible1 = false;
+        private bool passwordVisible2 = false;
 
-        private DataTable dt = new DataTable();
+        string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
-        public HRApplicants()
+        public ApplicantRegistrationForm()
         {
             InitializeComponent();
+
+            this.Text = "Applicant Registration";
+            this.StartPosition = FormStartPosition.CenterScreen;
+            this.MaximizeBox = false;
+
+            btnRegister.BackColor = Color.RoyalBlue;
+            btnRegister.ForeColor = Color.White;
+            btnRegister.FlatStyle = FlatStyle.Flat;
+            btnRegister.FlatAppearance.BorderSize = 0;
+            btnRegister.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            txtBoxPassword.UseSystemPasswordChar = true;
+            picShowPassword.Image = Properties.Resources.eye;
+
+
+            txtBoxConfirmPassword.UseSystemPasswordChar = true;
+            picShowConfirmPassword.Image = Properties.Resources.eye;
         }
 
-        private void ViewDocument(string documentType)
+        private bool ValidateInputs()
         {
-            if (dgvApplicants.CurrentRow == null ||
-                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null)
+            bool isValid = true;
+
+            errorProviderRegistrationForm.Clear();
+
+            // First Name
+            if (string.IsNullOrWhiteSpace(txtBoxFirstName.Text))
             {
-                MessageBox.Show("Please select an applicant first.");
-                return;
+                errorProviderRegistrationForm.SetError(txtBoxFirstName, "First name is required.");
+                isValid = false;
             }
 
-            if (!int.TryParse(
-                    dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
-                    out int applicantId))
+            // Last Name
+            if (string.IsNullOrWhiteSpace(txtBoxLastName.Text))
             {
-                MessageBox.Show("Invalid Applicant ID.");
-                return;
+                errorProviderRegistrationForm.SetError(txtBoxLastName, "Last name is required.");
+                isValid = false;
             }
+
+            // Middle Name
+            if (string.IsNullOrWhiteSpace(txtBoxMiddleName.Text))
+            {
+                errorProviderRegistrationForm.SetError(txtBoxMiddleName, "Middle Name is required.");
+                isValid = false;
+            }
+
+            // Email
+            errorProviderRegistrationForm.SetError(txtBoxEmail, "");
+
+            if (string.IsNullOrWhiteSpace(txtBoxEmail.Text))
+            {
+                errorProviderRegistrationForm.SetError(txtBoxEmail,
+                    "Email Address is required.");
+                isValid = false;
+            }
+            else if (!Regex.IsMatch(txtBoxEmail.Text.Trim(),
+                     @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            {
+                errorProviderRegistrationForm.SetError(txtBoxEmail,
+                    "Invalid email address.");
+                isValid = false;
+            }
+
+            // Contact Number
+            if (!Regex.IsMatch(txtBoxContact.Text, @"^09\d{9}$"))
+            {
+                errorProviderRegistrationForm.SetError(txtBoxContact,
+                    "Enter a valid 11-digit PH mobile number.");
+                isValid = false;
+            }
+
+            // Password
+            if (string.IsNullOrWhiteSpace(txtBoxPassword.Text))
+            {
+                errorProviderRegistrationForm.SetError(
+                    txtBoxPassword,
+                    "Password is required."
+                );
+                isValid = false;
+            }
+            else if (txtBoxPassword.Text.Length < 8)
+            {
+                errorProviderRegistrationForm.SetError(
+                    txtBoxPassword,
+                    "Minimum 8 characters."
+                );
+                isValid = false;
+            }
+            else if (!Regex.IsMatch(txtBoxPassword.Text,
+                @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$"))
+            {
+                errorProviderRegistrationForm.SetError(
+                    txtBoxPassword,
+                    "Must contain uppercase, lowercase and number."
+                );
+                isValid = false;
+            }
+
+            // Confirm Password
+            if (txtBoxPassword.Text != txtBoxConfirmPassword.Text)
+            {
+                errorProviderRegistrationForm.SetError(txtBoxConfirmPassword,
+                    "Passwords do not match.");
+                isValid = false;
+            }
+
+            // DOB
+            if (dtpDOB.Value > DateTime.Today)
+            {
+                errorProviderRegistrationForm.SetError(
+                    dtpDOB,
+                    "Birth date cannot be in the future."
+                );
+
+                isValid = false;
+            }
+
+            int age =
+            DateTime.Today.Year -
+            dtpDOB.Value.Year;
+
+            if (dtpDOB.Value.Date >
+                DateTime.Today.AddYears(-age))
+            {
+                age--;
+            }
+
+            if (age < 18)
+            {
+                errorProviderRegistrationForm.SetError(
+                    dtpDOB,
+                    "Applicant must be at least 18 years old."
+                );
+
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Registration_Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picShowPassword_Click(object sender, EventArgs e)
+        {
+            passwordVisible1 = !passwordVisible1;
+
+            txtBoxPassword.UseSystemPasswordChar = !passwordVisible1;
+
+            if (passwordVisible1)
+            {
+                picShowPassword.Image = Properties.Resources.eye_slash;
+            }
+            else
+            {
+                picShowPassword.Image = Properties.Resources.eye;
+            }
+        }
+
+        private void picShowConfirmPassword_Click(object sender, EventArgs e)
+        {
+            passwordVisible2 = !passwordVisible2;
+
+            txtBoxConfirmPassword.UseSystemPasswordChar = !passwordVisible2;
+
+            if (passwordVisible2)
+            {
+                picShowConfirmPassword.Image = Properties.Resources.eye_slash;
+            }
+            else
+            {
+                picShowConfirmPassword.Image = Properties.Resources.eye;
+            }
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (!ValidateInputs())
+                return;
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
-                conn.Open();
-
-                string query = @"
-                SELECT file_name, file_data
-                FROM applicant_documents
-                WHERE applicant_id   = @id
-                  AND document_type  LIKE @type
-                ORDER BY upload_date DESC
-                LIMIT 1";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", applicantId);
-                cmd.Parameters.AddWithValue("@type", "%" + documentType + "%");
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
-                    if (!reader.Read())
+                    conn.Open();
+
+                    // Clear previous errors
+                    errorProviderRegistrationForm.SetError(txtBoxEmail, "");
+                    errorProviderRegistrationForm.SetError(txtBoxContact, "");
+
+                    // Check duplicate email
+                    string emailCheckQuery =
+                        "SELECT COUNT(*) FROM applicants WHERE email = @em";
+
+                    MySqlCommand emailCheckCmd =
+                        new MySqlCommand(emailCheckQuery, conn);
+
+                    emailCheckCmd.Parameters.AddWithValue(
+                        "@em",
+                        txtBoxEmail.Text.Trim()
+                    );
+
+                    if (Convert.ToInt32(emailCheckCmd.ExecuteScalar()) > 0)
                     {
-                        MessageBox.Show(
-                            $"No {documentType} found for this applicant.",
-                            "No Document",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                        errorProviderRegistrationForm.SetError(
+                            txtBoxEmail,
+                            "Email already registered."
+                        );
                         return;
                     }
 
-                    string fileName = reader["file_name"].ToString();
-                    byte[] fileData = (byte[])reader["file_data"];
+                    // Check duplicate contact
+                    string contactCheckQuery =
+                        "SELECT COUNT(*) FROM applicants WHERE contact = @ct";
 
-                    string tempPath = System.IO.Path.Combine(
-                        System.IO.Path.GetTempPath(), fileName);
+                    MySqlCommand contactCheckCmd =
+                        new MySqlCommand(contactCheckQuery, conn);
 
-                    System.IO.File.WriteAllBytes(tempPath, fileData);
+                    contactCheckCmd.Parameters.AddWithValue(
+                        "@ct",
+                        txtBoxContact.Text.Trim()
+                    );
 
-                    System.Diagnostics.Process.Start(
-                        new System.Diagnostics.ProcessStartInfo
-                        {
-                            FileName = tempPath,
-                            UseShellExecute = true
-                        });
-                }
-            }
-        }
-
-        private void LoadApplicants()
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"
-                SELECT
-                    ap.id                                    AS ApplicantID,
-                    CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                    COALESCE(j.position, 'No position yet')  AS PositionApplied,
-                    COALESCE(a.status,   'Draft')            AS Status
-                FROM applicants ap
-                LEFT JOIN applications a  ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id";
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
-
-                dt.Clear();
-                adapter.Fill(dt);
-
-                dgvApplicants.DataSource = null;
-                dgvApplicants.AutoGenerateColumns = true;
-                dgvApplicants.DataSource = dt;
-            }
-        }
-
-        private void LoadApplicantsFiltered()
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"
-                SELECT
-                    a.application_id                        AS ApplicationID,
-                    ap.id                                   AS ApplicantID,
-                    CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                    COALESCE(j.position, 'No position yet') AS PositionApplied,
-                    COALESCE(a.status,   'Draft')           AS Status
-                FROM applicants ap
-                LEFT JOIN applications a  ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
-                WHERE 1=1";
-
-                if (!string.IsNullOrWhiteSpace(txtBoxSearchApplicant.Text))
-                    query += " AND CONCAT(ap.first_name, ' ', ap.last_name) LIKE @search";
-
-                if (cmbBoxFilterStatus.Text != "All")
-                    query += " AND COALESCE(a.status, 'Draft') = @status";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-
-                if (!string.IsNullOrWhiteSpace(txtBoxSearchApplicant.Text))
-                    cmd.Parameters.AddWithValue("@search",
-                        "%" + txtBoxSearchApplicant.Text + "%");
-
-                if (cmbBoxFilterStatus.Text != "All")
-                    cmd.Parameters.AddWithValue("@status", cmbBoxFilterStatus.Text);
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                dgvApplicants.DataSource = dt;
-            }
-        }
-
-        private void LoadApplicantDetails(int applicantId)
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"
-                SELECT
-                    ap.id,
-                    ap.first_name,
-                    ap.last_name,
-                    ap.email,
-                    ap.contact,
-                    COALESCE(j.position, 'No position yet') AS position,
-                    a.application_date,
-                    COALESCE(a.status, 'Draft')             AS status
-                FROM applicants ap
-                LEFT JOIN applications a
-                    ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j
-                    ON a.vacancy_id = j.vacancy_id
-                WHERE ap.id = @id";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", applicantId);
-
-                using (MySqlDataReader reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
+                    if (Convert.ToInt32(contactCheckCmd.ExecuteScalar()) > 0)
                     {
-                        lblApplicantID1.Text = reader["id"].ToString();
-                        lblFullName1.Text = reader["first_name"] + " " +
-                                                  reader["last_name"];
-                        lblEmail1.Text = reader["email"].ToString();
-                        lblContactNumber1.Text = reader["contact"].ToString();
-                        lblPositionApplied1.Text = reader["position"].ToString();
-
-                        lblApplicationDate1.Text =
-                            reader["application_date"] == DBNull.Value
-                            ? "N/A"
-                            : Convert.ToDateTime(reader["application_date"])
-                                .ToString("MMMM dd, yyyy");
-
-                        cmbCurrentStatus.Text = reader["status"].ToString();
+                        errorProviderRegistrationForm.SetError(
+                            txtBoxContact,
+                            "Contact number already registered."
+                        );
+                        return;
                     }
+
+                    // INSERT
+                    string query = @"INSERT INTO applicants
+                            (first_name, last_name, middle_name,
+                             email, contact, password, birth_date)
+                            VALUES
+                            (@fn, @ln, @mn, @em, @ct, @pw, @dob)";
+
+                    MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                    cmd.Parameters.AddWithValue("@fn", txtBoxFirstName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ln", txtBoxLastName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@mn", txtBoxMiddleName.Text.Trim());
+                    cmd.Parameters.AddWithValue("@em", txtBoxEmail.Text.Trim());
+                    cmd.Parameters.AddWithValue("@ct", txtBoxContact.Text.Trim());
+                    cmd.Parameters.AddWithValue("@pw", txtBoxPassword.Text);
+                    cmd.Parameters.AddWithValue("@dob", dtpDOB.Value);
+
+                    cmd.ExecuteNonQuery();
+
+                    long newApplicantId = cmd.LastInsertedId;
+                    string profileQuery = @"INSERT INTO applicant_profiles (applicant_id)
+                    VALUES (@id)";
+
+                    MySqlCommand profileCmd = new MySqlCommand(profileQuery, conn);
+                    profileCmd.Parameters.AddWithValue("@id", newApplicantId);
+                    profileCmd.ExecuteNonQuery();
+
+                    MessageBox.Show("Registration successful! Please log in.");
+
+                    Login loginForm = new Login();
+                    loginForm.Show();
+
+
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
                 }
             }
         }
 
-        private void btnResumeView_Click(object sender, EventArgs e)
+        private void linklblLogin_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            ViewDocument("Resume");
+            this.Close();
         }
 
-        private void dgvApplicants_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void txtBoxFirstName_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
         }
 
-        private void HRApplicants_Load(object sender, EventArgs e)
+        private void txtBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            LoadApplicants();
-
-            cmbBoxFilterStatus.Items.Clear();
-
-            cmbBoxFilterStatus.Items.Add("All");
-            cmbBoxFilterStatus.Items.Add("Draft");
-            cmbBoxFilterStatus.Items.Add("Submitted");
-            cmbBoxFilterStatus.Items.Add("Under Review");
-            cmbBoxFilterStatus.Items.Add("Shortlisted");
-            cmbBoxFilterStatus.Items.Add("Interview");
-            cmbBoxFilterStatus.Items.Add("Final Review");
-            cmbBoxFilterStatus.Items.Add("Accepted");
-            cmbBoxFilterStatus.Items.Add("Rejected");
-            cmbBoxFilterStatus.Items.Add("Withdrawn");
-
-            cmbBoxFilterStatus.SelectedIndex = 0;
-
-            LoadApplicantsFiltered();
-
-            cmbCurrentStatus.Items.Clear();
-
-            cmbCurrentStatus.Items.Add("Draft");
-            cmbCurrentStatus.Items.Add("Submitted");
-            cmbCurrentStatus.Items.Add("Under Review");
-            cmbCurrentStatus.Items.Add("Shortlisted");
-            cmbCurrentStatus.Items.Add("Interview");
-            cmbCurrentStatus.Items.Add("For Assessment");
-            cmbCurrentStatus.Items.Add("Final Review");
-
-            cmbCurrentStatus.Items.Add("Accepted");
-            cmbCurrentStatus.Items.Add("Rejected");
-            cmbCurrentStatus.Items.Add("Withdrawn");
-
-            cmbCurrentStatus.DropDownStyle = ComboBoxStyle.DropDownList;
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
         }
 
-        private void btnMyDocumentsDashboard_Click(object sender, EventArgs e)
+        private void txtBoxMiddleName_KeyPress(object sender, KeyPressEventArgs e)
         {
-            HRDashboard dashboard = new HRDashboard();
-            dashboard.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            dashboard.Show();
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsLetter(e.KeyChar) &&
+                e.KeyChar != ' ')
+            {
+                e.Handled = true;
+            }
         }
-        private void btnProfilePageClose_Click(object sender, EventArgs e)
+
+        private void txtBoxContact_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) &&
+                !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void btnRegistrationClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void dgvApplicants_SelectionChanged(object sender, EventArgs e)
+        private void txtBoxFirstName_TextChanged(object sender, EventArgs e)
         {
-            if (dgvApplicants.CurrentRow == null)
-                return;
 
-            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null)
-                return;
-
-            if (!int.TryParse(dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(), out int applicantId))
-                return;
-
-            LoadApplicantDetails(applicantId);
         }
 
-        private void btnUpdateStatus_Click(object sender, EventArgs e)
+        private void lblFirstName_Click(object sender, EventArgs e)
         {
-            if (dgvApplicants.CurrentRow == null) return;
 
-            if (string.IsNullOrWhiteSpace(cmbCurrentStatus.Text))
-            {
-                MessageBox.Show("Please select a status.");
-                return;
-            }
-
-            if (dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == null ||
-                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == DBNull.Value)
-            {
-                MessageBox.Show("No application selected.");
-                return;
-            }
-
-            if (!int.TryParse(
-                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value.ToString(),
-                out int applicationId))
-            {
-                MessageBox.Show("Invalid Application ID.");
-                return;
-            }
-
-            if (!int.TryParse(
-                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
-                out int applicantId))
-            {
-                MessageBox.Show("Invalid Applicant ID.");
-                return;
-            }
-
-            string selectedStatus = cmbCurrentStatus.Text;
-
-            string currentStatus = "";
-
-            using (MySqlConnection connCheck = new MySqlConnection(connectionString))
-            {
-                connCheck.Open();
-                string checkQuery = @"
-                SELECT status FROM applications
-                WHERE application_id = @id";
-                MySqlCommand checkCmd = new MySqlCommand(checkQuery, connCheck);
-                checkCmd.Parameters.AddWithValue("@id", applicationId);
-                currentStatus = checkCmd.ExecuteScalar()?.ToString() ?? "";
-            }
-
-            if (currentStatus == "Withdrawn")
-            {
-                MessageBox.Show(
-                    "This applicant has withdrawn their application.\n" +
-                    "Their status cannot be changed.",
-                    "Action Not Allowed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (currentStatus == "Accepted" || currentStatus == "Rejected")
-            {
-                MessageBox.Show(
-                    $"This application is already {currentStatus}.\n" +
-                    "No further status changes are allowed.",
-                    "Action Not Allowed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (selectedStatus == "Draft" || selectedStatus == "Withdrawn")
-            {
-                MessageBox.Show(
-                    $"Cannot manually set status to '{selectedStatus}'.\n" +
-                    "Draft and Withdrawn are applicant-only statuses.",
-                    "Action Not Allowed",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string updateQuery = @"
-                UPDATE applications
-                SET status = @status
-                WHERE application_id = @id";
-
-                MySqlCommand cmd = new MySqlCommand(updateQuery, conn);
-                cmd.Parameters.AddWithValue("@status", selectedStatus);
-                cmd.Parameters.AddWithValue("@id", applicationId);
-                cmd.ExecuteNonQuery();
-
-                string historyQuery = @"
-                INSERT INTO application_status_history
-                    (application_id, status, changed_at)
-                VALUES
-                    (@appId, @status, NOW())";
-
-                MySqlCommand histCmd = new MySqlCommand(historyQuery, conn);
-                histCmd.Parameters.AddWithValue("@appId", applicationId);
-                histCmd.Parameters.AddWithValue("@status", selectedStatus);
-                histCmd.ExecuteNonQuery();
-            }
-
-            TakeProfileSnapshotIfNeeded(applicationId, applicantId, selectedStatus);
-
-            MessageBox.Show("Status updated successfully.");
-            LoadApplicantsFiltered();
         }
 
-        private static readonly HashSet<string> LockedStatuses = new HashSet<string>
-{
-        "Under Review", "Shortlisted", "Interview",
-        "Interview", "For Assessment", "Final Review",
-        "Accepted", "Rejected"
-};
-
-        private void TakeProfileSnapshotIfNeeded(
-            int applicationId, int applicantId, string newStatus)
+        private void txtBoxPassword_TextChanged(object sender, EventArgs e)
         {
-            if (!LockedStatuses.Contains(newStatus))
-                return;
 
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string checkQuery = @"
-                SELECT COUNT(*) FROM application_profile_snapshots
-                WHERE application_id = @appId";
-
-                MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@appId", applicationId);
-                long existing = (long)checkCmd.ExecuteScalar();
-
-                if (existing > 0) return;
-
-                string insertQuery = @"
-                INSERT INTO application_profile_snapshots
-                (
-                    application_id, applicant_id,
-                    first_name, last_name, middle_name, birth_date,
-                    email, contact,
-                    gender, alternate_phone, address, province, postal_code,
-                    profile_picture,
-                    highest_degree, institution_name, field_of_study, graduation_date
-                )
-                SELECT
-                    @appId, a.id,
-                    a.first_name, a.last_name, a.middle_name, a.birth_date,
-                    a.email, a.contact,
-                    ap.gender, ap.alternate_phone, ap.address, ap.province, ap.postal_code,
-                    ap.profile_picture,
-                    ed.highest_degree, ed.institution_name, ed.field_of_study, ed.graduation_date
-                FROM applicants a
-                LEFT JOIN applicant_profiles ap ON a.id = ap.applicant_id
-                LEFT JOIN education ed ON a.id = ed.applicant_id
-                WHERE a.id = @applicantId";
-
-                MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
-                insertCmd.Parameters.AddWithValue("@appId", applicationId);
-                insertCmd.Parameters.AddWithValue("@applicantId", applicantId);
-                insertCmd.ExecuteNonQuery();
-
-                long snapshotId = insertCmd.LastInsertedId;
-
-                string skillsQuery = @"
-                SELECT skill_name FROM skills WHERE applicant_id = @id";
-                MySqlCommand skillsCmd = new MySqlCommand(skillsQuery, conn);
-                skillsCmd.Parameters.AddWithValue("@id", applicantId);
-
-                using (MySqlDataReader skillReader = skillsCmd.ExecuteReader())
-                {
-                    List<string> skills = new List<string>();
-                    while (skillReader.Read())
-                        skills.Add(skillReader["skill_name"].ToString());
-                    skillReader.Close();
-
-                    foreach (var skill in skills)
-                    {
-                        string insertSkill = @"
-                    INSERT INTO snapshot_skills (snapshot_id, skill_name)
-                    VALUES (@snapId, @skill)";
-                        MySqlCommand sc = new MySqlCommand(insertSkill, conn);
-                        sc.Parameters.AddWithValue("@snapId", snapshotId);
-                        sc.Parameters.AddWithValue("@skill", skill);
-                        sc.ExecuteNonQuery();
-                    }
-                }
-
-                string workQuery = @"
-                SELECT company_name, position_title, employment_type,
-                       start_date, end_date, currently_working, job_description
-                FROM applicant_work_experience
-                WHERE applicant_id = @id";
-                MySqlCommand workCmd = new MySqlCommand(workQuery, conn);
-                workCmd.Parameters.AddWithValue("@id", applicantId);
-
-                using (MySqlDataReader workReader = workCmd.ExecuteReader())
-                {
-                    var rows = new List<object[]>();
-                    while (workReader.Read())
-                    {
-                        rows.Add(new object[]
-                        {
-                    workReader["company_name"],
-                    workReader["position_title"],
-                    workReader["employment_type"],
-                    workReader["start_date"],
-                    workReader["end_date"],
-                    workReader["currently_working"],
-                    workReader["job_description"]
-                        });
-                    }
-                    workReader.Close();
-
-                    foreach (var row in rows)
-                    {
-                        string insertWork = @"
-                    INSERT INTO snapshot_work_experience
-                    (snapshot_id, company_name, position_title, employment_type,
-                     start_date, end_date, currently_working, job_description)
-                    VALUES
-                    (@snapId, @co, @pos, @emp, @s, @e, @cw, @desc)";
-                        MySqlCommand wc = new MySqlCommand(insertWork, conn);
-                        wc.Parameters.AddWithValue("@snapId", snapshotId);
-                        wc.Parameters.AddWithValue("@co", row[0]);
-                        wc.Parameters.AddWithValue("@pos", row[1]);
-                        wc.Parameters.AddWithValue("@emp", row[2]);
-                        wc.Parameters.AddWithValue("@s", row[3]);
-                        wc.Parameters.AddWithValue("@e", row[4]);
-                        wc.Parameters.AddWithValue("@cw", row[5]);
-                        wc.Parameters.AddWithValue("@desc", row[6]);
-                        wc.ExecuteNonQuery();
-                    }
-                }
-            }
-        }
-
-        private void btnSearchApplicant_Click(object sender, EventArgs e)
-        {
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-
-                string query = @"
-                SELECT
-                    ap.id AS ApplicantID,
-                    CONCAT(ap.first_name, ' ', ap.last_name) AS ApplicantName,
-                    j.position AS PositionApplied,
-                    a.status AS Status
-                FROM applicants ap
-                LEFT JOIN applications a ON ap.id = a.applicant_id
-                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
-                WHERE CONCAT(ap.first_name, ' ', ap.last_name) LIKE @search";
-
-                MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@search", "%" + txtBoxSearchApplicant.Text.Trim() + "%");
-
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dtSearch = new DataTable();
-                adapter.Fill(dtSearch);
-
-                dgvApplicants.DataSource = null;
-                dgvApplicants.AutoGenerateColumns = true;
-                dgvApplicants.DataSource = dtSearch;
-            }
-
-            LoadApplicantsFiltered();
-        }
-
-        private void btnProfilePageClose_Click_1(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void cmbBoxFilterStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            LoadApplicantsFiltered();
-        }
-
-        private void btnSearchApplicant_TextChanged(object sender, EventArgs e)
-        {
-            LoadApplicantsFiltered();
-        }
-
-        private void btnJobVacanciesManagement_Click(object sender, EventArgs e)
-        {
-            JobVacancyManagement jobForm = new JobVacancyManagement();
-            jobForm.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            jobForm.Show();
-        }
-
-        private void cmbCurrentStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbCurrentStatus.Text == "Accepted" || cmbCurrentStatus.Text == "Rejected")
-            {
-                string currentStatus =
-                    dgvApplicants.CurrentRow?.Cells["Status"]?.Value?.ToString();
-
-                if (currentStatus != "Final Review")
-                {
-                    MessageBox.Show("Final decision is only allowed in Final Review stage.");
-                    cmbCurrentStatus.Text = currentStatus;
-                }
-            }
-        }
-
-
-        private void btnViewFullProfile_Click(object sender, EventArgs e)
-        {
-            if (dgvApplicants.CurrentRow == null)
-            {
-                MessageBox.Show("Please select an applicant first.");
-                return;
-            }
-
-            if (dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == null ||
-                dgvApplicants.CurrentRow.Cells["ApplicantID"].Value == DBNull.Value ||
-                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == null ||
-                dgvApplicants.CurrentRow.Cells["ApplicationID"].Value == DBNull.Value)
-            {
-                MessageBox.Show("No applicant selected.");
-                return;
-            }
-
-            if (!int.TryParse(
-                    dgvApplicants.CurrentRow.Cells["ApplicantID"].Value.ToString(),
-                    out int applicantId) ||
-                !int.TryParse(
-                    dgvApplicants.CurrentRow.Cells["ApplicationID"].Value.ToString(),
-                    out int applicationId))
-            {
-                MessageBox.Show("Invalid ID.");
-                return;
-            }
-
-            profilepage profile = new profilepage(applicantId, applicationId, hrViewMode: true);
-            profile.ShowDialog();
-        }
-
-        private void btnMyDocumentsLogout_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show(
-                "Are you sure you want to logout?",
-                "Logout",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
-            {
-                Login login = new Login();
-
-                login.Show();
-
-                this.Hide();
-            }
-        }
-
-        private void btnGovernmentIDView_Click(object sender, EventArgs e)
-        {
-            ViewDocument("Government ID");
-        }
-
-        private void btnTranscriptView_Click(object sender, EventArgs e)
-        {
-            ViewDocument("Transcript");
-        }
-
-        private void btnCertificatesView_Click(object sender, EventArgs e)
-        {
-            ViewDocument("Certificate");
-        }
-
-        private void btnResumeView_Click_1(object sender, EventArgs e)
-        {
-            ViewDocument("Resume");
-        }
-
-        private void btnScreening_Click(object sender, EventArgs e)
-        {
-            Screening screening = new Screening();
-            screening.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            screening.Show();
-        }
-
-        private void btnInterviews_Click(object sender, EventArgs e)
-        {
-            InterviewEvaluation intervieweval = new InterviewEvaluation();
-            intervieweval.FormClosed += (s, args) => this.Show();
-            this.Hide();
-            intervieweval.Show();
         }
     }
 }
