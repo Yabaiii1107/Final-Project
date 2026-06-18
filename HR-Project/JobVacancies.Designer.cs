@@ -65,25 +65,27 @@ namespace HR_Project
             this.SuspendLayout();
             // 
             // panelProfilePageHeader
+            // — matches ProfilePage: dark navy #16161E, Docked Top, 60px tall
             // 
-            this.panelProfilePageHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.panelProfilePageHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
             this.panelProfilePageHeader.Controls.Add(this.btnProfilePageClose);
             this.panelProfilePageHeader.Controls.Add(this.btnProfilePageLogout);
             this.panelProfilePageHeader.Controls.Add(this.JobVacancieslblTitle);
             this.panelProfilePageHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelProfilePageHeader.Location = new System.Drawing.Point(0, 0);
             this.panelProfilePageHeader.Name = "panelProfilePageHeader";
-            this.panelProfilePageHeader.Size = new System.Drawing.Size(868, 60);
+            this.panelProfilePageHeader.Size = new System.Drawing.Size(1100, 60);
             this.panelProfilePageHeader.TabIndex = 10;
             // 
             // btnProfilePageClose
+            // — matches ProfilePage: transparent, flat, red X, top-right
             // 
             this.btnProfilePageClose.BackColor = System.Drawing.Color.Transparent;
             this.btnProfilePageClose.FlatAppearance.BorderSize = 0;
             this.btnProfilePageClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProfilePageClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProfilePageClose.ForeColor = System.Drawing.Color.Red;
-            this.btnProfilePageClose.Location = new System.Drawing.Point(833, 0);
+            this.btnProfilePageClose.Location = new System.Drawing.Point(1064, 0);
             this.btnProfilePageClose.Name = "btnProfilePageClose";
             this.btnProfilePageClose.Size = new System.Drawing.Size(36, 29);
             this.btnProfilePageClose.TabIndex = 4;
@@ -92,8 +94,9 @@ namespace HR_Project
             this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click);
             // 
             // btnProfilePageLogout
+            // — matches ProfilePage: positioned near top-right
             // 
-            this.btnProfilePageLogout.Location = new System.Drawing.Point(752, 28);
+            this.btnProfilePageLogout.Location = new System.Drawing.Point(983, 28);
             this.btnProfilePageLogout.Name = "btnProfilePageLogout";
             this.btnProfilePageLogout.Size = new System.Drawing.Size(75, 23);
             this.btnProfilePageLogout.TabIndex = 3;
@@ -102,19 +105,21 @@ namespace HR_Project
             this.btnProfilePageLogout.Click += new System.EventHandler(this.btnProfilePageLogout_Click);
             // 
             // JobVacancieslblTitle
+            // — matches ProfilePage: white, Segoe UI 13 Bold, left-aligned in header
             // 
             this.JobVacancieslblTitle.AutoSize = true;
-            this.JobVacancieslblTitle.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.JobVacancieslblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.JobVacancieslblTitle.Location = new System.Drawing.Point(3, 23);
+            this.JobVacancieslblTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.JobVacancieslblTitle.ForeColor = System.Drawing.Color.White;
+            this.JobVacancieslblTitle.Location = new System.Drawing.Point(12, 18);
             this.JobVacancieslblTitle.Name = "JobVacancieslblTitle";
-            this.JobVacancieslblTitle.Size = new System.Drawing.Size(136, 20);
+            this.JobVacancieslblTitle.Size = new System.Drawing.Size(150, 25);
             this.JobVacancieslblTitle.TabIndex = 0;
-            this.JobVacancieslblTitle.Text = "Job Vacancies";
+            this.JobVacancieslblTitle.Text = "Applicant Portal";
             // 
             // panelNavigation
+            // — matches ProfilePage: slightly lighter dark #1E1E2E, directly below header at y=57
             // 
-            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(46)))));
             this.panelNavigation.Controls.Add(this.btnStatusTracking);
             this.panelNavigation.Controls.Add(this.btnDocuments);
             this.panelNavigation.Controls.Add(this.btnMyApplication);
@@ -123,161 +128,142 @@ namespace HR_Project
             this.panelNavigation.Controls.Add(this.btnDashboard);
             this.panelNavigation.Location = new System.Drawing.Point(0, 57);
             this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(869, 42);
+            this.panelNavigation.Size = new System.Drawing.Size(1100, 42);
             this.panelNavigation.TabIndex = 11;
             // 
-            // btnStatusTracking
-            // 
-            this.btnStatusTracking.BackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnStatusTracking.ForeColor = System.Drawing.Color.White;
-            this.btnStatusTracking.Location = new System.Drawing.Point(669, 9);
-            this.btnStatusTracking.Name = "btnStatusTracking";
-            this.btnStatusTracking.Size = new System.Drawing.Size(96, 23);
-            this.btnStatusTracking.TabIndex = 3;
-            this.btnStatusTracking.Text = "Status Tracking";
-            this.btnStatusTracking.UseVisualStyleBackColor = false;
-            this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
-            // 
-            // btnDocuments
-            // 
-            this.btnDocuments.BackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDocuments.ForeColor = System.Drawing.Color.White;
-            this.btnDocuments.Location = new System.Drawing.Point(539, 9);
-            this.btnDocuments.Name = "btnDocuments";
-            this.btnDocuments.Size = new System.Drawing.Size(75, 23);
-            this.btnDocuments.TabIndex = 2;
-            this.btnDocuments.Text = "Documents";
-            this.btnDocuments.UseVisualStyleBackColor = false;
-            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
-            // 
-            // btnMyApplication
-            // 
-            this.btnMyApplication.BackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMyApplication.ForeColor = System.Drawing.Color.White;
-            this.btnMyApplication.Location = new System.Drawing.Point(402, 9);
-            this.btnMyApplication.Name = "btnMyApplication";
-            this.btnMyApplication.Size = new System.Drawing.Size(89, 23);
-            this.btnMyApplication.TabIndex = 2;
-            this.btnMyApplication.Text = "My Application";
-            this.btnMyApplication.UseVisualStyleBackColor = false;
-            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
-            // 
-            // btnJobVacancies
-            // 
-            this.btnJobVacancies.BackColor = System.Drawing.Color.Blue;
-            this.btnJobVacancies.Enabled = false;
-            this.btnJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnJobVacancies.ForeColor = System.Drawing.Color.White;
-            this.btnJobVacancies.Location = new System.Drawing.Point(265, 9);
-            this.btnJobVacancies.Name = "btnJobVacancies";
-            this.btnJobVacancies.Size = new System.Drawing.Size(99, 23);
-            this.btnJobVacancies.TabIndex = 2;
-            this.btnJobVacancies.Text = "Job Vacancies";
-            this.btnJobVacancies.UseVisualStyleBackColor = false;
-            // 
-            // btnsMyProfile
-            // 
-            this.btnsMyProfile.BackColor = System.Drawing.Color.Blue;
-            this.btnsMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnsMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnsMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnsMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnsMyProfile.ForeColor = System.Drawing.Color.White;
-            this.btnsMyProfile.Location = new System.Drawing.Point(149, 9);
-            this.btnsMyProfile.Name = "btnsMyProfile";
-            this.btnsMyProfile.Size = new System.Drawing.Size(75, 23);
-            this.btnsMyProfile.TabIndex = 1;
-            this.btnsMyProfile.Text = "My Profile";
-            this.btnsMyProfile.UseVisualStyleBackColor = false;
-            this.btnsMyProfile.Click += new System.EventHandler(this.btnProfilePageMyProfile_Click);
-            // 
             // btnDashboard
+            // — matches ProfilePage nav buttons: flat, no border, full height, auto background
             // 
-            this.btnDashboard.BackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.Location = new System.Drawing.Point(31, 9);
+            this.btnDashboard.FlatAppearance.BorderSize = 0;
+            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDashboard.Location = new System.Drawing.Point(0, 0);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(75, 23);
+            this.btnDashboard.Size = new System.Drawing.Size(110, 42);
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnProfilePageDashboard_Click);
             // 
+            // btnsMyProfile
+            // 
+            this.btnsMyProfile.FlatAppearance.BorderSize = 0;
+            this.btnsMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnsMyProfile.Location = new System.Drawing.Point(110, 0);
+            this.btnsMyProfile.Name = "btnsMyProfile";
+            this.btnsMyProfile.Size = new System.Drawing.Size(110, 42);
+            this.btnsMyProfile.TabIndex = 1;
+            this.btnsMyProfile.Text = "My Profile";
+            this.btnsMyProfile.UseVisualStyleBackColor = false;
+            this.btnsMyProfile.Click += new System.EventHandler(this.btnProfilePageMyProfile_Click);
+            // 
+            // btnJobVacancies
+            // — active page: bold text to indicate current page
+            // 
+            this.btnJobVacancies.FlatAppearance.BorderSize = 0;
+            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJobVacancies.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJobVacancies.Location = new System.Drawing.Point(220, 0);
+            this.btnJobVacancies.Name = "btnJobVacancies";
+            this.btnJobVacancies.Size = new System.Drawing.Size(120, 42);
+            this.btnJobVacancies.TabIndex = 2;
+            this.btnJobVacancies.Text = "Job Vacancies";
+            this.btnJobVacancies.UseVisualStyleBackColor = false;
+            // 
+            // btnMyApplication
+            // 
+            this.btnMyApplication.FlatAppearance.BorderSize = 0;
+            this.btnMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMyApplication.Location = new System.Drawing.Point(340, 0);
+            this.btnMyApplication.Name = "btnMyApplication";
+            this.btnMyApplication.Size = new System.Drawing.Size(120, 42);
+            this.btnMyApplication.TabIndex = 3;
+            this.btnMyApplication.Text = "My Application";
+            this.btnMyApplication.UseVisualStyleBackColor = false;
+            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
+            // 
+            // btnDocuments
+            // 
+            this.btnDocuments.FlatAppearance.BorderSize = 0;
+            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDocuments.Location = new System.Drawing.Point(460, 0);
+            this.btnDocuments.Name = "btnDocuments";
+            this.btnDocuments.Size = new System.Drawing.Size(110, 42);
+            this.btnDocuments.TabIndex = 4;
+            this.btnDocuments.Text = "Documents";
+            this.btnDocuments.UseVisualStyleBackColor = false;
+            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
+            // 
+            // btnStatusTracking
+            // 
+            this.btnStatusTracking.FlatAppearance.BorderSize = 0;
+            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusTracking.Location = new System.Drawing.Point(570, 0);
+            this.btnStatusTracking.Name = "btnStatusTracking";
+            this.btnStatusTracking.Size = new System.Drawing.Size(130, 42);
+            this.btnStatusTracking.TabIndex = 5;
+            this.btnStatusTracking.Text = "Status Tracking";
+            this.btnStatusTracking.UseVisualStyleBackColor = false;
+            this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
+            // 
             // lblJobVacancies
+            // — page heading, matches ProfilePage section label style
             // 
             this.lblJobVacancies.AutoSize = true;
-            this.lblJobVacancies.BackColor = System.Drawing.Color.Transparent;
-            this.lblJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblJobVacancies.Location = new System.Drawing.Point(41, 119);
+            this.lblJobVacancies.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblJobVacancies.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lblJobVacancies.Location = new System.Drawing.Point(20, 115);
             this.lblJobVacancies.Name = "lblJobVacancies";
-            this.lblJobVacancies.Size = new System.Drawing.Size(153, 25);
             this.lblJobVacancies.TabIndex = 12;
             this.lblJobVacancies.Text = "Job Vacancies";
             // 
             // lblSearchJob
             // 
             this.lblSearchJob.AutoSize = true;
-            this.lblSearchJob.BackColor = System.Drawing.Color.Transparent;
             this.lblSearchJob.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSearchJob.Location = new System.Drawing.Point(43, 160);
+            this.lblSearchJob.Location = new System.Drawing.Point(20, 155);
             this.lblSearchJob.Name = "lblSearchJob";
-            this.lblSearchJob.Size = new System.Drawing.Size(63, 13);
             this.lblSearchJob.TabIndex = 13;
             this.lblSearchJob.Text = "Search Job";
             // 
             // txtSearchJob
+            // — wider search box matching ProfilePage textbox sizing
             // 
-            this.txtSearchJob.Location = new System.Drawing.Point(46, 176);
+            this.txtSearchJob.Location = new System.Drawing.Point(20, 172);
             this.txtSearchJob.Name = "txtSearchJob";
-            this.txtSearchJob.Size = new System.Drawing.Size(58, 20);
+            this.txtSearchJob.Size = new System.Drawing.Size(180, 23);
             this.txtSearchJob.TabIndex = 14;
             // 
             // btnSearchButton
+            // — styled consistently; ApplicantTheme will apply primary button style
             // 
-            this.btnSearchButton.Location = new System.Drawing.Point(110, 176);
+            this.btnSearchButton.Location = new System.Drawing.Point(208, 172);
             this.btnSearchButton.Name = "btnSearchButton";
-            this.btnSearchButton.Size = new System.Drawing.Size(52, 20);
+            this.btnSearchButton.Size = new System.Drawing.Size(75, 23);
             this.btnSearchButton.TabIndex = 15;
             this.btnSearchButton.Text = "Search";
-            this.btnSearchButton.UseVisualStyleBackColor = true;
+            this.btnSearchButton.UseVisualStyleBackColor = false;
             this.btnSearchButton.Click += new System.EventHandler(this.btnSearchButton_Click);
             // 
             // lblDepartment
             // 
             this.lblDepartment.AutoSize = true;
-            this.lblDepartment.BackColor = System.Drawing.Color.Transparent;
             this.lblDepartment.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDepartment.Location = new System.Drawing.Point(42, 199);
+            this.lblDepartment.Location = new System.Drawing.Point(20, 204);
             this.lblDepartment.Name = "lblDepartment";
-            this.lblDepartment.Size = new System.Drawing.Size(69, 13);
             this.lblDepartment.TabIndex = 16;
             this.lblDepartment.Text = "Department";
             // 
             // cmbDepartment
             // 
             this.cmbDepartment.FormattingEnabled = true;
-            this.cmbDepartment.Location = new System.Drawing.Point(46, 215);
+            this.cmbDepartment.Location = new System.Drawing.Point(20, 220);
             this.cmbDepartment.Name = "cmbDepartment";
-            this.cmbDepartment.Size = new System.Drawing.Size(121, 21);
+            this.cmbDepartment.Size = new System.Drawing.Size(180, 23);
             this.cmbDepartment.TabIndex = 17;
             this.cmbDepartment.SelectedIndexChanged += new System.EventHandler(this.cmbDepartment_SelectedIndexChanged);
             // 
             // dgvJobVacancies
+            // — expanded to use available horizontal space like ProfilePage grids
             // 
             this.dgvJobVacancies.AllowUserToAddRows = false;
             this.dgvJobVacancies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -287,11 +273,12 @@ namespace HR_Project
             this.ColDepartment,
             this.ColEmploymentType,
             this.ColStatus});
-            this.dgvJobVacancies.Location = new System.Drawing.Point(238, 119);
+            this.dgvJobVacancies.Location = new System.Drawing.Point(320, 115);
             this.dgvJobVacancies.Name = "dgvJobVacancies";
             this.dgvJobVacancies.ReadOnly = true;
+            this.dgvJobVacancies.RowHeadersVisible = false;
             this.dgvJobVacancies.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvJobVacancies.Size = new System.Drawing.Size(500, 100);
+            this.dgvJobVacancies.Size = new System.Drawing.Size(755, 150);
             this.dgvJobVacancies.TabIndex = 18;
             this.dgvJobVacancies.SelectionChanged += new System.EventHandler(this.dgvJobVacancies_SelectionChanged);
             // 
@@ -320,6 +307,7 @@ namespace HR_Project
             this.ColStatus.ReadOnly = true;
             // 
             // grpJobDetails
+            // — wider group box below the grid; matches ProfilePage GroupBox sizing
             // 
             this.grpJobDetails.Controls.Add(this.rtbRequirements);
             this.grpJobDetails.Controls.Add(this.btnApply);
@@ -327,85 +315,86 @@ namespace HR_Project
             this.grpJobDetails.Controls.Add(this.lblEmploymentType);
             this.grpJobDetails.Controls.Add(this.lblDepartments);
             this.grpJobDetails.Controls.Add(this.lblPosition);
-            this.grpJobDetails.Location = new System.Drawing.Point(238, 225);
+            this.grpJobDetails.Location = new System.Drawing.Point(20, 290);
             this.grpJobDetails.Name = "grpJobDetails";
-            this.grpJobDetails.Size = new System.Drawing.Size(500, 100);
+            this.grpJobDetails.Size = new System.Drawing.Size(1055, 180);
             this.grpJobDetails.TabIndex = 19;
             this.grpJobDetails.TabStop = false;
             this.grpJobDetails.Text = "Job Details";
             // 
-            // rtbRequirements
+            // lblPosition
             // 
-            this.rtbRequirements.Location = new System.Drawing.Point(301, 13);
-            this.rtbRequirements.Name = "rtbRequirements";
-            this.rtbRequirements.ReadOnly = true;
-            this.rtbRequirements.Size = new System.Drawing.Size(124, 80);
-            this.rtbRequirements.TabIndex = 20;
-            this.rtbRequirements.Text = "";
-            // 
-            // btnApply
-            // 
-            this.btnApply.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnApply.Location = new System.Drawing.Point(431, 73);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(59, 21);
-            this.btnApply.TabIndex = 3;
-            this.btnApply.Text = "Apply Now";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
-            // 
-            // rtbQualification
-            // 
-            this.rtbQualification.Location = new System.Drawing.Point(146, 13);
-            this.rtbQualification.Name = "rtbQualification";
-            this.rtbQualification.ReadOnly = true;
-            this.rtbQualification.Size = new System.Drawing.Size(120, 80);
-            this.rtbQualification.TabIndex = 3;
-            this.rtbQualification.Text = "";
-            // 
-            // lblEmploymentType
-            // 
-            this.lblEmploymentType.AutoSize = true;
-            this.lblEmploymentType.Location = new System.Drawing.Point(6, 42);
-            this.lblEmploymentType.Name = "lblEmploymentType";
-            this.lblEmploymentType.Size = new System.Drawing.Size(91, 13);
-            this.lblEmploymentType.TabIndex = 2;
-            this.lblEmploymentType.Text = "Employment Type";
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPosition.Location = new System.Drawing.Point(12, 22);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.TabIndex = 0;
+            this.lblPosition.Text = "IT Support Specialist";
             // 
             // lblDepartments
             // 
             this.lblDepartments.AutoSize = true;
-            this.lblDepartments.Location = new System.Drawing.Point(6, 29);
+            this.lblDepartments.Location = new System.Drawing.Point(12, 48);
             this.lblDepartments.Name = "lblDepartments";
-            this.lblDepartments.Size = new System.Drawing.Size(62, 13);
             this.lblDepartments.TabIndex = 1;
-            this.lblDepartments.Text = "Department";
+            this.lblDepartments.Text = "Department:";
             // 
-            // lblPosition
+            // lblEmploymentType
             // 
-            this.lblPosition.AutoSize = true;
-            this.lblPosition.Location = new System.Drawing.Point(6, 16);
-            this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(105, 13);
-            this.lblPosition.TabIndex = 0;
-            this.lblPosition.Text = "IT Support Specialist";
+            this.lblEmploymentType.AutoSize = true;
+            this.lblEmploymentType.Location = new System.Drawing.Point(12, 68);
+            this.lblEmploymentType.Name = "lblEmploymentType";
+            this.lblEmploymentType.TabIndex = 2;
+            this.lblEmploymentType.Text = "Employment Type:";
+            // 
+            // rtbQualification
+            // — wider and taller to fill the group box
+            // 
+            this.rtbQualification.Location = new System.Drawing.Point(220, 22);
+            this.rtbQualification.Name = "rtbQualification";
+            this.rtbQualification.ReadOnly = true;
+            this.rtbQualification.Size = new System.Drawing.Size(380, 140);
+            this.rtbQualification.TabIndex = 3;
+            this.rtbQualification.Text = "";
+            // 
+            // rtbRequirements
+            // 
+            this.rtbRequirements.Location = new System.Drawing.Point(620, 22);
+            this.rtbRequirements.Name = "rtbRequirements";
+            this.rtbRequirements.ReadOnly = true;
+            this.rtbRequirements.Size = new System.Drawing.Size(380, 140);
+            this.rtbRequirements.TabIndex = 20;
+            this.rtbRequirements.Text = "";
+            // 
+            // btnApply
+            // — styled primary button; ApplicantTheme will color it
+            // 
+            this.btnApply.Location = new System.Drawing.Point(12, 140);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(100, 30);
+            this.btnApply.TabIndex = 4;
+            this.btnApply.Text = "Apply Now";
+            this.btnApply.UseVisualStyleBackColor = false;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // btnCancelApplication
+            // — danger-styled button; ApplicantTheme will apply red color
             // 
-            this.btnCancelApplication.Location = new System.Drawing.Point(744, 295);
+            this.btnCancelApplication.Location = new System.Drawing.Point(120, 140);
             this.btnCancelApplication.Name = "btnCancelApplication";
-            this.btnCancelApplication.Size = new System.Drawing.Size(108, 23);
-            this.btnCancelApplication.TabIndex = 20;
+            this.btnCancelApplication.Size = new System.Drawing.Size(130, 30);
+            this.btnCancelApplication.TabIndex = 5;
             this.btnCancelApplication.Text = "Cancel Application";
-            this.btnCancelApplication.UseVisualStyleBackColor = true;
+            this.btnCancelApplication.UseVisualStyleBackColor = false;
             this.btnCancelApplication.Click += new System.EventHandler(this.btnCancelApplication_Click);
             // 
             // JobVacancies
+            // — matches ProfilePage: same form size, light grey background, no border, centered
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HR_Project.Properties.Resources.green;
-            this.ClientSize = new System.Drawing.Size(868, 353);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(247)))));
+            this.ClientSize = new System.Drawing.Size(1100, 500);
             this.Controls.Add(this.btnCancelApplication);
             this.Controls.Add(this.grpJobDetails);
             this.Controls.Add(this.dgvJobVacancies);
@@ -418,9 +407,9 @@ namespace HR_Project
             this.Controls.Add(this.panelNavigation);
             this.Controls.Add(this.panelProfilePageHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Location = new System.Drawing.Point(30, 200);
             this.Name = "JobVacancies";
-            this.Text = "JobVacancies";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Job Vacancies";
             this.Load += new System.EventHandler(this.JobVacancies_Load);
             this.panelProfilePageHeader.ResumeLayout(false);
             this.panelProfilePageHeader.PerformLayout();
