@@ -13,10 +13,7 @@ namespace HR_Project
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
+            if (disposing && (components != null)) components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -29,809 +26,539 @@ namespace HR_Project
         private void InitializeComponent()
         {
             this.panelHeader = new System.Windows.Forms.Panel();
-            this.lblApplicantLastName = new System.Windows.Forms.Label();
             this.btnDashboardClose = new System.Windows.Forms.Button();
             this.btnLogout = new System.Windows.Forms.Button();
+            this.lblApplicantLastName = new System.Windows.Forms.Label();
             this.lblApplicantFirstName = new System.Windows.Forms.Label();
             this.picBoxDashboardpfp = new System.Windows.Forms.PictureBox();
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelNavigation = new System.Windows.Forms.Panel();
-            this.btnStatusTracking = new System.Windows.Forms.Button();
-            this.btnDocuments = new System.Windows.Forms.Button();
-            this.btnMyApplication = new System.Windows.Forms.Button();
-            this.btnJobVacancies = new System.Windows.Forms.Button();
-            this.btnMyProfile = new System.Windows.Forms.Button();
             this.btnDashboard = new System.Windows.Forms.Button();
-            this.panelMain = new System.Windows.Forms.Panel();
-            this.groupBoxRequiredDocuments = new System.Windows.Forms.GroupBox();
-            this.lblCertificatesStatus = new System.Windows.Forms.Label();
-            this.lblTranscriptStatus = new System.Windows.Forms.Label();
-            this.lblGovernmentIDStatus = new System.Windows.Forms.Label();
-            this.lblResumeStatus = new System.Windows.Forms.Label();
-            this.lblCertificates = new System.Windows.Forms.Label();
-            this.lblTranscript = new System.Windows.Forms.Label();
-            this.lblGovernmentID = new System.Windows.Forms.Label();
-            this.lblResume = new System.Windows.Forms.Label();
-            this.groupBoxUpdates = new System.Windows.Forms.GroupBox();
-            this.lblDocumentsUpdate = new System.Windows.Forms.Label();
-            this.lblHRupdates = new System.Windows.Forms.Label();
-            this.groupBoxInterviewSchedule = new System.Windows.Forms.GroupBox();
-            this.lblInterviewer1 = new System.Windows.Forms.Label();
-            this.lblInterviewer = new System.Windows.Forms.Label();
-            this.lblMode1 = new System.Windows.Forms.Label();
-            this.lblMode = new System.Windows.Forms.Label();
-            this.lblTime1 = new System.Windows.Forms.Label();
-            this.lblTime = new System.Windows.Forms.Label();
-            this.lblDate1 = new System.Windows.Forms.Label();
-            this.lblDate = new System.Windows.Forms.Label();
-            this.ApplicationProgress = new System.Windows.Forms.GroupBox();
-            this.lblAccepted = new System.Windows.Forms.Label();
-            this.lblFinalReview = new System.Windows.Forms.Label();
-            this.lblInterview = new System.Windows.Forms.Label();
-            this.lblShortListed = new System.Windows.Forms.Label();
-            this.lblUnderReview = new System.Windows.Forms.Label();
-            this.lblSubmitted = new System.Windows.Forms.Label();
-            this.lblDraft = new System.Windows.Forms.Label();
-            this.panelMissingDocuments = new System.Windows.Forms.Panel();
-            this.lblMissDocu = new System.Windows.Forms.Label();
-            this.lblMissingDocuments = new System.Windows.Forms.Label();
+            this.btnMyProfile = new System.Windows.Forms.Button();
+            this.btnJobVacancies = new System.Windows.Forms.Button();
+            this.btnMyApplication = new System.Windows.Forms.Button();
+            this.btnDocuments = new System.Windows.Forms.Button();
+            this.btnStatusTracking = new System.Windows.Forms.Button();
+            this.panelCardStatus = new System.Windows.Forms.Panel();
+            this.lblCurrentStatus = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.panelAppliedPosition0 = new System.Windows.Forms.Panel();
             this.lblPosition = new System.Windows.Forms.Label();
             this.lblAppliedPosition = new System.Windows.Forms.Label();
-            this.panelCardStatus = new System.Windows.Forms.Panel();
-            this.lblStatus = new System.Windows.Forms.Label();
-            this.lblCurrentStatus = new System.Windows.Forms.Label();
-            this.lblApplicantName1 = new System.Windows.Forms.Label();
+            this.panelMissingDocuments = new System.Windows.Forms.Panel();
+            this.lblMissDocu = new System.Windows.Forms.Label();
+            this.lblMissingDocuments = new System.Windows.Forms.Label();
             this.lblWelcome = new System.Windows.Forms.Label();
+            this.lblApplicantName1 = new System.Windows.Forms.Label();
+            this.lblSectionDocuments = new System.Windows.Forms.Label();
+            this.lblSectionProgress = new System.Windows.Forms.Label();
+            this.dgvDocumentStatus = new System.Windows.Forms.DataGridView();
+            this.colDocType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDocStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvApplicationProgress = new System.Windows.Forms.DataGridView();
+            this.colStep = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colStepStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblInterviewSchedule = new System.Windows.Forms.Label();
+            this.lblInterview = new System.Windows.Forms.Label();
+            this.cmbApplicationSelector = new System.Windows.Forms.ComboBox();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxDashboardpfp)).BeginInit();
             this.panelNavigation.SuspendLayout();
-            this.panelMain.SuspendLayout();
-            this.groupBoxRequiredDocuments.SuspendLayout();
-            this.groupBoxUpdates.SuspendLayout();
-            this.groupBoxInterviewSchedule.SuspendLayout();
-            this.ApplicationProgress.SuspendLayout();
-            this.panelMissingDocuments.SuspendLayout();
-            this.panelAppliedPosition0.SuspendLayout();
             this.panelCardStatus.SuspendLayout();
+            this.panelAppliedPosition0.SuspendLayout();
+            this.panelMissingDocuments.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDocumentStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplicationProgress)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelHeader
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.panelHeader.Controls.Add(this.lblApplicantLastName);
+            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
             this.panelHeader.Controls.Add(this.btnDashboardClose);
             this.panelHeader.Controls.Add(this.btnLogout);
+            this.panelHeader.Controls.Add(this.lblApplicantLastName);
             this.panelHeader.Controls.Add(this.lblApplicantFirstName);
             this.panelHeader.Controls.Add(this.picBoxDashboardpfp);
             this.panelHeader.Controls.Add(this.lblTitle);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(800, 60);
+            this.panelHeader.Size = new System.Drawing.Size(869, 60);
             this.panelHeader.TabIndex = 0;
-            this.panelHeader.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // lblApplicantLastName
-            // 
-            this.lblApplicantLastName.AutoSize = true;
-            this.lblApplicantLastName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicantLastName.Location = new System.Drawing.Point(615, 41);
-            this.lblApplicantLastName.Name = "lblApplicantLastName";
-            this.lblApplicantLastName.Size = new System.Drawing.Size(67, 13);
-            this.lblApplicantLastName.TabIndex = 5;
-            this.lblApplicantLastName.Text = "Last Name";
             // 
             // btnDashboardClose
             // 
             this.btnDashboardClose.BackColor = System.Drawing.Color.Transparent;
             this.btnDashboardClose.FlatAppearance.BorderSize = 0;
             this.btnDashboardClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDashboardClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDashboardClose.ForeColor = System.Drawing.Color.Red;
-            this.btnDashboardClose.Location = new System.Drawing.Point(764, 0);
+            this.btnDashboardClose.Location = new System.Drawing.Point(833, 0);
             this.btnDashboardClose.Name = "btnDashboardClose";
             this.btnDashboardClose.Size = new System.Drawing.Size(36, 29);
-            this.btnDashboardClose.TabIndex = 4;
+            this.btnDashboardClose.TabIndex = 0;
             this.btnDashboardClose.Text = "X";
             this.btnDashboardClose.UseVisualStyleBackColor = false;
             this.btnDashboardClose.Click += new System.EventHandler(this.btnDashboardClose_Click);
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(689, 28);
+            this.btnLogout.Location = new System.Drawing.Point(752, 28);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 23);
-            this.btnLogout.TabIndex = 3;
+            this.btnLogout.TabIndex = 1;
             this.btnLogout.Text = "Logout";
-            this.btnLogout.UseVisualStyleBackColor = true;
+            this.btnLogout.UseVisualStyleBackColor = false;
             this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
+            // 
+            // lblApplicantLastName
+            // 
+            this.lblApplicantLastName.AutoSize = true;
+            this.lblApplicantLastName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicantLastName.ForeColor = System.Drawing.Color.White;
+            this.lblApplicantLastName.Location = new System.Drawing.Point(610, 36);
+            this.lblApplicantLastName.Name = "lblApplicantLastName";
+            this.lblApplicantLastName.Size = new System.Drawing.Size(29, 15);
+            this.lblApplicantLastName.TabIndex = 5;
+            this.lblApplicantLastName.Text = "Last";
             // 
             // lblApplicantFirstName
             // 
             this.lblApplicantFirstName.AutoSize = true;
-            this.lblApplicantFirstName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicantFirstName.Location = new System.Drawing.Point(579, 41);
+            this.lblApplicantFirstName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicantFirstName.ForeColor = System.Drawing.Color.White;
+            this.lblApplicantFirstName.Location = new System.Drawing.Point(610, 18);
             this.lblApplicantFirstName.Name = "lblApplicantFirstName";
-            this.lblApplicantFirstName.Size = new System.Drawing.Size(63, 13);
-            this.lblApplicantFirstName.TabIndex = 2;
-            this.lblApplicantFirstName.Text = "FirstName";
+            this.lblApplicantFirstName.Size = new System.Drawing.Size(31, 15);
+            this.lblApplicantFirstName.TabIndex = 4;
+            this.lblApplicantFirstName.Text = "First";
             // 
             // picBoxDashboardpfp
             // 
-            this.picBoxDashboardpfp.Location = new System.Drawing.Point(606, 5);
+            this.picBoxDashboardpfp.Location = new System.Drawing.Point(8, 8);
             this.picBoxDashboardpfp.Name = "picBoxDashboardpfp";
-            this.picBoxDashboardpfp.Size = new System.Drawing.Size(39, 33);
+            this.picBoxDashboardpfp.Size = new System.Drawing.Size(44, 44);
             this.picBoxDashboardpfp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picBoxDashboardpfp.TabIndex = 1;
+            this.picBoxDashboardpfp.TabIndex = 3;
             this.picBoxDashboardpfp.TabStop = false;
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblTitle.Location = new System.Drawing.Point(3, 21);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitle.ForeColor = System.Drawing.Color.White;
+            this.lblTitle.Location = new System.Drawing.Point(60, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(221, 15);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "HR Applicant Processing System";
-            this.lblTitle.Click += new System.EventHandler(this.lblTitle_Click);
+            this.lblTitle.Size = new System.Drawing.Size(150, 25);
+            this.lblTitle.TabIndex = 2;
+            this.lblTitle.Text = "Applicant Portal";
             // 
             // panelNavigation
             // 
-            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
-            this.panelNavigation.Controls.Add(this.btnStatusTracking);
-            this.panelNavigation.Controls.Add(this.btnDocuments);
-            this.panelNavigation.Controls.Add(this.btnMyApplication);
-            this.panelNavigation.Controls.Add(this.btnJobVacancies);
-            this.panelNavigation.Controls.Add(this.btnMyProfile);
+            this.panelNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(46)))));
             this.panelNavigation.Controls.Add(this.btnDashboard);
+            this.panelNavigation.Controls.Add(this.btnMyProfile);
+            this.panelNavigation.Controls.Add(this.btnJobVacancies);
+            this.panelNavigation.Controls.Add(this.btnMyApplication);
+            this.panelNavigation.Controls.Add(this.btnDocuments);
+            this.panelNavigation.Controls.Add(this.btnStatusTracking);
             this.panelNavigation.Location = new System.Drawing.Point(0, 57);
             this.panelNavigation.Name = "panelNavigation";
-            this.panelNavigation.Size = new System.Drawing.Size(800, 42);
+            this.panelNavigation.Size = new System.Drawing.Size(869, 42);
             this.panelNavigation.TabIndex = 1;
-            // 
-            // btnStatusTracking
-            // 
-            this.btnStatusTracking.BackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnStatusTracking.ForeColor = System.Drawing.Color.White;
-            this.btnStatusTracking.Location = new System.Drawing.Point(669, 9);
-            this.btnStatusTracking.Name = "btnStatusTracking";
-            this.btnStatusTracking.Size = new System.Drawing.Size(96, 23);
-            this.btnStatusTracking.TabIndex = 3;
-            this.btnStatusTracking.Text = "Status Tracking";
-            this.btnStatusTracking.UseVisualStyleBackColor = false;
-            this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
-            // 
-            // btnDocuments
-            // 
-            this.btnDocuments.BackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDocuments.ForeColor = System.Drawing.Color.White;
-            this.btnDocuments.Location = new System.Drawing.Point(539, 9);
-            this.btnDocuments.Name = "btnDocuments";
-            this.btnDocuments.Size = new System.Drawing.Size(75, 23);
-            this.btnDocuments.TabIndex = 2;
-            this.btnDocuments.Text = "Documents";
-            this.btnDocuments.UseVisualStyleBackColor = false;
-            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
-            // 
-            // btnMyApplication
-            // 
-            this.btnMyApplication.BackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMyApplication.ForeColor = System.Drawing.Color.White;
-            this.btnMyApplication.Location = new System.Drawing.Point(402, 9);
-            this.btnMyApplication.Name = "btnMyApplication";
-            this.btnMyApplication.Size = new System.Drawing.Size(89, 23);
-            this.btnMyApplication.TabIndex = 2;
-            this.btnMyApplication.Text = "My Application";
-            this.btnMyApplication.UseVisualStyleBackColor = false;
-            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
-            // 
-            // btnJobVacancies
-            // 
-            this.btnJobVacancies.BackColor = System.Drawing.Color.Blue;
-            this.btnJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnJobVacancies.ForeColor = System.Drawing.Color.White;
-            this.btnJobVacancies.Location = new System.Drawing.Point(265, 9);
-            this.btnJobVacancies.Name = "btnJobVacancies";
-            this.btnJobVacancies.Size = new System.Drawing.Size(89, 23);
-            this.btnJobVacancies.TabIndex = 2;
-            this.btnJobVacancies.Text = "Job Vacancies";
-            this.btnJobVacancies.UseVisualStyleBackColor = false;
-            this.btnJobVacancies.Click += new System.EventHandler(this.btnJobVacancies_Click);
-            // 
-            // btnMyProfile
-            // 
-            this.btnMyProfile.BackColor = System.Drawing.Color.Blue;
-            this.btnMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnMyProfile.ForeColor = System.Drawing.Color.White;
-            this.btnMyProfile.Location = new System.Drawing.Point(149, 9);
-            this.btnMyProfile.Name = "btnMyProfile";
-            this.btnMyProfile.Size = new System.Drawing.Size(75, 23);
-            this.btnMyProfile.TabIndex = 1;
-            this.btnMyProfile.Text = "My Profile";
-            this.btnMyProfile.UseVisualStyleBackColor = false;
-            this.btnMyProfile.Click += new System.EventHandler(this.btnMyProfile_Click);
             // 
             // btnDashboard
             // 
-            this.btnDashboard.BackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.Enabled = false;
             this.btnDashboard.FlatAppearance.BorderSize = 0;
-            this.btnDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.Location = new System.Drawing.Point(31, 9);
+            this.btnDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDashboard.Location = new System.Drawing.Point(0, 0);
             this.btnDashboard.Name = "btnDashboard";
-            this.btnDashboard.Size = new System.Drawing.Size(84, 23);
+            this.btnDashboard.Size = new System.Drawing.Size(110, 42);
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.UseVisualStyleBackColor = false;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             // 
-            // panelMain
-            // 
-            this.panelMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(246)))), ((int)(((byte)(249)))));
-            this.panelMain.BackgroundImage = global::HR_Project.Properties.Resources.green;
-            this.panelMain.Controls.Add(this.groupBoxRequiredDocuments);
-            this.panelMain.Controls.Add(this.groupBoxUpdates);
-            this.panelMain.Controls.Add(this.groupBoxInterviewSchedule);
-            this.panelMain.Controls.Add(this.ApplicationProgress);
-            this.panelMain.Controls.Add(this.panelMissingDocuments);
-            this.panelMain.Controls.Add(this.panelAppliedPosition0);
-            this.panelMain.Controls.Add(this.panelCardStatus);
-            this.panelMain.Controls.Add(this.lblApplicantName1);
-            this.panelMain.Controls.Add(this.lblWelcome);
-            this.panelMain.Location = new System.Drawing.Point(0, 95);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(800, 424);
-            this.panelMain.TabIndex = 2;
-            this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
-            // 
-            // groupBoxRequiredDocuments
-            // 
-            this.groupBoxRequiredDocuments.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblCertificatesStatus);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblTranscriptStatus);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblGovernmentIDStatus);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblResumeStatus);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblCertificates);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblTranscript);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblGovernmentID);
-            this.groupBoxRequiredDocuments.Controls.Add(this.lblResume);
-            this.groupBoxRequiredDocuments.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxRequiredDocuments.ForeColor = System.Drawing.Color.Black;
-            this.groupBoxRequiredDocuments.Location = new System.Drawing.Point(569, 184);
-            this.groupBoxRequiredDocuments.Name = "groupBoxRequiredDocuments";
-            this.groupBoxRequiredDocuments.Size = new System.Drawing.Size(219, 121);
-            this.groupBoxRequiredDocuments.TabIndex = 8;
-            this.groupBoxRequiredDocuments.TabStop = false;
-            this.groupBoxRequiredDocuments.Text = "RequiredDocuments";
-            // 
-            // lblCertificatesStatus
-            // 
-            this.lblCertificatesStatus.AutoSize = true;
-            this.lblCertificatesStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblCertificatesStatus.Location = new System.Drawing.Point(128, 98);
-            this.lblCertificatesStatus.Name = "lblCertificatesStatus";
-            this.lblCertificatesStatus.Size = new System.Drawing.Size(67, 13);
-            this.lblCertificatesStatus.TabIndex = 14;
-            this.lblCertificatesStatus.Text = " ✗ Missing ";
-            // 
-            // lblTranscriptStatus
-            // 
-            this.lblTranscriptStatus.AutoSize = true;
-            this.lblTranscriptStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblTranscriptStatus.Location = new System.Drawing.Point(128, 72);
-            this.lblTranscriptStatus.Name = "lblTranscriptStatus";
-            this.lblTranscriptStatus.Size = new System.Drawing.Size(67, 13);
-            this.lblTranscriptStatus.TabIndex = 13;
-            this.lblTranscriptStatus.Text = " ✗ Missing ";
-            this.lblTranscriptStatus.Click += new System.EventHandler(this.lblDocuStatus2_Click);
-            // 
-            // lblGovernmentIDStatus
-            // 
-            this.lblGovernmentIDStatus.AutoSize = true;
-            this.lblGovernmentIDStatus.ForeColor = System.Drawing.Color.Green;
-            this.lblGovernmentIDStatus.Location = new System.Drawing.Point(128, 46);
-            this.lblGovernmentIDStatus.Name = "lblGovernmentIDStatus";
-            this.lblGovernmentIDStatus.Size = new System.Drawing.Size(76, 13);
-            this.lblGovernmentIDStatus.TabIndex = 12;
-            this.lblGovernmentIDStatus.Text = " ✓ Submitted";
-            // 
-            // lblResumeStatus
-            // 
-            this.lblResumeStatus.AutoSize = true;
-            this.lblResumeStatus.ForeColor = System.Drawing.Color.Green;
-            this.lblResumeStatus.Location = new System.Drawing.Point(128, 20);
-            this.lblResumeStatus.Name = "lblResumeStatus";
-            this.lblResumeStatus.Size = new System.Drawing.Size(76, 13);
-            this.lblResumeStatus.TabIndex = 11;
-            this.lblResumeStatus.Text = " ✓ Submitted";
-            // 
-            // lblCertificates
-            // 
-            this.lblCertificates.AutoSize = true;
-            this.lblCertificates.Location = new System.Drawing.Point(7, 98);
-            this.lblCertificates.Name = "lblCertificates";
-            this.lblCertificates.Size = new System.Drawing.Size(64, 13);
-            this.lblCertificates.TabIndex = 10;
-            this.lblCertificates.Text = "Certificates";
-            // 
-            // lblTranscript
-            // 
-            this.lblTranscript.AutoSize = true;
-            this.lblTranscript.Location = new System.Drawing.Point(7, 72);
-            this.lblTranscript.Name = "lblTranscript";
-            this.lblTranscript.Size = new System.Drawing.Size(57, 13);
-            this.lblTranscript.TabIndex = 9;
-            this.lblTranscript.Text = "Transcript";
-            this.lblTranscript.Click += new System.EventHandler(this.lblTranscript_Click);
-            // 
-            // lblGovernmentID
-            // 
-            this.lblGovernmentID.AutoSize = true;
-            this.lblGovernmentID.Location = new System.Drawing.Point(6, 46);
-            this.lblGovernmentID.Name = "lblGovernmentID";
-            this.lblGovernmentID.Size = new System.Drawing.Size(86, 13);
-            this.lblGovernmentID.TabIndex = 7;
-            this.lblGovernmentID.Text = "Government ID";
-            // 
-            // lblResume
-            // 
-            this.lblResume.AutoSize = true;
-            this.lblResume.Location = new System.Drawing.Point(7, 20);
-            this.lblResume.Name = "lblResume";
-            this.lblResume.Size = new System.Drawing.Size(48, 13);
-            this.lblResume.TabIndex = 8;
-            this.lblResume.Text = "Resume";
-            // 
-            // groupBoxUpdates
-            // 
-            this.groupBoxUpdates.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxUpdates.Controls.Add(this.lblDocumentsUpdate);
-            this.groupBoxUpdates.Controls.Add(this.lblHRupdates);
-            this.groupBoxUpdates.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxUpdates.Location = new System.Drawing.Point(367, 184);
-            this.groupBoxUpdates.Name = "groupBoxUpdates";
-            this.groupBoxUpdates.Size = new System.Drawing.Size(161, 121);
-            this.groupBoxUpdates.TabIndex = 7;
-            this.groupBoxUpdates.TabStop = false;
-            this.groupBoxUpdates.Text = "Recent Updates";
-            // 
-            // lblDocumentsUpdate
-            // 
-            this.lblDocumentsUpdate.AutoSize = true;
-            this.lblDocumentsUpdate.Location = new System.Drawing.Point(26, 98);
-            this.lblDocumentsUpdate.Name = "lblDocumentsUpdate";
-            this.lblDocumentsUpdate.Size = new System.Drawing.Size(107, 13);
-            this.lblDocumentsUpdate.TabIndex = 7;
-            this.lblDocumentsUpdate.Text = "Documents Update";
-            this.lblDocumentsUpdate.Click += new System.EventHandler(this.lblDocumentsUpdate_Click);
-            // 
-            // lblHRupdates
-            // 
-            this.lblHRupdates.AutoSize = true;
-            this.lblHRupdates.Location = new System.Drawing.Point(7, 20);
-            this.lblHRupdates.Name = "lblHRupdates";
-            this.lblHRupdates.Size = new System.Drawing.Size(62, 13);
-            this.lblHRupdates.TabIndex = 8;
-            this.lblHRupdates.Text = "HR update";
-            // 
-            // groupBoxInterviewSchedule
-            // 
-            this.groupBoxInterviewSchedule.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblInterviewer1);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblInterviewer);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblMode1);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblMode);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblTime1);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblTime);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblDate1);
-            this.groupBoxInterviewSchedule.Controls.Add(this.lblDate);
-            this.groupBoxInterviewSchedule.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxInterviewSchedule.Location = new System.Drawing.Point(174, 184);
-            this.groupBoxInterviewSchedule.Name = "groupBoxInterviewSchedule";
-            this.groupBoxInterviewSchedule.Size = new System.Drawing.Size(161, 121);
-            this.groupBoxInterviewSchedule.TabIndex = 6;
-            this.groupBoxInterviewSchedule.TabStop = false;
-            this.groupBoxInterviewSchedule.Text = "Interview Schedule";
-            this.groupBoxInterviewSchedule.Enter += new System.EventHandler(this.groupBoxInterviewSchedule_Enter);
-            // 
-            // lblInterviewer1
-            // 
-            this.lblInterviewer1.AutoSize = true;
-            this.lblInterviewer1.Location = new System.Drawing.Point(75, 98);
-            this.lblInterviewer1.Name = "lblInterviewer1";
-            this.lblInterviewer1.Size = new System.Drawing.Size(65, 13);
-            this.lblInterviewer1.TabIndex = 7;
-            this.lblInterviewer1.Text = "Interviewer";
-            // 
-            // lblInterviewer
-            // 
-            this.lblInterviewer.AutoSize = true;
-            this.lblInterviewer.Location = new System.Drawing.Point(7, 98);
-            this.lblInterviewer.Name = "lblInterviewer";
-            this.lblInterviewer.Size = new System.Drawing.Size(68, 13);
-            this.lblInterviewer.TabIndex = 9;
-            this.lblInterviewer.Text = "Interviewer:";
-            // 
-            // lblMode1
-            // 
-            this.lblMode1.AutoSize = true;
-            this.lblMode1.Location = new System.Drawing.Point(48, 72);
-            this.lblMode1.Name = "lblMode1";
-            this.lblMode1.Size = new System.Drawing.Size(38, 13);
-            this.lblMode1.TabIndex = 7;
-            this.lblMode1.Text = "Mode";
-            // 
-            // lblMode
-            // 
-            this.lblMode.AutoSize = true;
-            this.lblMode.Location = new System.Drawing.Point(6, 72);
-            this.lblMode.Name = "lblMode";
-            this.lblMode.Size = new System.Drawing.Size(41, 13);
-            this.lblMode.TabIndex = 8;
-            this.lblMode.Text = "Mode:";
-            // 
-            // lblTime1
-            // 
-            this.lblTime1.AutoSize = true;
-            this.lblTime1.Location = new System.Drawing.Point(45, 46);
-            this.lblTime1.Name = "lblTime1";
-            this.lblTime1.Size = new System.Drawing.Size(32, 13);
-            this.lblTime1.TabIndex = 7;
-            this.lblTime1.Text = "Time";
-            this.lblTime1.Click += new System.EventHandler(this.lblTime1_Click);
-            // 
-            // lblTime
-            // 
-            this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(6, 46);
-            this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(35, 13);
-            this.lblTime.TabIndex = 2;
-            this.lblTime.Text = "Time:";
-            this.lblTime.Click += new System.EventHandler(this.lblTime_Click);
-            // 
-            // lblDate1
-            // 
-            this.lblDate1.AutoSize = true;
-            this.lblDate1.Location = new System.Drawing.Point(39, 20);
-            this.lblDate1.Name = "lblDate1";
-            this.lblDate1.Size = new System.Drawing.Size(31, 13);
-            this.lblDate1.TabIndex = 1;
-            this.lblDate1.Text = "Date";
-            this.lblDate1.Click += new System.EventHandler(this.lblDate1_Click);
-            // 
-            // lblDate
-            // 
-            this.lblDate.AutoSize = true;
-            this.lblDate.Location = new System.Drawing.Point(7, 20);
-            this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(34, 13);
-            this.lblDate.TabIndex = 0;
-            this.lblDate.Text = "Date:";
-            // 
-            // ApplicationProgress
-            // 
-            this.ApplicationProgress.BackColor = System.Drawing.SystemColors.Control;
-            this.ApplicationProgress.Controls.Add(this.lblAccepted);
-            this.ApplicationProgress.Controls.Add(this.lblFinalReview);
-            this.ApplicationProgress.Controls.Add(this.lblInterview);
-            this.ApplicationProgress.Controls.Add(this.lblShortListed);
-            this.ApplicationProgress.Controls.Add(this.lblUnderReview);
-            this.ApplicationProgress.Controls.Add(this.lblSubmitted);
-            this.ApplicationProgress.Controls.Add(this.lblDraft);
-            this.ApplicationProgress.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ApplicationProgress.Location = new System.Drawing.Point(12, 184);
-            this.ApplicationProgress.Name = "ApplicationProgress";
-            this.ApplicationProgress.Size = new System.Drawing.Size(131, 121);
-            this.ApplicationProgress.TabIndex = 5;
-            this.ApplicationProgress.TabStop = false;
-            this.ApplicationProgress.Text = "Application Progress";
-            this.ApplicationProgress.Enter += new System.EventHandler(this.ApplicationProgress_Enter);
-            // 
-            // lblAccepted
-            // 
-            this.lblAccepted.AutoSize = true;
-            this.lblAccepted.ForeColor = System.Drawing.Color.Gray;
-            this.lblAccepted.Location = new System.Drawing.Point(19, 98);
-            this.lblAccepted.Name = "lblAccepted";
-            this.lblAccepted.Size = new System.Drawing.Size(67, 13);
-            this.lblAccepted.TabIndex = 9;
-            this.lblAccepted.Text = "○ Accepted";
-            this.lblAccepted.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // lblFinalReview
-            // 
-            this.lblFinalReview.AutoSize = true;
-            this.lblFinalReview.ForeColor = System.Drawing.Color.Gray;
-            this.lblFinalReview.Location = new System.Drawing.Point(19, 85);
-            this.lblFinalReview.Name = "lblFinalReview";
-            this.lblFinalReview.Size = new System.Drawing.Size(84, 13);
-            this.lblFinalReview.TabIndex = 8;
-            this.lblFinalReview.Text = "○ Final Review";
-            // 
-            // lblInterview
-            // 
-            this.lblInterview.AutoSize = true;
-            this.lblInterview.ForeColor = System.Drawing.Color.Gray;
-            this.lblInterview.Location = new System.Drawing.Point(19, 72);
-            this.lblInterview.Name = "lblInterview";
-            this.lblInterview.Size = new System.Drawing.Size(67, 13);
-            this.lblInterview.TabIndex = 7;
-            this.lblInterview.Text = "○ Interview";
-            // 
-            // lblShortListed
-            // 
-            this.lblShortListed.AutoSize = true;
-            this.lblShortListed.ForeColor = System.Drawing.Color.Gray;
-            this.lblShortListed.Location = new System.Drawing.Point(19, 59);
-            this.lblShortListed.Name = "lblShortListed";
-            this.lblShortListed.Size = new System.Drawing.Size(75, 13);
-            this.lblShortListed.TabIndex = 6;
-            this.lblShortListed.Text = "○ Shortlisted";
-            // 
-            // lblUnderReview
-            // 
-            this.lblUnderReview.AutoSize = true;
-            this.lblUnderReview.ForeColor = System.Drawing.Color.Green;
-            this.lblUnderReview.Location = new System.Drawing.Point(19, 46);
-            this.lblUnderReview.Name = "lblUnderReview";
-            this.lblUnderReview.Size = new System.Drawing.Size(91, 13);
-            this.lblUnderReview.TabIndex = 2;
-            this.lblUnderReview.Text = "✓ Under Review";
-            // 
-            // lblSubmitted
-            // 
-            this.lblSubmitted.AutoSize = true;
-            this.lblSubmitted.ForeColor = System.Drawing.Color.Green;
-            this.lblSubmitted.Location = new System.Drawing.Point(19, 33);
-            this.lblSubmitted.Name = "lblSubmitted";
-            this.lblSubmitted.Size = new System.Drawing.Size(73, 13);
-            this.lblSubmitted.TabIndex = 1;
-            this.lblSubmitted.Text = "✓ Submitted";
-            // 
-            // lblDraft
-            // 
-            this.lblDraft.AutoSize = true;
-            this.lblDraft.ForeColor = System.Drawing.Color.Green;
-            this.lblDraft.Location = new System.Drawing.Point(19, 20);
-            this.lblDraft.Name = "lblDraft";
-            this.lblDraft.Size = new System.Drawing.Size(45, 13);
-            this.lblDraft.TabIndex = 0;
-            this.lblDraft.Text = "✓ Draft";
-            this.lblDraft.Click += new System.EventHandler(this.lblDraft_Click);
-            // 
-            // panelMissingDocuments
-            // 
-            this.panelMissingDocuments.BackColor = System.Drawing.Color.White;
-            this.panelMissingDocuments.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelMissingDocuments.Controls.Add(this.lblMissDocu);
-            this.panelMissingDocuments.Controls.Add(this.lblMissingDocuments);
-            this.panelMissingDocuments.Location = new System.Drawing.Point(565, 65);
-            this.panelMissingDocuments.Name = "panelMissingDocuments";
-            this.panelMissingDocuments.Size = new System.Drawing.Size(149, 99);
-            this.panelMissingDocuments.TabIndex = 4;
-            // 
-            // lblMissDocu
-            // 
-            this.lblMissDocu.AutoSize = true;
-            this.lblMissDocu.BackColor = System.Drawing.Color.Transparent;
-            this.lblMissDocu.Location = new System.Drawing.Point(36, 46);
-            this.lblMissDocu.Name = "lblMissDocu";
-            this.lblMissDocu.Size = new System.Drawing.Size(70, 13);
-            this.lblMissDocu.TabIndex = 1;
-            this.lblMissDocu.Text = "2 Documents";
-            // 
-            // lblMissingDocuments
-            // 
-            this.lblMissingDocuments.AutoSize = true;
-            this.lblMissingDocuments.BackColor = System.Drawing.Color.Transparent;
-            this.lblMissingDocuments.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMissingDocuments.Location = new System.Drawing.Point(8, 7);
-            this.lblMissingDocuments.Name = "lblMissingDocuments";
-            this.lblMissingDocuments.Size = new System.Drawing.Size(133, 15);
-            this.lblMissingDocuments.TabIndex = 0;
-            this.lblMissingDocuments.Text = "Missing Documents":
-            this.lblMissingDocuments.Click += new System.EventHandler(this.lblMissingDocuments_Click);
-            // 
-            // panelAppliedPosition0
-            // 
-            this.panelAppliedPosition0.BackColor = System.Drawing.Color.White;
-            this.panelAppliedPosition0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelAppliedPosition0.Controls.Add(this.lblPosition);
-            this.panelAppliedPosition0.Controls.Add(this.lblAppliedPosition);
-            this.panelAppliedPosition0.Location = new System.Drawing.Point(319, 65);
-            this.panelAppliedPosition0.Name = "panelAppliedPosition0";
-            this.panelAppliedPosition0.Size = new System.Drawing.Size(149, 99);
-            this.panelAppliedPosition0.TabIndex = 3;
-            this.panelAppliedPosition0.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
-            // 
-            // lblPosition
-            // 
-            this.lblPosition.AutoSize = true;
-            this.lblPosition.BackColor = System.Drawing.Color.Transparent;
-            this.lblPosition.Location = new System.Drawing.Point(45, 46);
-            this.lblPosition.Name = "lblPosition";
-            this.lblPosition.Size = new System.Drawing.Size(57, 13);
-            this.lblPosition.TabIndex = 1;
-            this.lblPosition.Text = "IT Support";
-            // 
-            // lblAppliedPosition
-            // 
-            this.lblAppliedPosition.AutoSize = true;
-            this.lblAppliedPosition.BackColor = System.Drawing.Color.Transparent;
-            this.lblAppliedPosition.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAppliedPosition.Location = new System.Drawing.Point(17, 9);
-            this.lblAppliedPosition.Name = "lblAppliedPosition";
-            this.lblAppliedPosition.Size = new System.Drawing.Size(113, 15);
-            this.lblAppliedPosition.TabIndex = 0;
-            this.lblAppliedPosition.Text = "Applied Position";
+            // btnMyProfile
+            // 
+            this.btnMyProfile.FlatAppearance.BorderSize = 0;
+            this.btnMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMyProfile.Location = new System.Drawing.Point(110, 0);
+            this.btnMyProfile.Name = "btnMyProfile";
+            this.btnMyProfile.Size = new System.Drawing.Size(110, 42);
+            this.btnMyProfile.TabIndex = 1;
+            this.btnMyProfile.Text = "My Profile";
+            this.btnMyProfile.UseVisualStyleBackColor = false;
+            this.btnMyProfile.Click += new System.EventHandler(this.btnMyProfile_Click);
+            // 
+            // btnJobVacancies
+            // 
+            this.btnJobVacancies.FlatAppearance.BorderSize = 0;
+            this.btnJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnJobVacancies.Location = new System.Drawing.Point(220, 0);
+            this.btnJobVacancies.Name = "btnJobVacancies";
+            this.btnJobVacancies.Size = new System.Drawing.Size(120, 42);
+            this.btnJobVacancies.TabIndex = 2;
+            this.btnJobVacancies.Text = "Job Vacancies";
+            this.btnJobVacancies.UseVisualStyleBackColor = false;
+            this.btnJobVacancies.Click += new System.EventHandler(this.btnJobVacancies_Click);
+            // 
+            // btnMyApplication
+            // 
+            this.btnMyApplication.FlatAppearance.BorderSize = 0;
+            this.btnMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMyApplication.Location = new System.Drawing.Point(340, 0);
+            this.btnMyApplication.Name = "btnMyApplication";
+            this.btnMyApplication.Size = new System.Drawing.Size(120, 42);
+            this.btnMyApplication.TabIndex = 3;
+            this.btnMyApplication.Text = "My Application";
+            this.btnMyApplication.UseVisualStyleBackColor = false;
+            this.btnMyApplication.Click += new System.EventHandler(this.btnMyApplication_Click);
+            // 
+            // btnDocuments
+            // 
+            this.btnDocuments.FlatAppearance.BorderSize = 0;
+            this.btnDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDocuments.Location = new System.Drawing.Point(460, 0);
+            this.btnDocuments.Name = "btnDocuments";
+            this.btnDocuments.Size = new System.Drawing.Size(110, 42);
+            this.btnDocuments.TabIndex = 4;
+            this.btnDocuments.Text = "Documents";
+            this.btnDocuments.UseVisualStyleBackColor = false;
+            this.btnDocuments.Click += new System.EventHandler(this.btnDocuments_Click);
+            // 
+            // btnStatusTracking
+            // 
+            this.btnStatusTracking.FlatAppearance.BorderSize = 0;
+            this.btnStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStatusTracking.Location = new System.Drawing.Point(570, 0);
+            this.btnStatusTracking.Name = "btnStatusTracking";
+            this.btnStatusTracking.Size = new System.Drawing.Size(130, 42);
+            this.btnStatusTracking.TabIndex = 5;
+            this.btnStatusTracking.Text = "Status Tracking";
+            this.btnStatusTracking.UseVisualStyleBackColor = false;
+            this.btnStatusTracking.Click += new System.EventHandler(this.btnStatusTracking_Click);
             // 
             // panelCardStatus
             // 
             this.panelCardStatus.BackColor = System.Drawing.Color.White;
-            this.panelCardStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelCardStatus.Controls.Add(this.lblStatus);
             this.panelCardStatus.Controls.Add(this.lblCurrentStatus);
-            this.panelCardStatus.Location = new System.Drawing.Point(75, 65);
+            this.panelCardStatus.Controls.Add(this.lblStatus);
+            this.panelCardStatus.Location = new System.Drawing.Point(16, 155);
             this.panelCardStatus.Name = "panelCardStatus";
-            this.panelCardStatus.Size = new System.Drawing.Size(149, 99);
-            this.panelCardStatus.TabIndex = 2;
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblStatus.Location = new System.Drawing.Point(36, 46);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(75, 13);
-            this.lblStatus.TabIndex = 1;
-            this.lblStatus.Text = "Under Review";
+            this.panelCardStatus.Size = new System.Drawing.Size(190, 80);
+            this.panelCardStatus.TabIndex = 12;
             // 
             // lblCurrentStatus
             // 
             this.lblCurrentStatus.AutoSize = true;
-            this.lblCurrentStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblCurrentStatus.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentStatus.Location = new System.Drawing.Point(20, 7);
+            this.lblCurrentStatus.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(132)))), ((int)(((byte)(255)))));
+            this.lblCurrentStatus.Location = new System.Drawing.Point(10, 14);
             this.lblCurrentStatus.Name = "lblCurrentStatus";
-            this.lblCurrentStatus.Size = new System.Drawing.Size(105, 15);
+            this.lblCurrentStatus.Size = new System.Drawing.Size(35, 30);
             this.lblCurrentStatus.TabIndex = 0;
-            this.lblCurrentStatus.Text = "Current Status";
+            this.lblCurrentStatus.Text = "—";
             // 
-            // lblApplicantName1
+            // lblStatus
             // 
-            this.lblApplicantName1.AutoSize = true;
-            this.lblApplicantName1.BackColor = System.Drawing.Color.Transparent;
-            this.lblApplicantName1.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApplicantName1.Location = new System.Drawing.Point(179, 24);
-            this.lblApplicantName1.Name = "lblApplicantName1";
-            this.lblApplicantName1.Size = new System.Drawing.Size(156, 20);
-            this.lblApplicantName1.TabIndex = 1;
-            this.lblApplicantName1.Text = "ApplicantName1";
-            this.lblApplicantName1.Click += new System.EventHandler(this.lblApplicantName1_Click);
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.lblStatus.Location = new System.Drawing.Point(12, 52);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(82, 15);
+            this.lblStatus.TabIndex = 1;
+            this.lblStatus.Text = "Current Status";
+            // 
+            // panelAppliedPosition0
+            // 
+            this.panelAppliedPosition0.BackColor = System.Drawing.Color.White;
+            this.panelAppliedPosition0.Controls.Add(this.lblPosition);
+            this.panelAppliedPosition0.Controls.Add(this.lblAppliedPosition);
+            this.panelAppliedPosition0.Location = new System.Drawing.Point(226, 155);
+            this.panelAppliedPosition0.Name = "panelAppliedPosition0";
+            this.panelAppliedPosition0.Size = new System.Drawing.Size(210, 80);
+            this.panelAppliedPosition0.TabIndex = 13;
+            // 
+            // lblPosition
+            // 
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPosition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(199)))), ((int)(((byte)(89)))));
+            this.lblPosition.Location = new System.Drawing.Point(10, 14);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.Size = new System.Drawing.Size(31, 25);
+            this.lblPosition.TabIndex = 0;
+            this.lblPosition.Text = "—";
+            // 
+            // lblAppliedPosition
+            // 
+            this.lblAppliedPosition.AutoSize = true;
+            this.lblAppliedPosition.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAppliedPosition.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.lblAppliedPosition.Location = new System.Drawing.Point(12, 52);
+            this.lblAppliedPosition.Name = "lblAppliedPosition";
+            this.lblAppliedPosition.Size = new System.Drawing.Size(94, 15);
+            this.lblAppliedPosition.TabIndex = 1;
+            this.lblAppliedPosition.Text = "Applied Position";
+            // 
+            // panelMissingDocuments
+            // 
+            this.panelMissingDocuments.BackColor = System.Drawing.Color.White;
+            this.panelMissingDocuments.Controls.Add(this.lblMissDocu);
+            this.panelMissingDocuments.Controls.Add(this.lblMissingDocuments);
+            this.panelMissingDocuments.Location = new System.Drawing.Point(456, 155);
+            this.panelMissingDocuments.Name = "panelMissingDocuments";
+            this.panelMissingDocuments.Size = new System.Drawing.Size(190, 80);
+            this.panelMissingDocuments.TabIndex = 14;
+            // 
+            // lblMissDocu
+            // 
+            this.lblMissDocu.AutoSize = true;
+            this.lblMissDocu.Font = new System.Drawing.Font("Segoe UI", 26F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMissDocu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(159)))), ((int)(((byte)(10)))));
+            this.lblMissDocu.Location = new System.Drawing.Point(10, 8);
+            this.lblMissDocu.Name = "lblMissDocu";
+            this.lblMissDocu.Size = new System.Drawing.Size(40, 47);
+            this.lblMissDocu.TabIndex = 0;
+            this.lblMissDocu.Text = "0";
+            // 
+            // lblMissingDocuments
+            // 
+            this.lblMissingDocuments.AutoSize = true;
+            this.lblMissingDocuments.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMissingDocuments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.lblMissingDocuments.Location = new System.Drawing.Point(12, 62);
+            this.lblMissingDocuments.Name = "lblMissingDocuments";
+            this.lblMissingDocuments.Size = new System.Drawing.Size(112, 15);
+            this.lblMissingDocuments.TabIndex = 1;
+            this.lblMissingDocuments.Text = "Missing Documents";
             // 
             // lblWelcome
             // 
             this.lblWelcome.AutoSize = true;
-            this.lblWelcome.BackColor = System.Drawing.Color.Transparent;
-            this.lblWelcome.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWelcome.Location = new System.Drawing.Point(28, 23);
+            this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWelcome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblWelcome.Location = new System.Drawing.Point(16, 115);
             this.lblWelcome.Name = "lblWelcome";
-            this.lblWelcome.Size = new System.Drawing.Size(157, 21);
-            this.lblWelcome.TabIndex = 0;
-            this.lblWelcome.Text = "Welcome Applicant,";
+            this.lblWelcome.Size = new System.Drawing.Size(98, 25);
+            this.lblWelcome.TabIndex = 10;
+            this.lblWelcome.Text = "Welcome,";
+            // 
+            // lblApplicantName1
+            // 
+            this.lblApplicantName1.AutoSize = true;
+            this.lblApplicantName1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApplicantName1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(132)))), ((int)(((byte)(255)))));
+            this.lblApplicantName1.Location = new System.Drawing.Point(109, 115);
+            this.lblApplicantName1.Name = "lblApplicantName1";
+            this.lblApplicantName1.Size = new System.Drawing.Size(97, 25);
+            this.lblApplicantName1.TabIndex = 11;
+            this.lblApplicantName1.Text = "Applicant";
+            this.lblApplicantName1.Click += new System.EventHandler(this.lblApplicantName1_Click);
+            // 
+            // lblSectionDocuments
+            // 
+            this.lblSectionDocuments.AutoSize = true;
+            this.lblSectionDocuments.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSectionDocuments.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblSectionDocuments.Location = new System.Drawing.Point(16, 252);
+            this.lblSectionDocuments.Name = "lblSectionDocuments";
+            this.lblSectionDocuments.Size = new System.Drawing.Size(148, 19);
+            this.lblSectionDocuments.TabIndex = 20;
+            this.lblSectionDocuments.Text = "Required Documents";
+            // 
+            // lblSectionProgress
+            // 
+            this.lblSectionProgress.AutoSize = true;
+            this.lblSectionProgress.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSectionProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblSectionProgress.Location = new System.Drawing.Point(440, 252);
+            this.lblSectionProgress.Name = "lblSectionProgress";
+            this.lblSectionProgress.Size = new System.Drawing.Size(149, 19);
+            this.lblSectionProgress.TabIndex = 22;
+            this.lblSectionProgress.Text = "Application Progress";
+            // 
+            // dgvDocumentStatus
+            // 
+            this.dgvDocumentStatus.AllowUserToAddRows = false;
+            this.dgvDocumentStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvDocumentStatus.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colDocType,
+            this.colDocStatus});
+            this.dgvDocumentStatus.Location = new System.Drawing.Point(16, 275);
+            this.dgvDocumentStatus.Name = "dgvDocumentStatus";
+            this.dgvDocumentStatus.ReadOnly = true;
+            this.dgvDocumentStatus.RowHeadersVisible = false;
+            this.dgvDocumentStatus.Size = new System.Drawing.Size(400, 140);
+            this.dgvDocumentStatus.TabIndex = 21;
+            // 
+            // colDocType
+            // 
+            this.colDocType.HeaderText = "Document";
+            this.colDocType.Name = "colDocType";
+            this.colDocType.ReadOnly = true;
+            this.colDocType.Width = 220;
+            // 
+            // colDocStatus
+            // 
+            this.colDocStatus.HeaderText = "Status";
+            this.colDocStatus.Name = "colDocStatus";
+            this.colDocStatus.ReadOnly = true;
+            this.colDocStatus.Width = 160;
+            // 
+            // dgvApplicationProgress
+            // 
+            this.dgvApplicationProgress.AllowUserToAddRows = false;
+            this.dgvApplicationProgress.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dgvApplicationProgress.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colStep,
+            this.colStepStatus});
+            this.dgvApplicationProgress.Location = new System.Drawing.Point(440, 275);
+            this.dgvApplicationProgress.Name = "dgvApplicationProgress";
+            this.dgvApplicationProgress.ReadOnly = true;
+            this.dgvApplicationProgress.RowHeadersVisible = false;
+            this.dgvApplicationProgress.Size = new System.Drawing.Size(400, 140);
+            this.dgvApplicationProgress.TabIndex = 23;
+            // 
+            // colStep
+            // 
+            this.colStep.HeaderText = "Step";
+            this.colStep.Name = "colStep";
+            this.colStep.ReadOnly = true;
+            this.colStep.Width = 250;
+            // 
+            // colStepStatus
+            // 
+            this.colStepStatus.HeaderText = "Status";
+            this.colStepStatus.Name = "colStepStatus";
+            this.colStepStatus.ReadOnly = true;
+            this.colStepStatus.Width = 130;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.lblInterviewSchedule);
+            this.panel1.Controls.Add(this.lblInterview);
+            this.panel1.Location = new System.Drawing.Point(667, 155);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(190, 110);
+            this.panel1.TabIndex = 24;
+            // 
+            // lblInterviewSchedule
+            // 
+            this.lblInterviewSchedule.AutoSize = true;
+            this.lblInterviewSchedule.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInterviewSchedule.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(159)))), ((int)(((byte)(10)))));
+            this.lblInterviewSchedule.Location = new System.Drawing.Point(10, 14);
+            this.lblInterviewSchedule.Name = "lblInterviewSchedule";
+            this.lblInterviewSchedule.Size = new System.Drawing.Size(89, 47);
+            this.lblInterviewSchedule.TabIndex = 0;
+            this.lblInterviewSchedule.Text = "0:00";
+            // 
+            // lblInterview
+            // 
+            this.lblInterview.AutoSize = true;
+            this.lblInterview.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInterview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.lblInterview.Location = new System.Drawing.Point(12, 52);
+            this.lblInterview.Name = "lblInterview";
+            this.lblInterview.Size = new System.Drawing.Size(106, 15);
+            this.lblInterview.TabIndex = 1;
+            this.lblInterview.Text = "Interview Schedule";
+            // 
+            // cmbApplicationSelector
+            // 
+            this.cmbApplicationSelector.FormattingEnabled = true;
+            this.cmbApplicationSelector.Location = new System.Drawing.Point(705, 118);
+            this.cmbApplicationSelector.Name = "cmbApplicationSelector";
+            this.cmbApplicationSelector.Size = new System.Drawing.Size(121, 21);
+            this.cmbApplicationSelector.TabIndex = 25;
+            this.cmbApplicationSelector.SelectedIndexChanged +=
+                new System.EventHandler(this.cmbApplicationSelector_SelectedIndexChanged);
             // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 420);
-            this.Controls.Add(this.panelHeader);
-            this.Controls.Add(this.panelMain);
+            this.ClientSize = new System.Drawing.Size(869, 460);
+            this.Controls.Add(this.cmbApplicationSelector);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dgvApplicationProgress);
+            this.Controls.Add(this.lblSectionProgress);
+            this.Controls.Add(this.dgvDocumentStatus);
+            this.Controls.Add(this.lblSectionDocuments);
+            this.Controls.Add(this.panelMissingDocuments);
+            this.Controls.Add(this.panelAppliedPosition0);
+            this.Controls.Add(this.panelCardStatus);
+            this.Controls.Add(this.lblApplicantName1);
+            this.Controls.Add(this.lblWelcome);
             this.Controls.Add(this.panelNavigation);
+            this.Controls.Add(this.panelHeader);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Dashboard";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Dashboard";
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxDashboardpfp)).EndInit();
             this.panelNavigation.ResumeLayout(false);
-            this.panelMain.ResumeLayout(false);
-            this.panelMain.PerformLayout();
-            this.groupBoxRequiredDocuments.ResumeLayout(false);
-            this.groupBoxRequiredDocuments.PerformLayout();
-            this.groupBoxUpdates.ResumeLayout(false);
-            this.groupBoxUpdates.PerformLayout();
-            this.groupBoxInterviewSchedule.ResumeLayout(false);
-            this.groupBoxInterviewSchedule.PerformLayout();
-            this.ApplicationProgress.ResumeLayout(false);
-            this.ApplicationProgress.PerformLayout();
-            this.panelMissingDocuments.ResumeLayout(false);
-            this.panelMissingDocuments.PerformLayout();
-            this.panelAppliedPosition0.ResumeLayout(false);
-            this.panelAppliedPosition0.PerformLayout();
             this.panelCardStatus.ResumeLayout(false);
             this.panelCardStatus.PerformLayout();
+            this.panelAppliedPosition0.ResumeLayout(false);
+            this.panelAppliedPosition0.PerformLayout();
+            this.panelMissingDocuments.ResumeLayout(false);
+            this.panelMissingDocuments.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDocumentStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvApplicationProgress)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Panel panelHeader;
+        private System.Windows.Forms.Button btnDashboardClose;
         private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.Label lblApplicantFirstName;
-        private System.Windows.Forms.PictureBox picBoxDashboardpfp;
         private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.PictureBox picBoxDashboardpfp;
+        private System.Windows.Forms.Label lblApplicantFirstName;
+        private System.Windows.Forms.Label lblApplicantLastName;
         private System.Windows.Forms.Panel panelNavigation;
-        private System.Windows.Forms.Button btnMyApplication;
-        private System.Windows.Forms.Button btnJobVacancies;
-        private System.Windows.Forms.Button btnMyProfile;
         private System.Windows.Forms.Button btnDashboard;
+        private System.Windows.Forms.Button btnMyProfile;
+        private System.Windows.Forms.Button btnJobVacancies;
+        private System.Windows.Forms.Button btnMyApplication;
         private System.Windows.Forms.Button btnDocuments;
         private System.Windows.Forms.Button btnStatusTracking;
-        private System.Windows.Forms.Panel panelMain;
-        private System.Windows.Forms.Label lblApplicantName1;
         private System.Windows.Forms.Label lblWelcome;
+        private System.Windows.Forms.Label lblApplicantName1;
         private System.Windows.Forms.Panel panelCardStatus;
         private System.Windows.Forms.Label lblCurrentStatus;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Panel panelAppliedPosition0;
         private System.Windows.Forms.Label lblPosition;
         private System.Windows.Forms.Label lblAppliedPosition;
-        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Panel panelMissingDocuments;
         private System.Windows.Forms.Label lblMissDocu;
         private System.Windows.Forms.Label lblMissingDocuments;
-        private System.Windows.Forms.GroupBox ApplicationProgress;
-        private System.Windows.Forms.Label lblDraft;
-        private System.Windows.Forms.Label lblAccepted;
-        private System.Windows.Forms.Label lblFinalReview;
+        private System.Windows.Forms.Label lblSectionDocuments;
+        private System.Windows.Forms.Label lblSectionProgress;
+        private System.Windows.Forms.DataGridView dgvDocumentStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDocType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDocStatus;
+        private System.Windows.Forms.DataGridView dgvApplicationProgress;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStep;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStepStatus;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblInterviewSchedule;
         private System.Windows.Forms.Label lblInterview;
-        private System.Windows.Forms.Label lblShortListed;
-        private System.Windows.Forms.Label lblUnderReview;
-        private System.Windows.Forms.Label lblSubmitted;
-        private System.Windows.Forms.GroupBox groupBoxInterviewSchedule;
-        private System.Windows.Forms.Label lblDate1;
-        private System.Windows.Forms.Label lblDate;
-        private System.Windows.Forms.Label lblTime;
-        private System.Windows.Forms.Label lblInterviewer1;
-        private System.Windows.Forms.Label lblInterviewer;
-        private System.Windows.Forms.Label lblMode1;
-        private System.Windows.Forms.Label lblMode;
-        private System.Windows.Forms.Label lblTime1;
-        private System.Windows.Forms.GroupBox groupBoxUpdates;
-        private System.Windows.Forms.Label lblDocumentsUpdate;
-        private System.Windows.Forms.Label lblHRupdates;
-        private System.Windows.Forms.Label lblTranscript;
-        private System.Windows.Forms.GroupBox groupBoxRequiredDocuments;
-        private System.Windows.Forms.Label lblGovernmentID;
-        private System.Windows.Forms.Label lblResume;
-        private System.Windows.Forms.Label lblTranscriptStatus;
-        private System.Windows.Forms.Label lblGovernmentIDStatus;
-        private System.Windows.Forms.Label lblResumeStatus;
-        private System.Windows.Forms.Label lblCertificates;
-        private System.Windows.Forms.Label lblCertificatesStatus;
-        private System.Windows.Forms.Button btnDashboardClose;
-        private System.Windows.Forms.Label lblApplicantLastName;
+        private System.Windows.Forms.ComboBox cmbApplicationSelector;
     }
 }
