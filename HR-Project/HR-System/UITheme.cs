@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -54,12 +54,24 @@ namespace HR_Project.HR_System
         {
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
-            btn.FlatAppearance.MouseOverBackColor = NavHover;
-            btn.FlatAppearance.MouseDownBackColor = NavHover;
-            btn.BackColor = isActive ? NavActive : Color.Transparent;
+
+            btn.Cursor = Cursors.Hand;
+
             btn.ForeColor = TextLight;
-            btn.Font = isActive ? FontNavActive : FontNav;
-            btn.Cursor = isActive ? Cursors.Default : Cursors.Hand;
+
+            if (isActive)
+            {
+                StyleActiveNavigationButton(btn);
+            }
+            else
+            {
+                btn.BackColor = Color.Transparent;
+                btn.ForeColor = TextLight;
+                btn.Font = FontNav;
+
+                btn.FlatAppearance.MouseOverBackColor = NavHover;
+                btn.FlatAppearance.MouseDownBackColor = NavHover;
+            }
         }
 
         public static void StyleHeaderButton(Button btn)
@@ -182,6 +194,20 @@ namespace HR_Project.HR_System
             cmb.Font = FontGrid;
             cmb.BackColor = BgCard;
             cmb.ForeColor = TextPrimary;
+        }
+
+        public static void StyleActiveNavigationButton(Button btn)
+        {
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Cursor = Cursors.Hand;
+
+            btn.BackColor = Color.FromArgb(50, 50, 70);
+            btn.ForeColor = Color.White;
+            btn.Font = FontNavActive;
+
+            btn.FlatAppearance.MouseOverBackColor = Color.FromArgb(65, 65, 90);
+            btn.FlatAppearance.MouseDownBackColor = Color.FromArgb(75, 75, 100);
         }
     }
 }
