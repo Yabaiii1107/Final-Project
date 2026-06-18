@@ -9,6 +9,8 @@ namespace HR_Project
     {
         public int ApplicantId { get; set; }
 
+        public int SelectedApplicationId { get; set; }
+
         string connectionString =
             "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
@@ -25,6 +27,7 @@ namespace HR_Project
 
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MaximizeBox = false;
+            ApplicantTheme.Apply(this, "btnMyDocumentsMyApplication");
         }
 
         private void LoadScreeningNotes()
@@ -63,6 +66,12 @@ namespace HR_Project
 
         private void ApplicantPage1_Load(object sender, EventArgs e)
         {
+            ApplicantTheme.Apply(this, "btnMyDocumentsMyApplication");
+            if (SelectedApplicationId <= 0)
+            {
+                return;
+            }
+
             LoadApplication();
         }
 
@@ -80,14 +89,11 @@ namespace HR_Project
                     COALESCE(j.position,   'Not yet selected') AS position,
                     COALESCE(j.department, 'Not yet selected') AS department
                 FROM applications a
-                LEFT JOIN job_vacancies j      
-                    ON a.vacancy_id = j.vacancy_id
-                WHERE a.applicant_id = @id
-                ORDER BY a.application_date DESC
-                LIMIT 1";
+                LEFT JOIN job_vacancies j ON a.vacancy_id = j.vacancy_id
+                WHERE a.application_id = @appId";
 
                 MySqlCommand cmd = new MySqlCommand(appQuery, conn);
-                cmd.Parameters.AddWithValue("@id", ApplicantId);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -133,7 +139,6 @@ namespace HR_Project
                     ColorStepItem(2, hrReviewDone);
                     ColorStepItem(3, interviewDone);
 
-                    ApplyApplicationLock(status);
                     LoadScreeningNotes();
                 }
             }
@@ -225,30 +230,6 @@ namespace HR_Project
             clbApplicationSteps.Items[index] = baseNames[index];
         }
 
-        private void ApplyApplicationLock(string status)
-        {
-            bool isLocked = status == "Under Review" ||
-                            status == "Shortlisted" ||
-                            status == "Interview" ||
-                            status == "Final Review" ||
-                            status == "Accepted" ||
-                            status == "Rejected";
-
-            if (isLocked)
-            {
-                btnMyDocumentsDocuments.Enabled = false;
-                btnMyDocumentsDocuments.Text = "Documents (Locked)";
-                lblCurrentStatus.ForeColor = Color.OrangeRed;
-                lblStatusDescription.Text =
-                    GetStatusDescription(status) +
-                    "\nDocuments are locked while under review.";
-            }
-            else
-            {
-                btnMyDocumentsDocuments.Enabled = true;
-                btnMyDocumentsDocuments.Text = "Documents";
-            }
-        }
 
         private string GetStatusDescription(string status)
         {
@@ -261,7 +242,7 @@ namespace HR_Project
                 case "Interview": return "Interview schedule will be sent.";
                 case "Final Review": return "Final evaluation in progress.";
                 case "Accepted": return "Congratulations! You have been accepted.";
-                case "Rejected": return "Application was not selected.";
+                case "Rejected": return "Your application was not selected. You may re-apply for another position.";
                 case "Withdrawn": return "You have withdrawn your application.";
                 default: return "Application in progress.";
             }
@@ -287,8 +268,9 @@ namespace HR_Project
         private void btnMyDocumentsMyProfile_Click(object sender, EventArgs e)
         {
             profilepage profile = new profilepage(ApplicantId);
-            profile.FormClosed += (s, args) => this.Show();
-            this.Hide();
+            profile.SelectedApplicationId = SelectedApplicationId;
+            profile.FormClosed += (s, args) => this.Show(); 
+            this.Hide();                               
             profile.Show();
         }
 
@@ -296,6 +278,7 @@ namespace HR_Project
         {
             Dashboard dashboard = new Dashboard();
             dashboard.ApplicantId = ApplicantId;
+            dashboard.SelectedApplicationId = SelectedApplicationId;
             dashboard.FormClosed += (s, args) => this.Show();
             this.Hide();
             dashboard.Show();
@@ -310,6 +293,7 @@ namespace HR_Project
         {
             JobVacancies jobs = new JobVacancies();
             jobs.applicantId = ApplicantId;
+            jobs.SelectedApplicationId = SelectedApplicationId;
             jobs.FormClosed += (s, args) => this.Show();
             this.Hide();
             jobs.Show();
@@ -319,6 +303,7 @@ namespace HR_Project
         {
             DocumentPage doc = new DocumentPage();
             doc.ApplicantId = ApplicantId;
+            doc.SelectedApplicationId = SelectedApplicationId;
             doc.FormClosed += (s, args) => this.Show();
             this.Hide();
             doc.Show();
@@ -326,7 +311,7 @@ namespace HR_Project
 
         private void btnMyDocumentsStatusTracking_Click(object sender, EventArgs e)
         {
-            StatusTracking st = new StatusTracking(ApplicantId);
+            StatusTracking st = new StatusTracking(ApplicantId, SelectedApplicationId);
             st.FormClosed += (s, args) => this.Show();
             this.Hide();
             st.Show();
