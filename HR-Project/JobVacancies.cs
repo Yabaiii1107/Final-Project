@@ -15,6 +15,8 @@ namespace HR_Project
     {
         public int applicantId;
 
+        public int SelectedApplicationId { get; set; }
+
         string connectionString = "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
 
         public JobVacancies()
@@ -54,23 +56,46 @@ namespace HR_Project
 
         private void RefreshApplicationButtons()
         {
+            if (HasAcceptedApplication())
+            {
+                btnApply.Visible = true;
+                btnApply.Enabled = false;
+
+                btnCancelApplication.Visible = false;
+
+                return;
+            }
+
+            if (dgvJobVacancies.SelectedRows.Count == 0)
+            {
+                btnApply.Visible = true;
+                btnApply.Enabled = false;
+                btnCancelApplication.Visible = false;
+                return;
+            }
+
+            string position = dgvJobVacancies.SelectedRows[0].Cells[0].Value?.ToString();
+            Job selectedJob = jobs.FirstOrDefault(j => j.Position == position);
+
+            if (selectedJob == null) return;
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-
                 string query = @"
                 SELECT status FROM applications
                 WHERE applicant_id = @id
+                  AND vacancy_id   = @vacancy
+                  AND status NOT IN ('Withdrawn', 'Rejected')
                 ORDER BY application_date DESC
                 LIMIT 1";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", applicantId);
+                cmd.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
                 object result = cmd.ExecuteScalar();
 
-                string status = result?.ToString() ?? "Draft";
-
-                if (status == "Draft" || status == "Withdrawn")
+                if (result == null)
                 {
                     btnApply.Visible = true;
                     btnApply.Enabled = true;
@@ -78,16 +103,33 @@ namespace HR_Project
                 }
                 else
                 {
+                    string status = result.ToString();
                     bool canCancel = status == "Submitted";
-
                     btnApply.Visible = false;
                     btnCancelApplication.Visible = true;
                     btnCancelApplication.Enabled = canCancel;
                     btnCancelApplication.Text = canCancel ? "Cancel" : "Locked";
-                    btnCancelApplication.ForeColor = canCancel
-                        ? System.Drawing.Color.DarkRed
-                        : System.Drawing.Color.Gray;
+                    btnCancelApplication.ForeColor = canCancel ? Color.DarkRed : Color.Gray;
                 }
+            }
+        }
+
+        private bool HasAcceptedApplication()
+        {
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string query = @"
+                SELECT COUNT(*)
+                FROM applications
+                WHERE applicant_id = @id
+                  AND status = 'Accepted'";
+
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@id", applicantId);
+
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
             }
         }
 
@@ -104,7 +146,8 @@ namespace HR_Project
 
                 string query =
                 @"SELECT *
-                  FROM job_vacancies";
+                  FROM job_vacancies
+                  WHERE status != 'Closed'";
 
                 MySqlCommand cmd =
                     new MySqlCommand(query, conn);
@@ -163,16 +206,16 @@ namespace HR_Project
 
         private void JobVacancies_Load(object sender, EventArgs e)
         {
-            EnsureDraftExists();
+            ApplicantTheme.Apply(this, "btnJobVacancies");
 
             LoadJobs();
-
-            EnsureDraftExists();
-            LoadJobs();
-            LoadDepartments();  
+            LoadDepartments();
             RefreshApplicationButtons();
 
-            RefreshApplicationButtons();
+            if (HasAcceptedApplication())
+            {
+                btnApply.Enabled = false;
+            }
         }
 
         private void EnsureDraftExists()
@@ -234,6 +277,18 @@ namespace HR_Project
 
         private void btnApply_Click(object sender, EventArgs e)
         {
+            if (HasAcceptedApplication())
+            {
+                MessageBox.Show(
+                    "Congratulations! One of your applications has already been accepted.\n\n" +
+                    "You can no longer apply for other job vacancies.",
+                    "Application Closed",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return;
+            }
+
             if (dgvJobVacancies.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Please select a job first.");
@@ -249,91 +304,249 @@ namespace HR_Project
             {
                 conn.Open();
 
-                string checkQuery = @"
-                SELECT status FROM applications
+                string rejectedVacancyQuery = @"
+                SELECT COUNT(*) FROM applications
                 WHERE applicant_id = @id
-                ORDER BY application_date DESC
-                LIMIT 1";
+                  AND status       = 'Rejected'
+                  AND vacancy_id   = @vacancy";
 
-                MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@id", applicantId);
-                string status = checkCmd.ExecuteScalar()?.ToString() ?? "Draft";
+                MySqlCommand rejectedCheck = new MySqlCommand(rejectedVacancyQuery, conn);
+                rejectedCheck.Parameters.AddWithValue("@id", applicantId);
+                rejectedCheck.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
+                int rejectedCount = Convert.ToInt32(rejectedCheck.ExecuteScalar());
 
-                if (status != "Draft" && status != "Withdrawn")
+                if (rejectedCount > 0)
                 {
                     MessageBox.Show(
-                        "You have already submitted an application.",
-                        "Application Exists",
+                        "You have already been rejected for this position.\n" +
+                        "You may apply for a different job vacancy.",
+                        "Application Not Allowed",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     return;
                 }
 
-                string updateQuery = @"
-                UPDATE applications
-                SET
-                    vacancy_id       = @vacancy,
-                    status           = 'Submitted',
-                    application_date = NOW()
+                string dupQuery = @"
+                SELECT COUNT(*) FROM applications
                 WHERE applicant_id = @id
-                  AND status IN ('Draft', 'Withdrawn')";
+                  AND vacancy_id   = @vacancy
+                  AND status NOT IN ('Withdrawn', 'Rejected')";
 
-                MySqlCommand updateCmd = new MySqlCommand(updateQuery, conn);
-                updateCmd.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
-                updateCmd.Parameters.AddWithValue("@id", applicantId);
-                updateCmd.ExecuteNonQuery();
+                MySqlCommand dupCheck = new MySqlCommand(dupQuery, conn);
+                dupCheck.Parameters.AddWithValue("@id", applicantId);
+                dupCheck.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
+                int dupCount = Convert.ToInt32(dupCheck.ExecuteScalar());
+
+                if (dupCount > 0)
+                {
+                    MessageBox.Show(
+                        "You have already applied for this position.",
+                        "Duplicate Application",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                string insertQuery = @"
+                INSERT INTO applications (applicant_id, vacancy_id, status, application_date)
+                VALUES (@id, @vacancy, 'Submitted', NOW())";
+
+                MySqlCommand insertCmd = new MySqlCommand(insertQuery, conn);
+                insertCmd.Parameters.AddWithValue("@id", applicantId);
+                insertCmd.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
+                insertCmd.ExecuteNonQuery();
+
+                int newAppId = Convert.ToInt32(insertCmd.LastInsertedId);
+
+                string historyQuery = @"
+                INSERT INTO application_status_history (application_id, status, changed_at)
+                VALUES (@appId, 'Submitted', NOW())";
+
+                MySqlCommand histCmd = new MySqlCommand(historyQuery, conn);
+                histCmd.Parameters.AddWithValue("@appId", newAppId);
+                histCmd.ExecuteNonQuery();
+
+                SaveApplicationSnapshot(conn, newAppId);
             }
 
             MessageBox.Show("Application submitted successfully!");
             RefreshApplicationButtons();
         }
 
-        private void btnProfilePageMyProfile_Click(object sender, EventArgs e)
+        private List<string> GetMissingRequiredDocuments(MySqlConnection conn, string requirementsCsv)
         {
-            this.Hide();
+            List<string> missing = new List<string>();
 
-            profilepage profile =
-                Application.OpenForms["profilepage"]
-                as profilepage;
+            if (string.IsNullOrWhiteSpace(requirementsCsv))
+                return missing;
 
-            if (profile == null)
+            List<string> required = requirementsCsv
+                .Split(',')
+                .Select(r => r.Trim())
+                .Where(r => r.Length > 0)
+                .ToList();
+
+            if (required.Count == 0)
+                return missing;
+
+            HashSet<string> uploadedTypes = new HashSet<string>();
+
+            string query = @"
+                SELECT document_type FROM applicant_documents
+                WHERE applicant_id = @id";
+
+            MySqlCommand cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", applicantId);
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                profile = new profilepage(applicantId);
+                while (reader.Read())
+                    uploadedTypes.Add(NormalizeDocType(reader["document_type"].ToString()));
             }
 
+            foreach (string req in required)
+            {
+                if (!uploadedTypes.Contains(NormalizeDocType(req)))
+                    missing.Add(req);
+            }
+
+            return missing;
+        }
+
+        private string NormalizeDocType(string docType)
+        {
+            if (string.IsNullOrWhiteSpace(docType)) return "";
+
+            string normalized = docType.Trim().ToLower();
+
+            if (normalized == "resume" || normalized == "resume/cv" || normalized == "cv")
+                return "resume";
+
+            if (normalized == "government id" || normalized == "gov id" || normalized == "valid id")
+                return "government id";
+
+            return normalized;
+        }
+
+        private void SaveApplicationSnapshot(MySqlConnection conn, int applicationId)
+        {
+
+            string deleteSnap = @"
+                DELETE FROM application_profile_snapshots
+                WHERE application_id = @appId";
+            MySqlCommand delCmd = new MySqlCommand(deleteSnap, conn);
+            delCmd.Parameters.AddWithValue("@appId", applicationId);
+            delCmd.ExecuteNonQuery();
+
+            string snapQuery = @"
+            INSERT INTO application_profile_snapshots
+            (
+                application_id,
+                applicant_id,
+                first_name, last_name, middle_name,
+                email, contact, birth_date,
+                gender, alternate_phone,
+                address, province, postal_code,
+                highest_degree, institution_name,
+                field_of_study, graduation_date,
+                profile_picture
+            )
+            SELECT
+                @appId,
+                @applicantId,
+                a.first_name, a.last_name, a.middle_name,
+                a.email, a.contact, a.birth_date,
+                ap.gender, ap.alternate_phone,
+                ap.address, ap.province, ap.postal_code,
+                e.highest_degree, e.institution_name,
+                e.field_of_study, e.graduation_date,
+                ap.profile_picture
+            FROM applicants a
+            LEFT JOIN applicant_profiles ap ON a.id = ap.applicant_id
+            LEFT JOIN education e            ON a.id = e.applicant_id
+            WHERE a.id = @applicantId";
+
+
+            MySqlCommand snapCmd = new MySqlCommand(snapQuery, conn);
+            snapCmd.Parameters.AddWithValue("@appId", applicationId);
+            snapCmd.Parameters.AddWithValue("@applicantId", applicantId);
+            snapCmd.ExecuteNonQuery();
+
+            long snapshotId = snapCmd.LastInsertedId;
+
+            string deleteSkillSnap = @"
+                DELETE FROM snapshot_skills WHERE snapshot_id = @snapId";
+            MySqlCommand delSkillCmd = new MySqlCommand(deleteSkillSnap, conn);
+            delSkillCmd.Parameters.AddWithValue("@snapId", snapshotId);
+            delSkillCmd.ExecuteNonQuery();
+
+            string skillSnapQuery = @"
+                INSERT INTO snapshot_skills (snapshot_id, skill_name)
+                SELECT @snapId, skill_name FROM skills
+                WHERE applicant_id = @applicantId";
+            MySqlCommand skillSnapCmd = new MySqlCommand(skillSnapQuery, conn);
+            skillSnapCmd.Parameters.AddWithValue("@snapId", snapshotId);
+            skillSnapCmd.Parameters.AddWithValue("@applicantId", applicantId);
+            skillSnapCmd.ExecuteNonQuery();
+
+            string deleteWorkSnap = @"
+                DELETE FROM snapshot_work_experience WHERE snapshot_id = @snapId";
+            MySqlCommand delWorkCmd = new MySqlCommand(deleteWorkSnap, conn);
+            delWorkCmd.Parameters.AddWithValue("@snapId", snapshotId);
+            delWorkCmd.ExecuteNonQuery();
+
+            string workSnapQuery = @"
+                INSERT INTO snapshot_work_experience
+                (
+                    snapshot_id, company_name, position_title,
+                    employment_type, start_date, end_date,
+                    currently_working, job_description
+                )
+                SELECT
+                    @snapId, company_name, position_title,
+                    employment_type, start_date, end_date,
+                    currently_working, job_description
+                FROM applicant_work_experience
+                WHERE applicant_id = @applicantId";
+            MySqlCommand workSnapCmd = new MySqlCommand(workSnapQuery, conn);
+            workSnapCmd.Parameters.AddWithValue("@snapId", snapshotId);
+            workSnapCmd.Parameters.AddWithValue("@applicantId", applicantId);
+            workSnapCmd.ExecuteNonQuery();
+        }
+
+        private void btnProfilePageMyProfile_Click(object sender, EventArgs e)
+        {
+            profilepage profile = new profilepage(applicantId);
+            profile.SelectedApplicationId = SelectedApplicationId;
+            profile.FormClosed += (s, args) => this.Show();
+            this.Hide();                               
             profile.Show();
         }
 
         private void btnProfilePageDashboard_Click(object sender, EventArgs e)
         {
             Dashboard dashboard = new Dashboard();
-
             dashboard.ApplicantId = applicantId;
-
+            dashboard.SelectedApplicationId = SelectedApplicationId;
             dashboard.Show();
-
             this.Hide();
         }
 
         private void btnDocuments_Click(object sender, EventArgs e)
         {
             DocumentPage doc = new DocumentPage();
-
             doc.ApplicantId = applicantId;
-
+            doc.SelectedApplicationId = SelectedApplicationId;
             doc.Show();
             this.Hide();
         }
 
         private void btnMyApplication_Click(object sender, EventArgs e)
         {
-            ApplicantPage1 app =
-                new ApplicantPage1();
-
+            ApplicantPage1 app = new ApplicantPage1();
             app.ApplicantId = applicantId;
-
+            app.SelectedApplicationId = SelectedApplicationId;
             app.Show();
-
             this.Hide();
         }
 
@@ -362,26 +575,33 @@ namespace HR_Project
 
         private void btnStatusTracking_Click(object sender, EventArgs e)
         {
-            StatusTracking st = new StatusTracking(applicantId);
+            StatusTracking st = new StatusTracking(applicantId, SelectedApplicationId);
             st.Show();
             this.Hide();
         }
 
         private void btnCancelApplication_Click(object sender, EventArgs e)
         {
+            if (dgvJobVacancies.SelectedRows.Count == 0) return;
+
+            string position = dgvJobVacancies.SelectedRows[0].Cells[0].Value?.ToString();
+            Job selectedJob = jobs.FirstOrDefault(j => j.Position == position);
+            if (selectedJob == null) return;
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 string checkQuery = @"
-                SELECT application_id, status
-                FROM applications
+                SELECT application_id, status FROM applications
                 WHERE applicant_id = @id
-                ORDER BY application_date DESC
-                LIMIT 1";
+                  AND vacancy_id   = @vacancy
+                  AND status NOT IN ('Withdrawn', 'Rejected')
+                ORDER BY application_date DESC LIMIT 1";
 
                 MySqlCommand checkCmd = new MySqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@id", applicantId);
+                checkCmd.Parameters.AddWithValue("@vacancy", selectedJob.JobId);
 
                 using (MySqlDataReader reader = checkCmd.ExecuteReader())
                 {
@@ -404,8 +624,8 @@ namespace HR_Project
                     }
 
                     DialogResult confirm = MessageBox.Show(
-                        "Are you sure you want to cancel your application?\n" +
-                        "Your application will be marked as Withdrawn.",
+                        $"Cancel your application for {selectedJob.Position}?\n" +
+                        "It will be marked as Withdrawn.",
                         "Confirm Cancellation",
                         MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question);
@@ -415,41 +635,35 @@ namespace HR_Project
                     string revertQuery = @"
                     UPDATE applications
                     SET status = 'Withdrawn'
-                    WHERE application_id = @appId
-                      AND status         = 'Submitted'";
+                    WHERE application_id = @appId AND status = 'Submitted'";
 
                     MySqlCommand revertCmd = new MySqlCommand(revertQuery, conn);
                     revertCmd.Parameters.AddWithValue("@appId", applicationId);
                     int rows = revertCmd.ExecuteNonQuery();
 
                     if (rows > 0)
-                        MessageBox.Show(
-                            "Application cancelled. You may re-apply anytime.",
-                            "Cancelled",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
+                    {
+                        MessageBox.Show("Application cancelled. You may re-apply anytime.",
+                            "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        RefreshApplicationButtons();
+                    }
                     else
-                        MessageBox.Show(
-                            "Cancellation failed. Please try again.",
-                            "Error",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show("Cancellation failed. Please try again.",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
 
         private void dgvJobVacancies_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvJobVacancies.SelectedRows.Count == 0)
-                return;
+            if (dgvJobVacancies.SelectedRows.Count == 0) return;
 
-            string position =
-                dgvJobVacancies.SelectedRows[0].Cells[0].Value?.ToString();
-
+            string position = dgvJobVacancies.SelectedRows[0].Cells[0].Value?.ToString();
             if (string.IsNullOrEmpty(position)) return;
 
             Job selectedJob = jobs.FirstOrDefault(j => j.Position == position);
-
             if (selectedJob != null)
             {
                 lblPosition.Text = selectedJob.Position;
@@ -458,6 +672,8 @@ namespace HR_Project
                 rtbQualification.Text = selectedJob.Qualifications;
                 rtbRequirements.Text = selectedJob.Requirements;
             }
+
+            RefreshApplicationButtons();
         }
     }
 }
