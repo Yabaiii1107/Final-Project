@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using MySqlConnector;
 
@@ -102,6 +105,39 @@ namespace HR_Project.HR_System
             btnGenerate.UseVisualStyleBackColor = false;
 
             UITheme.StyleGrid(dgvReportView);
+
+            if (grpOutput.Controls["btnExportCsv"] == null)
+            {
+                Button btnExportCsv = new Button();
+                btnExportCsv.Name = "btnExportCsv";
+                btnExportCsv.Text = "📄 Export to CSV";
+                btnExportCsv.Size = new Size(140, 30);
+                btnExportCsv.Location = new Point(grpOutput.Width - 310, grpOutput.Height - 42);
+                btnExportCsv.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+                btnExportCsv.FlatStyle = FlatStyle.Flat;
+                btnExportCsv.FlatAppearance.BorderSize = 0;
+                btnExportCsv.BackColor = UITheme.AccentGreen;
+                btnExportCsv.ForeColor = Color.White;
+                btnExportCsv.Font = UITheme.FontBtn;
+                btnExportCsv.UseVisualStyleBackColor = false;
+                btnExportCsv.Click += BtnExportCsv_Click;
+                grpOutput.Controls.Add(btnExportCsv);
+
+                Button btnPrint = new Button();
+                btnPrint.Name = "btnPrint";
+                btnPrint.Text = "🖨️ Print Report";
+                btnPrint.Size = new Size(140, 30);
+                btnPrint.Location = new Point(grpOutput.Width - 160, grpOutput.Height - 42);
+                btnPrint.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+                btnPrint.FlatStyle = FlatStyle.Flat;
+                btnPrint.FlatAppearance.BorderSize = 0;
+                btnPrint.BackColor = UITheme.AccentBlue;
+                btnPrint.ForeColor = Color.White;
+                btnPrint.Font = UITheme.FontBtn;
+                btnPrint.UseVisualStyleBackColor = false;
+                btnPrint.Click += BtnPrint_Click;
+                grpOutput.Controls.Add(btnPrint);
+            }
         }
 
         private void WireNavButtons()
@@ -177,13 +213,13 @@ namespace HR_Project.HR_System
             catch (Exception ex)
             {
                 MessageBox.Show("Error generating report:\n" + ex.Message,
-                    "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void GenerateAllApplicants()
         {
-            UpdateColumnHeaders("Application Date", "Current Status");
+            UpdateColumnHeaders("Application Date", "Status");
             const string query = @"
                 SELECT
                     ap.id                                       AS ID,
@@ -341,7 +377,130 @@ namespace HR_Project.HR_System
             colReportStatus.HeaderText = statusHeader;
         }
 
-        // These stubs must exist because the designer references them
+        private void BtnExportCsv_Click(object sender, EventArgs e)
+        {
+            if (dgvReportView.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to export. Please generate a report first.",
+                    "Nothing to Export", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "CSV Files (*.csv)|*.csv";
+                sfd.FileName = $"HR_Report_{DateTime.Today:yyyy-MM-dd}.csv";
+
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                StringBuilder sb = new StringBuilder();
+
+                var headers = new string[dgvReportView.Columns.Count];
+                for (int i = 0; i < dgvReportView.Columns.Count; i++)
+                    headers[i] = "\"" + dgvReportView.Columns[i].HeaderText + "\"";
+                sb.AppendLine(string.Join(",", headers));
+
+                foreach (DataGridViewRow row in dgvReportView.Rows)
+                {
+                    var cells = new string[dgvReportView.Columns.Count];
+                    for (int i = 0; i < dgvReportView.Columns.Count; i++)
+                        cells[i] = "\"" + (row.Cells[i].Value?.ToString() ?? "") + "\"";
+                    sb.AppendLine(string.Join(",", cells));
+                }
+
+                File.WriteAllText(sfd.FileName, sb.ToString(), Encoding.UTF8);
+
+                MessageBox.Show($"Report exported successfully to:\n{sfd.FileName}",
+                    "Export Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvReportView.Rows.Count == 0)
+            {
+                MessageBox.Show("No data to print. Please generate a report first.",
+                    "Nothing to Print", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string reportTitle = grpOutput.Text;
+            string dateRange =
+                $"Date Range: {dtpDataFrom.Value:MMM dd, yyyy} — {dtpDataTo.Value:MMM dd, yyyy}";
+
+            var colHeaders = new string[dgvReportView.Columns.Count];
+            for (int i = 0; i < dgvReportView.Columns.Count; i++)
+                colHeaders[i] = dgvReportView.Columns[i].HeaderText;
+
+            var rows = new List<string[]>();
+            foreach (DataGridViewRow row in dgvReportView.Rows)
+            {
+                var cells = new string[dgvReportView.Columns.Count];
+                for (int i = 0; i < dgvReportView.Columns.Count; i++)
+                    cells[i] = row.Cells[i].Value?.ToString() ?? "";
+                rows.Add(cells);
+            }
+
+            using (System.Drawing.Printing.PrintDocument pd =
+                   new System.Drawing.Printing.PrintDocument())
+            using (PrintDialog printDialog = new PrintDialog())
+            {
+                printDialog.Document = pd;
+
+                int pageRowIndex = 0;
+
+                pd.PrintPage += (s, ev) =>
+                {
+                    var g = ev.Graphics;
+                    float y = ev.MarginBounds.Top;
+                    float left = ev.MarginBounds.Left;
+                    float pageWidth = ev.MarginBounds.Width;
+
+                    using (Font titleFont = new Font("Segoe UI", 13f, FontStyle.Bold))
+                        g.DrawString("HR System — " + reportTitle, titleFont,
+                            Brushes.Black, left, y);
+                    y += 25;
+
+                    using (Font subFont = new Font("Segoe UI", 9f))
+                        g.DrawString(dateRange, subFont, Brushes.Gray, left, y);
+                    y += 20;
+
+                    g.DrawLine(Pens.Gray, left, y, left + pageWidth, y);
+                    y += 8;
+
+                    float colWidth = pageWidth / colHeaders.Length;
+
+                    using (Font headerFont = new Font("Segoe UI", 9f, FontStyle.Bold))
+                    {
+                        for (int i = 0; i < colHeaders.Length; i++)
+                            g.DrawString(colHeaders[i], headerFont,
+                                Brushes.Black, left + i * colWidth, y);
+                    }
+                    y += 20;
+                    g.DrawLine(Pens.LightGray, left, y, left + pageWidth, y);
+                    y += 4;
+
+                    using (Font rowFont = new Font("Segoe UI", 8.5f))
+                    {
+                        while (pageRowIndex < rows.Count &&
+                               y < ev.MarginBounds.Bottom - 20)
+                        {
+                            string[] row = rows[pageRowIndex++];
+                            for (int i = 0; i < row.Length; i++)
+                                g.DrawString(row[i], rowFont,
+                                    Brushes.Black, left + i * colWidth, y);
+                            y += 18;
+                        }
+                    }
+
+                    ev.HasMorePages = pageRowIndex < rows.Count;
+                };
+
+                if (printDialog.ShowDialog() == DialogResult.OK)
+                    pd.Print();
+            }
+        }
+
         private void radioButton3_CheckedChanged(object sender, EventArgs e) { }
         private void btnHiringDecision_Click(object sender, EventArgs e) { }
         private void btnInterviews_Click(object sender, EventArgs e) { }
