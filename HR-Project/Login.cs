@@ -35,7 +35,15 @@ namespace HR_Project
 
         private void Login_Load(object sender, EventArgs e)
         {
+            UITheme.StyleForm(this);
 
+            UITheme.StyleTextBox(txtBoxLoginEmail);
+            UITheme.StyleTextBox(txtBoxLoginPassword);
+
+            UITheme.StylePrimaryButton(btnLogin);
+            UITheme.StyleHeaderButton(btnLoginClose);
+
+            txtBoxLoginPassword.UseSystemPasswordChar = true;
         }
 
         private void lnklblRegister_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
