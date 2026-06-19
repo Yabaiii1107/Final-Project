@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using MySqlConnector;
+using HR_Project.HR_System;
 
 namespace HR_Project
 {
     public partial class StatusTracking : Form
     {
         public int ApplicantId { get; set; }
+
+        public int SelectedApplicationId { get; set; }
 
         private string connectionString =
             "server=127.0.0.1;port=3306;uid=root;pwd=031107Navarro;database=hr_db;";
@@ -28,11 +31,11 @@ namespace HR_Project
         private static readonly List<string> Pipeline = new List<string>
         {
             "Submitted",
-            "Under Review",   
-            "Shortlisted",    
-            "Interview",      
-            "Final Review",   
-            "Accepted",       
+            "Under Review",
+            "Shortlisted",
+            "Interview",
+            "Final Review",
+            "Accepted",
         };
 
         public StatusTracking()
@@ -40,39 +43,48 @@ namespace HR_Project
             InitializeComponent();
         }
 
-        public StatusTracking(int applicantId)
+        public StatusTracking(int applicantId, int selectedApplicationId)
         {
             InitializeComponent();
             ApplicantId = applicantId;
+            SelectedApplicationId = selectedApplicationId;
+            ApplicantTheme.Apply(this, "btnProfilePageStatusTracking");
         }
 
         private void StatusTracking_Load(object sender, EventArgs e)
         {
+            ApplicantTheme.Apply(this, "btnProfilePageStatusTracking");
+            progressBarStatus.ForeColor = UITheme.AccentGreen;
+            this.BackColor = UITheme.BgPage;
+
             LoadApplicantInfo();
             LoadStatusHistory();
             WireNavButtons();
+
+            UITheme.StyleActiveNavigationButton(btnProfilePageStatusTracking);
+            btnProfilePageStatusTracking.Enabled = true;
         }
 
         private void LoadApplicantInfo()
         {
+            if (SelectedApplicationId == 0)
+            {
+                lblCurrentStatus.Text = "No application selected.";
+                return;
+            }
+
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
 
                 string query = @"
-                    SELECT
-                        ap.first_name,
-                        ap.last_name,
-                        ap.id,
-                        a.status
-                    FROM applicants ap
-                    LEFT JOIN applications a
-                        ON ap.id = a.applicant_id
-                    WHERE ap.id = @id
-                    ORDER BY a.application_date DESC
-                    LIMIT 1";
+                SELECT ap.first_name, ap.last_name, ap.id, a.status
+                FROM applicants ap
+                LEFT JOIN applications a ON a.application_id = @appId
+                WHERE ap.id = @id";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
                 cmd.Parameters.AddWithValue("@id", ApplicantId);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -109,6 +121,12 @@ namespace HR_Project
 
         private void LoadStatusHistory()
         {
+            if (SelectedApplicationId == 0)
+            {
+                lblCurrentStatus.Text = "No application selected.";
+                return;
+            }
+
             dgvStatusHistory.Rows.Clear();
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -116,17 +134,13 @@ namespace HR_Project
                 conn.Open();
 
                 string query = @"
-                    SELECT
-                        h.changed_at,
-                        h.status
-                    FROM application_status_history h
-                    INNER JOIN applications a
-                        ON h.application_id = a.application_id
-                    WHERE a.applicant_id = @id
-                    ORDER BY h.changed_at ASC";
+                SELECT h.changed_at, h.status
+                FROM application_status_history h
+                WHERE h.application_id = @appId
+                ORDER BY h.changed_at ASC";
 
                 MySqlCommand cmd = new MySqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id", ApplicantId);
+                cmd.Parameters.AddWithValue("@appId", SelectedApplicationId);
 
                 using (MySqlDataReader reader = cmd.ExecuteReader())
                 {
@@ -146,17 +160,16 @@ namespace HR_Project
         private void UpdateProgressLabels(string currentStatus)
         {
             Label[] stepLabels = new Label[]
-            {
-                lblSubmitted,
-                lblHrScreening,
-                lblInitialInterview,
-                lblFinalInterview,
-                lblJobOffer,
-                lblHired
-            };
+       {
+            lblSubmitted,
+            lblHrScreening,
+            lblInitialInterview,
+            lblFinalInterview,
+            lblJobOffer,
+            lblHired
+       };
 
             int reachedIndex = Pipeline.IndexOf(currentStatus);
-
             bool isRejected = currentStatus == "Rejected";
 
             for (int i = 0; i < stepLabels.Length; i++)
@@ -167,6 +180,11 @@ namespace HR_Project
                     {
                         stepLabels[i].ForeColor = Color.Green;
                         stepLabels[i].Text = GetStepText(i, done: true);
+                    }
+                    else if (i == 1)
+                    {
+                        stepLabels[i].ForeColor = Color.Red;
+                        stepLabels[i].Text = " ✗ Rejected ";
                     }
                     else
                     {
@@ -238,6 +256,7 @@ namespace HR_Project
             {
                 Dashboard db = new Dashboard();
                 db.ApplicantId = ApplicantId;
+                db.SelectedApplicationId = SelectedApplicationId;
                 return db;
             });
 
@@ -248,6 +267,7 @@ namespace HR_Project
             {
                 JobVacancies jobs = new JobVacancies();
                 jobs.applicantId = ApplicantId;
+                jobs.SelectedApplicationId = SelectedApplicationId;
                 return jobs;
             });
 
@@ -255,6 +275,7 @@ namespace HR_Project
             {
                 ApplicantPage1 app = new ApplicantPage1();
                 app.ApplicantId = ApplicantId;
+                app.SelectedApplicationId = SelectedApplicationId;
                 return app;
             });
 
@@ -262,10 +283,10 @@ namespace HR_Project
             {
                 DocumentPage doc = new DocumentPage();
                 doc.ApplicantId = ApplicantId;
+                doc.SelectedApplicationId = SelectedApplicationId;
                 return doc;
             });
 
-            btnProfilePageStatusTracking.Enabled = false;
         }
 
         private void NavigateTo(Func<Form> createForm)
@@ -300,5 +321,24 @@ namespace HR_Project
         private void lblJobOffer_Click(object sender, EventArgs e) { }
         private void lblAccepted_Click(object sender, EventArgs e) { }
         private void progressBarStatus_Click(object sender, EventArgs e) { }
+
+        private void btnProfilePageClose_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btnProfilePageStatusTracking_Click(object sender, EventArgs e)
+        {
+            StatusTracking_Load(sender, e);
+        }
+
+        private void btnProfilePageMyProfile_Click(object sender, EventArgs e)
+        {
+            profilepage profile = new profilepage(ApplicantId);
+            profile.SelectedApplicationId = SelectedApplicationId;
+            profile.FormClosed += (s, args) => this.Show();
+            this.Hide();             
+            profile.Show();
+        }
     }
 }
