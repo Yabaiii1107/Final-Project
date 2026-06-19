@@ -28,6 +28,8 @@ namespace HR_Project
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelProfilePageHeader = new System.Windows.Forms.Panel();
             this.btnProfilePageClose = new System.Windows.Forms.Button();
             this.btnProfilePageLogout = new System.Windows.Forms.Button();
@@ -59,6 +61,7 @@ namespace HR_Project
             this.ColStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColRemarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblCurrentStatus = new System.Windows.Forms.Label();
+            this.lblProgressBarStatus = new System.Windows.Forms.Label();
             this.panelProfilePageHeader.SuspendLayout();
             this.panelProfilePageNavigation.SuspendLayout();
             this.grbApplicationProgress.SuspendLayout();
@@ -67,7 +70,7 @@ namespace HR_Project
             // 
             // panelProfilePageHeader
             // 
-            this.panelProfilePageHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.panelProfilePageHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
             this.panelProfilePageHeader.Controls.Add(this.btnProfilePageClose);
             this.panelProfilePageHeader.Controls.Add(this.btnProfilePageLogout);
             this.panelProfilePageHeader.Controls.Add(this.lblStatusTracking);
@@ -80,138 +83,161 @@ namespace HR_Project
             // btnProfilePageClose
             // 
             this.btnProfilePageClose.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProfilePageClose.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(80)))));
             this.btnProfilePageClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProfilePageClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfilePageClose.ForeColor = System.Drawing.Color.Red;
+            this.btnProfilePageClose.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnProfilePageClose.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.btnProfilePageClose.Location = new System.Drawing.Point(972, 0);
             this.btnProfilePageClose.Name = "btnProfilePageClose";
-            this.btnProfilePageClose.Size = new System.Drawing.Size(42, 29);
+            this.btnProfilePageClose.Size = new System.Drawing.Size(42, 32);
             this.btnProfilePageClose.TabIndex = 4;
             this.btnProfilePageClose.Text = "X";
             this.btnProfilePageClose.UseVisualStyleBackColor = false;
+            this.btnProfilePageClose.Click += new System.EventHandler(this.btnProfilePageClose_Click_1);
             // 
             // btnProfilePageLogout
             // 
-            this.btnProfilePageLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnProfilePageLogout.Location = new System.Drawing.Point(877, 28);
+            this.btnProfilePageLogout.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageLogout.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageLogout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnProfilePageLogout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnProfilePageLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageLogout.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnProfilePageLogout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnProfilePageLogout.Location = new System.Drawing.Point(877, 18);
             this.btnProfilePageLogout.Name = "btnProfilePageLogout";
-            this.btnProfilePageLogout.Size = new System.Drawing.Size(87, 23);
+            this.btnProfilePageLogout.Size = new System.Drawing.Size(87, 26);
             this.btnProfilePageLogout.TabIndex = 3;
             this.btnProfilePageLogout.Text = "Logout";
-            this.btnProfilePageLogout.UseVisualStyleBackColor = true;
+            this.btnProfilePageLogout.UseVisualStyleBackColor = false;
             this.btnProfilePageLogout.Click += new System.EventHandler(this.btnProfilePageLogout_Click);
             // 
             // lblStatusTracking
             // 
             this.lblStatusTracking.AutoSize = true;
-            this.lblStatusTracking.Font = new System.Drawing.Font("MS Reference Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusTracking.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.lblStatusTracking.Location = new System.Drawing.Point(3, 23);
+            this.lblStatusTracking.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.lblStatusTracking.ForeColor = System.Drawing.Color.White;
+            this.lblStatusTracking.Location = new System.Drawing.Point(20, 18);
             this.lblStatusTracking.Name = "lblStatusTracking";
-            this.lblStatusTracking.Size = new System.Drawing.Size(151, 20);
+            this.lblStatusTracking.Size = new System.Drawing.Size(143, 25);
             this.lblStatusTracking.TabIndex = 0;
             this.lblStatusTracking.Text = "Status Tracking";
             // 
             // panelProfilePageNavigation
             // 
-            this.panelProfilePageNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(94)))), ((int)(((byte)(32)))));
+            this.panelProfilePageNavigation.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(46)))));
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageStatusTracking);
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageDocuments);
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageMyApplication);
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageJobVacancies);
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageMyProfile);
             this.panelProfilePageNavigation.Controls.Add(this.btnProfilePageDashboard);
-            this.panelProfilePageNavigation.Location = new System.Drawing.Point(0, 57);
+            this.panelProfilePageNavigation.Location = new System.Drawing.Point(0, 60);
             this.panelProfilePageNavigation.Name = "panelProfilePageNavigation";
             this.panelProfilePageNavigation.Size = new System.Drawing.Size(1016, 42);
             this.panelProfilePageNavigation.TabIndex = 11;
             // 
             // btnProfilePageStatusTracking
             // 
-            this.btnProfilePageStatusTracking.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageStatusTracking.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageStatusTracking.Location = new System.Drawing.Point(780, 9);
+            this.btnProfilePageStatusTracking.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageStatusTracking.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageStatusTracking.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageStatusTracking.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageStatusTracking.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageStatusTracking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageStatusTracking.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageStatusTracking.Location = new System.Drawing.Point(780, 0);
             this.btnProfilePageStatusTracking.Name = "btnProfilePageStatusTracking";
-            this.btnProfilePageStatusTracking.Size = new System.Drawing.Size(112, 23);
+            this.btnProfilePageStatusTracking.Size = new System.Drawing.Size(112, 42);
             this.btnProfilePageStatusTracking.TabIndex = 3;
             this.btnProfilePageStatusTracking.Text = "Status Tracking";
             this.btnProfilePageStatusTracking.UseVisualStyleBackColor = false;
+            this.btnProfilePageStatusTracking.Click += new System.EventHandler(this.btnProfilePageStatusTracking_Click);
             // 
             // btnProfilePageDocuments
             // 
-            this.btnProfilePageDocuments.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageDocuments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageDocuments.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageDocuments.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageDocuments.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageDocuments.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageDocuments.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageDocuments.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageDocuments.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProfilePageDocuments.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageDocuments.Location = new System.Drawing.Point(629, 9);
+            this.btnProfilePageDocuments.Location = new System.Drawing.Point(629, 0);
             this.btnProfilePageDocuments.Name = "btnProfilePageDocuments";
-            this.btnProfilePageDocuments.Size = new System.Drawing.Size(87, 23);
+            this.btnProfilePageDocuments.Size = new System.Drawing.Size(87, 42);
             this.btnProfilePageDocuments.TabIndex = 2;
             this.btnProfilePageDocuments.Text = "Documents";
             this.btnProfilePageDocuments.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageMyApplication
             // 
-            this.btnProfilePageMyApplication.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageMyApplication.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageMyApplication.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageMyApplication.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageMyApplication.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageMyApplication.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageMyApplication.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageMyApplication.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageMyApplication.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProfilePageMyApplication.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageMyApplication.Location = new System.Drawing.Point(469, 9);
+            this.btnProfilePageMyApplication.Location = new System.Drawing.Point(469, 0);
             this.btnProfilePageMyApplication.Name = "btnProfilePageMyApplication";
-            this.btnProfilePageMyApplication.Size = new System.Drawing.Size(104, 23);
+            this.btnProfilePageMyApplication.Size = new System.Drawing.Size(104, 42);
             this.btnProfilePageMyApplication.TabIndex = 2;
             this.btnProfilePageMyApplication.Text = "My Application";
             this.btnProfilePageMyApplication.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageJobVacancies
             // 
-            this.btnProfilePageJobVacancies.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageJobVacancies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageJobVacancies.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageJobVacancies.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageJobVacancies.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageJobVacancies.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageJobVacancies.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageJobVacancies.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageJobVacancies.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProfilePageJobVacancies.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageJobVacancies.Location = new System.Drawing.Point(309, 9);
+            this.btnProfilePageJobVacancies.Location = new System.Drawing.Point(309, 0);
             this.btnProfilePageJobVacancies.Name = "btnProfilePageJobVacancies";
-            this.btnProfilePageJobVacancies.Size = new System.Drawing.Size(104, 23);
+            this.btnProfilePageJobVacancies.Size = new System.Drawing.Size(104, 42);
             this.btnProfilePageJobVacancies.TabIndex = 2;
             this.btnProfilePageJobVacancies.Text = "Job Vacancies";
             this.btnProfilePageJobVacancies.UseVisualStyleBackColor = false;
             // 
             // btnProfilePageMyProfile
             // 
-            this.btnProfilePageMyProfile.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageMyProfile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageMyProfile.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageMyProfile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageMyProfile.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageMyProfile.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageMyProfile.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageMyProfile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageMyProfile.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProfilePageMyProfile.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageMyProfile.Location = new System.Drawing.Point(174, 9);
+            this.btnProfilePageMyProfile.Location = new System.Drawing.Point(174, 0);
             this.btnProfilePageMyProfile.Name = "btnProfilePageMyProfile";
-            this.btnProfilePageMyProfile.Size = new System.Drawing.Size(87, 23);
+            this.btnProfilePageMyProfile.Size = new System.Drawing.Size(87, 39);
             this.btnProfilePageMyProfile.TabIndex = 1;
             this.btnProfilePageMyProfile.Text = "My Profile";
             this.btnProfilePageMyProfile.UseVisualStyleBackColor = false;
+            this.btnProfilePageMyProfile.Click += new System.EventHandler(this.btnProfilePageMyProfile_Click);
             // 
             // btnProfilePageDashboard
             // 
-            this.btnProfilePageDashboard.BackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Blue;
-            this.btnProfilePageDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnProfilePageDashboard.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnProfilePageDashboard.BackColor = System.Drawing.Color.Transparent;
+            this.btnProfilePageDashboard.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnProfilePageDashboard.FlatAppearance.BorderSize = 0;
+            this.btnProfilePageDashboard.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageDashboard.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(70)))));
+            this.btnProfilePageDashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProfilePageDashboard.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnProfilePageDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnProfilePageDashboard.Location = new System.Drawing.Point(36, 9);
+            this.btnProfilePageDashboard.Location = new System.Drawing.Point(36, 0);
             this.btnProfilePageDashboard.Name = "btnProfilePageDashboard";
-            this.btnProfilePageDashboard.Size = new System.Drawing.Size(87, 23);
+            this.btnProfilePageDashboard.Size = new System.Drawing.Size(87, 42);
             this.btnProfilePageDashboard.TabIndex = 0;
             this.btnProfilePageDashboard.Text = "Dashboard";
             this.btnProfilePageDashboard.UseVisualStyleBackColor = false;
@@ -220,9 +246,9 @@ namespace HR_Project
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblTitle.Location = new System.Drawing.Point(33, 115);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblTitle.Location = new System.Drawing.Point(33, 118);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(245, 25);
             this.lblTitle.TabIndex = 12;
@@ -232,9 +258,11 @@ namespace HR_Project
             // 
             this.lblApplicantName.AutoSize = true;
             this.lblApplicantName.BackColor = System.Drawing.Color.Transparent;
+            this.lblApplicantName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblApplicantName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblApplicantName.Location = new System.Drawing.Point(33, 160);
             this.lblApplicantName.Name = "lblApplicantName";
-            this.lblApplicantName.Size = new System.Drawing.Size(104, 13);
+            this.lblApplicantName.Size = new System.Drawing.Size(101, 15);
             this.lblApplicantName.TabIndex = 13;
             this.lblApplicantName.Text = "Applicant Name :";
             // 
@@ -242,9 +270,11 @@ namespace HR_Project
             // 
             this.lblName.AutoSize = true;
             this.lblName.BackColor = System.Drawing.Color.Transparent;
-            this.lblName.Location = new System.Drawing.Point(139, 160);
+            this.lblName.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblName.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblName.Location = new System.Drawing.Point(145, 160);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(96, 13);
+            this.lblName.Size = new System.Drawing.Size(93, 15);
             this.lblName.TabIndex = 14;
             this.lblName.Text = "Applicant Name";
             // 
@@ -252,9 +282,11 @@ namespace HR_Project
             // 
             this.lblApplicantID.AutoSize = true;
             this.lblApplicantID.BackColor = System.Drawing.Color.Transparent;
+            this.lblApplicantID.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblApplicantID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblApplicantID.Location = new System.Drawing.Point(33, 188);
             this.lblApplicantID.Name = "lblApplicantID";
-            this.lblApplicantID.Size = new System.Drawing.Size(85, 13);
+            this.lblApplicantID.Size = new System.Drawing.Size(81, 15);
             this.lblApplicantID.TabIndex = 15;
             this.lblApplicantID.Text = "Applicant ID :";
             // 
@@ -262,9 +294,11 @@ namespace HR_Project
             // 
             this.lblID.AutoSize = true;
             this.lblID.BackColor = System.Drawing.Color.Transparent;
+            this.lblID.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblID.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.lblID.Location = new System.Drawing.Point(124, 188);
             this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(77, 13);
+            this.lblID.Size = new System.Drawing.Size(72, 15);
             this.lblID.TabIndex = 16;
             this.lblID.Text = "Applicant ID";
             // 
@@ -272,9 +306,11 @@ namespace HR_Project
             // 
             this.lblCurrentStatusTitle.AutoSize = true;
             this.lblCurrentStatusTitle.BackColor = System.Drawing.Color.Transparent;
+            this.lblCurrentStatusTitle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblCurrentStatusTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblCurrentStatusTitle.Location = new System.Drawing.Point(33, 221);
             this.lblCurrentStatusTitle.Name = "lblCurrentStatusTitle";
-            this.lblCurrentStatusTitle.Size = new System.Drawing.Size(96, 13);
+            this.lblCurrentStatusTitle.Size = new System.Drawing.Size(94, 15);
             this.lblCurrentStatusTitle.TabIndex = 17;
             this.lblCurrentStatusTitle.Text = "Current Status :";
             // 
@@ -282,9 +318,11 @@ namespace HR_Project
             // 
             this.lblSubmitted.AutoSize = true;
             this.lblSubmitted.BackColor = System.Drawing.Color.Transparent;
+            this.lblSubmitted.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblSubmitted.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(199)))), ((int)(((byte)(89)))));
             this.lblSubmitted.Location = new System.Drawing.Point(6, 16);
             this.lblSubmitted.Name = "lblSubmitted";
-            this.lblSubmitted.Size = new System.Drawing.Size(84, 13);
+            this.lblSubmitted.Size = new System.Drawing.Size(80, 15);
             this.lblSubmitted.TabIndex = 18;
             this.lblSubmitted.Text = " ✓ Submitted ";
             // 
@@ -292,9 +330,11 @@ namespace HR_Project
             // 
             this.lblHrScreening.AutoSize = true;
             this.lblHrScreening.BackColor = System.Drawing.Color.Transparent;
+            this.lblHrScreening.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblHrScreening.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(199)))), ((int)(((byte)(89)))));
             this.lblHrScreening.Location = new System.Drawing.Point(6, 44);
             this.lblHrScreening.Name = "lblHrScreening";
-            this.lblHrScreening.Size = new System.Drawing.Size(107, 13);
+            this.lblHrScreening.Size = new System.Drawing.Size(96, 15);
             this.lblHrScreening.TabIndex = 19;
             this.lblHrScreening.Text = " ✓ HR Screening ";
             // 
@@ -302,9 +342,11 @@ namespace HR_Project
             // 
             this.lblInitialInterview.AutoSize = true;
             this.lblInitialInterview.BackColor = System.Drawing.Color.Transparent;
+            this.lblInitialInterview.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblInitialInterview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(199)))), ((int)(((byte)(89)))));
             this.lblInitialInterview.Location = new System.Drawing.Point(6, 68);
             this.lblInitialInterview.Name = "lblInitialInterview";
-            this.lblInitialInterview.Size = new System.Drawing.Size(115, 13);
+            this.lblInitialInterview.Size = new System.Drawing.Size(105, 15);
             this.lblInitialInterview.TabIndex = 20;
             this.lblInitialInterview.Text = " ✓ Initial Interview ";
             // 
@@ -312,9 +354,11 @@ namespace HR_Project
             // 
             this.lblFinalInterview.AutoSize = true;
             this.lblFinalInterview.BackColor = System.Drawing.Color.Transparent;
+            this.lblFinalInterview.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblFinalInterview.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblFinalInterview.Location = new System.Drawing.Point(6, 96);
             this.lblFinalInterview.Name = "lblFinalInterview";
-            this.lblFinalInterview.Size = new System.Drawing.Size(104, 13);
+            this.lblFinalInterview.Size = new System.Drawing.Size(95, 15);
             this.lblFinalInterview.TabIndex = 21;
             this.lblFinalInterview.Text = "Final Interview ⏳";
             // 
@@ -322,9 +366,11 @@ namespace HR_Project
             // 
             this.lblJobOffer.AutoSize = true;
             this.lblJobOffer.BackColor = System.Drawing.Color.Transparent;
+            this.lblJobOffer.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblJobOffer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblJobOffer.Location = new System.Drawing.Point(6, 127);
             this.lblJobOffer.Name = "lblJobOffer";
-            this.lblJobOffer.Size = new System.Drawing.Size(73, 13);
+            this.lblJobOffer.Size = new System.Drawing.Size(67, 15);
             this.lblJobOffer.TabIndex = 22;
             this.lblJobOffer.Text = "Job Offer ⏳";
             this.lblJobOffer.Click += new System.EventHandler(this.lblJobOffer_Click);
@@ -333,9 +379,11 @@ namespace HR_Project
             // 
             this.lblHired.AutoSize = true;
             this.lblHired.BackColor = System.Drawing.Color.Transparent;
+            this.lblHired.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblHired.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
             this.lblHired.Location = new System.Drawing.Point(6, 150);
             this.lblHired.Name = "lblHired";
-            this.lblHired.Size = new System.Drawing.Size(51, 13);
+            this.lblHired.Size = new System.Drawing.Size(48, 15);
             this.lblHired.TabIndex = 23;
             this.lblHired.Text = "Hired ⏳";
             this.lblHired.Click += new System.EventHandler(this.lblAccepted_Click);
@@ -344,21 +392,25 @@ namespace HR_Project
             // 
             this.lblProgress.AutoSize = true;
             this.lblProgress.BackColor = System.Drawing.Color.Transparent;
+            this.lblProgress.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lblProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.lblProgress.Location = new System.Drawing.Point(345, 172);
             this.lblProgress.Name = "lblProgress";
-            this.lblProgress.Size = new System.Drawing.Size(64, 13);
+            this.lblProgress.Size = new System.Drawing.Size(76, 19);
             this.lblProgress.TabIndex = 25;
             this.lblProgress.Text = "Progress :";
             // 
             // grbApplicationProgress
             // 
-            this.grbApplicationProgress.BackColor = System.Drawing.Color.Transparent;
+            this.grbApplicationProgress.BackColor = System.Drawing.Color.White;
             this.grbApplicationProgress.Controls.Add(this.lblSubmitted);
             this.grbApplicationProgress.Controls.Add(this.lblHrScreening);
             this.grbApplicationProgress.Controls.Add(this.lblInitialInterview);
             this.grbApplicationProgress.Controls.Add(this.lblHired);
             this.grbApplicationProgress.Controls.Add(this.lblFinalInterview);
             this.grbApplicationProgress.Controls.Add(this.lblJobOffer);
+            this.grbApplicationProgress.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.grbApplicationProgress.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.grbApplicationProgress.Location = new System.Drawing.Point(339, 188);
             this.grbApplicationProgress.Name = "grbApplicationProgress";
             this.grbApplicationProgress.Size = new System.Drawing.Size(166, 180);
@@ -368,24 +420,52 @@ namespace HR_Project
             // 
             // progressBarStatus
             // 
-            this.progressBarStatus.Location = new System.Drawing.Point(613, 328);
+            this.progressBarStatus.Location = new System.Drawing.Point(591, 328);
             this.progressBarStatus.Name = "progressBarStatus";
-            this.progressBarStatus.Size = new System.Drawing.Size(125, 28);
+            this.progressBarStatus.Size = new System.Drawing.Size(237, 28);
             this.progressBarStatus.TabIndex = 27;
             this.progressBarStatus.Click += new System.EventHandler(this.progressBarStatus_Click);
             // 
             // dgvStatusHistory
             // 
             this.dgvStatusHistory.AllowUserToAddRows = false;
+            this.dgvStatusHistory.AllowUserToResizeRows = false;
             this.dgvStatusHistory.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvStatusHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvStatusHistory.BackgroundColor = System.Drawing.Color.White;
+            this.dgvStatusHistory.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dgvStatusHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.dgvStatusHistory.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(4, 8, 4, 8);
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStatusHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvStatusHistory.ColumnHeadersHeight = 36;
+            this.dgvStatusHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvStatusHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColDate,
             this.ColStatus,
             this.ColRemarks});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStatusHistory.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvStatusHistory.EnableHeadersVisualStyles = false;
+            this.dgvStatusHistory.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(230)))));
             this.dgvStatusHistory.Location = new System.Drawing.Point(526, 172);
             this.dgvStatusHistory.Name = "dgvStatusHistory";
             this.dgvStatusHistory.ReadOnly = true;
+            this.dgvStatusHistory.RowHeadersVisible = false;
+            this.dgvStatusHistory.RowTemplate.Height = 36;
             this.dgvStatusHistory.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStatusHistory.Size = new System.Drawing.Size(302, 150);
             this.dgvStatusHistory.TabIndex = 28;
@@ -413,18 +493,33 @@ namespace HR_Project
             this.lblCurrentStatus.AutoSize = true;
             this.lblCurrentStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblCurrentStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblCurrentStatus.Location = new System.Drawing.Point(35, 243);
+            this.lblCurrentStatus.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblCurrentStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.lblCurrentStatus.Location = new System.Drawing.Point(135, 221);
             this.lblCurrentStatus.Name = "lblCurrentStatus";
-            this.lblCurrentStatus.Size = new System.Drawing.Size(89, 15);
+            this.lblCurrentStatus.Size = new System.Drawing.Size(81, 17);
             this.lblCurrentStatus.TabIndex = 29;
             this.lblCurrentStatus.Text = "Under Review";
             // 
+            // lblProgressBarStatus
+            // 
+            this.lblProgressBarStatus.AutoSize = true;
+            this.lblProgressBarStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblProgressBarStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblProgressBarStatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(150)))));
+            this.lblProgressBarStatus.Location = new System.Drawing.Point(523, 338);
+            this.lblProgressBarStatus.Name = "lblProgressBarStatus";
+            this.lblProgressBarStatus.Size = new System.Drawing.Size(61, 15);
+            this.lblProgressBarStatus.TabIndex = 30;
+            this.lblProgressBarStatus.Text = "Progress :";
+            // 
             // StatusTracking
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::HR_Project.Properties.Resources.green;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(1016, 450);
+            this.Controls.Add(this.lblProgressBarStatus);
             this.Controls.Add(this.lblCurrentStatus);
             this.Controls.Add(this.dgvStatusHistory);
             this.Controls.Add(this.progressBarStatus);
@@ -438,9 +533,10 @@ namespace HR_Project
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.panelProfilePageNavigation);
             this.Controls.Add(this.panelProfilePageHeader);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "StatusTracking";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StatusTracking";
             this.Load += new System.EventHandler(this.StatusTracking_Load);
             this.panelProfilePageHeader.ResumeLayout(false);
@@ -487,5 +583,6 @@ namespace HR_Project
         private System.Windows.Forms.DataGridViewTextBoxColumn ColStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColRemarks;
         private System.Windows.Forms.Label lblCurrentStatus;
+        private System.Windows.Forms.Label lblProgressBarStatus;
     }
 }
